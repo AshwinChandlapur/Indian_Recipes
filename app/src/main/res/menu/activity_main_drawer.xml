@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_temples"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="Temples" />
+
+    <item
+        android:id="@+id/nav_hillstations"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Hill Stations" />
+
+    <item
+        android:id="@+id/nav_waterfalls"
+        android:icon="@drawable/ic_menu_send"
+        android:title="Waterfalls" />
+
+    <item
+        android:id="@+id/nav_dams"
+        android:icon="@drawable/ic_menu_share"
+        android:title="Dams" />
+
+    <item
+        android:id="@+id/nav_trekking"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="Trekking Places" />
+
+    <item
+        android:id="@+id/nav_beaches"
+        android:icon="@drawable/ic_menu_share"
+        android:title="Beaches" />
+
+
+    <item
+        android:id="@+id/nav_heritage"
+        android:icon="@drawable/ic_menu_send"
+        android:title="Heritage" />
+
+
+    <item
+        android:id="@+id/nav_otherPlaces"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="Other Places" />
+
+
+    <item
+        android:id="@+id/nav_districts"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Districts" />
+
+</group>
+
+<group
+android:id="@+id/bottomPanel"
+android:checkableBehavior="single">
+<item
+    android:id="@+id/new_place"
+    android:icon="@drawable/ic_menu_share"
+    android:title="Add a new place" />
+
+<item
+    android:id="@+id/feedback"
+    android:icon="@drawable/ic_menu_gallery"
+    android:title="Feedback" />
+</group>
+
+</menu>

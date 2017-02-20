@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Vade Kitchen</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="place">Place</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="season">Best Season</string>
+    <string name="nearby">Nearby Places</string>
+    <string name="transport">Transport</string>
+    <string name="additional">Additional Info</string>
+    <string name="comments">Leave your experience here</string>
+    <string name="view_on_maps">VIEW ON MAPS</string>
+    <string name="loading">Loading</string>
+</resources>
