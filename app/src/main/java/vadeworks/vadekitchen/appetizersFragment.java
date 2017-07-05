@@ -38,7 +38,7 @@ public class appetizersFragment extends Fragment {
     static SimpleDraweeView draweeView;
     View view;
     Context context;
-    ListView list;
+    ListView list,list1;
     TextView t;
     DatabaseHelper myDBHelper;
     Cursor PlaceCursor;
