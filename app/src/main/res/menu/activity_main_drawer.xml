@@ -7,53 +7,55 @@
         android:icon="@drawable/ic_menu_camera"
         android:title="Home" />
 
+        <item
+            android:id="@+id/nav_appetizers"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Appetizers" />
+
     <item
-        android:id="@+id/nav_temples"
+        android:id="@+id/nav_breakfast"
         android:icon="@drawable/ic_menu_gallery"
-        android:title="Temples" />
+        android:title="Breakfast" />
 
     <item
-        android:id="@+id/nav_hillstations"
+        android:id="@+id/nav_lunch"
         android:icon="@drawable/ic_menu_manage"
-        android:title="Hill Stations" />
+        android:title="Lunch" />
 
     <item
-        android:id="@+id/nav_waterfalls"
+        android:id="@+id/nav_snacks"
         android:icon="@drawable/ic_menu_send"
-        android:title="Waterfalls" />
+        android:title="Snacks" />
+
+
 
     <item
-        android:id="@+id/nav_dams"
-        android:icon="@drawable/ic_menu_share"
-        android:title="Dams" />
-
-    <item
-        android:id="@+id/nav_trekking"
+        android:id="@+id/nav_curry"
         android:icon="@drawable/ic_menu_slideshow"
-        android:title="Trekking Places" />
+        android:title="Curry" />
 
     <item
-        android:id="@+id/nav_beaches"
+        android:id="@+id/nav_desserts"
         android:icon="@drawable/ic_menu_share"
-        android:title="Beaches" />
+        android:title="Desserts" />
 
 
     <item
-        android:id="@+id/nav_heritage"
+        android:id="@+id/nav_chicken"
         android:icon="@drawable/ic_menu_send"
-        android:title="Heritage" />
+        android:title="Chicken" />
 
 
     <item
-        android:id="@+id/nav_otherPlaces"
+        android:id="@+id/nav_fish"
         android:icon="@drawable/ic_menu_slideshow"
-        android:title="Other Places" />
+        android:title="Fish" />
 
 
     <item
-        android:id="@+id/nav_districts"
+        android:id="@+id/nav_cuisines"
         android:icon="@drawable/ic_menu_camera"
-        android:title="Districts" />
+        android:title="Cuisines" />
 
 </group>
 
@@ -61,9 +63,9 @@
 android:id="@+id/bottomPanel"
 android:checkableBehavior="single">
 <item
-    android:id="@+id/new_place"
+    android:id="@+id/nav_favourites"
     android:icon="@drawable/ic_menu_share"
-    android:title="Add a new place" />
+    android:title="Favourites" />
 
 <item
     android:id="@+id/feedback"

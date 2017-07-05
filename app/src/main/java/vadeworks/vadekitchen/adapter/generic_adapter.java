@@ -7,7 +7,7 @@ public class generic_adapter {
     String bestSeason,additionalInformation,nearByPlaces;
     Double latitude, longitude;
 
-    public generic_adapter(String[] image, String title, String description, String district, String bestSeason, String additionalInformation, String nearByPlaces,Double latitude, Double longitude) {
+  /*  public generic_adapter(String[] image, String title, String description, String district, String bestSeason, String additionalInformation, String nearByPlaces,Double latitude, Double longitude) {
         this.image = image;
         this.title = title;
         this.description = description;
@@ -17,14 +17,6 @@ public class generic_adapter {
         this.additionalInformation = additionalInformation;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    public generic_adapter(String[] image, String title, String time, String ingredients, String directions) {
-        this.image = image;
-        this.title = title;
-        this.time = time;
-        this.ingredients = ingredients;
-        this.directions = directions;
     }
 
 
@@ -70,18 +62,6 @@ public class generic_adapter {
     }
 
 
-    public void setDirections(String directions) {
-        this.directions = directions;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-    public void setTime(String time)
-    {
-        this.time= time;
-    }
-
     public String[] getImage() {
         return image;
     }
@@ -114,14 +94,53 @@ public class generic_adapter {
         return longitude;
     }
 
+*/
 
-    public String getTime(){return time;}
 
+    // ALl New Cdoes
+
+    public generic_adapter(String[] image, String title, String time, String ingredients, String directions) {
+        this.image = image;
+        this.title = title;
+        this.time = time;
+        this.ingredients = ingredients;
+        this.directions = directions;
+    }
+
+    public void setImage(String[] image) {this.image = image;}
+    public void setTitle(String title)
+    {
+        this.title=title;
+    }
+    public void setTime(String time)
+    {
+        this.time= time;
+    }
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+    public void setDirections(String directions) {
+        this.directions = directions;
+    }
+
+
+    public String[] getImage() {
+        return image;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public String getTime(){
+        return time;
+    }
+    public String getIngredients() {
+        return ingredients;
+    }
     public String getDirections() {
         return directions;
     }
 
-    public String getIngredients() {
-        return ingredients;
-    }
+
+
+
 }

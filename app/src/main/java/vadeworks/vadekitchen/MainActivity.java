@@ -28,6 +28,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -51,6 +54,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
+import vadeworks.vadekitchen.adapter.generic_adapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,8 +66,6 @@ public class MainActivity extends AppCompatActivity
     DatabaseHelper myDBHelper;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,20 +73,18 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         pd = new ProgressDialog(this);
-        t = (TextView) findViewById(R.id.listNews);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
+
+
+
+
 
         //Code To ask for User Permissions
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
         //Code to ask for User Permissions Ends
+
+
 
 
      /*   new Thread(new Runnable() {
@@ -186,16 +186,18 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
             //Compare Server Version of JSON and local version of JSON if not same download the new JSON content
-            if (localVersion != serverVersion) {
-                pd.setMessage("Fetching new places please wait..");
+           // if (localVersion != serverVersion) {
+                pd.setMessage("Fethcing for Cooking");
                 pd.setIcon(R.mipmap.ic_launcher);
                 pd.setCancelable(false);
                 pd.show();
                // new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/base.json");
-                new baseFile().execute("http://nammakarnataka.net23.net/general/base.json");
-            } else {
-                Toast.makeText(getApplicationContext(), "All places are up to date!", Toast.LENGTH_SHORT).show();
-            }
+                new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/new_version.json");
+                //new baseFile().execute("http://nammakarnataka.net23.net/general/base.json");
+            //}
+           // else {
+          //      Toast.makeText(getApplicationContext(), "All Recipes are up to date!", Toast.LENGTH_SHORT).show();
+          //  }
         }
     }
 
@@ -235,9 +237,7 @@ public class MainActivity extends AppCompatActivity
             super.onPostExecute(s);
 
 
-
             pd.setMessage("Updating Database...");
-            pd.setIcon(R.mipmap.ic_launcher);
 
 
             try {
@@ -255,10 +255,9 @@ public class MainActivity extends AppCompatActivity
 
                         for (int j = 0; j < images.length(); j++) {
                             myDBHelper.insertIntoImages(child.getInt("id"),images.getString(j));
-
                         }
-                        myDBHelper.insertIntoPlace(child.getInt("id"), child.getString("name"), child.getString("description"), child.getString("district"), child.getString("bestSeason"), child.getString("additionalInformation"), child.getString("nearByPlaces"), child.getDouble("latitude"), child.getDouble("longitude"), child.getString("category"));
-
+                       // myDBHelper.insertIntoPlace(child.getInt("id"), child.getString("name"), child.getString("description"), child.getString("district"), child.getString("bestSeason"), child.getString("additionalInformation"), child.getString("nearByPlaces"), child.getDouble("latitude"), child.getDouble("longitude"), child.getString("category"));
+                        myDBHelper.insertIntoRecipe(child.getInt("id"), child.getString("name"), child.getString("time"), child.getString("ingredients"), child.getString("directions"), child.getString("category"));
                     }
 
                     SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
@@ -286,7 +285,8 @@ public class MainActivity extends AppCompatActivity
     private void saveJsonFile(String data) {
         FileOutputStream stream = null;
         try {
-            File path = new File("/data/data/smartAmigos.com.nammakarnataka/general.json");
+            //File path = new File("/data/data/smartAmigos.com.nammakarnataka/general.json");
+            File path = new File("/data/data"+getApplicationContext().getPackageName()+"/"+"general.json");
             stream = new FileOutputStream(path);
             stream.write(data.getBytes());
 
@@ -318,39 +318,66 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
-        final SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        searchView.setOnQueryTextListener(
-                new SearchView.OnQueryTextListener(){
-
+        final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem,
+                new MenuItemCompat.OnActionExpandListener() {
                     @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        myDBHelper = new DatabaseHelper(getApplicationContext());
-                        Cursor cursor = myDBHelper.getPlaceByString(query);
+                    public boolean onMenuItemActionExpand(MenuItem menuItem) {
+                        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
+                        final SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+                        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+                        searchView.setOnQueryTextListener(
+                                new SearchView.OnQueryTextListener(){
 
-                        Fragment fragment = new SearchResults(cursor);
+                                    @Override
+                                    public boolean onQueryTextSubmit(String query) {
+                                        myDBHelper = new DatabaseHelper(getApplicationContext());
+                                        Cursor cursor = myDBHelper.getRecipeByString(query);
+                                        Fragment fragment = new SearchResults(cursor);
+                                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                        //ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                                        ft.replace(R.id.content_main, fragment);
+                                        ft.commit();
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onQueryTextChange(String newText) {
+                                        myDBHelper = new DatabaseHelper(getApplicationContext());
+                                        Cursor cursor = myDBHelper.getRecipeByString(newText);
+                                        Fragment fragment = new SearchResults(cursor);
+                                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                        // ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                                        ft.replace(R.id.content_main, fragment);
+                                        ft.commit();
+                                        return false;
+                                    }
+
+                                }
+                        );
+                        return true;
+                    }
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+                    //Press Search and then If u press back, then the below mentioned fargment is loaded
+                        Fragment fragment = new breakfastFragment();
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        //ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                         ft.replace(R.id.content_main, fragment);
+                        //ft.hide(fragment);
+                        //ft.detach(fragment);
                         ft.commit();
 
-                        return false;
-                    }
+                        // Do whatever you need
+                        return true; // OR FALSE IF YOU DIDN'T WANT IT TO CLOSE!
+                        // When the action view is collapsed, reset the query
+                       // townList.setVisibility(View.INVISIBLE);
+                        // Return true to allow the action view to collapse
 
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        myDBHelper = new DatabaseHelper(getApplicationContext());
-                        Cursor cursor = myDBHelper.getPlaceByString(newText);
-                        Fragment fragment = new SearchResults(cursor);
-                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.content_main, fragment);
-                        ft.commit();
-
-                        return false;
                     }
-                }
-        );
+                });
+
         return true;
     }
 
@@ -363,7 +390,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.action_dev:
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);//TODO: Create Dev Here
                 startActivity(intent);
                 break;
 
@@ -403,48 +430,57 @@ public class MainActivity extends AppCompatActivity
             int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_dams:
+            case R.id.nav_appetizers:
+                fragment = new appetizersFragment();
+                //fragment = new riceitemsFragment();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                ft.replace(R.id.content_main, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+                break;
+
+            case R.id.nav_breakfast:
                 fragment = new breakfastFragment();
                 ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                 ft.replace(R.id.content_main, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
                 break;
 
-            case R.id.nav_temples:
-                fragment = new lunchFragment();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-                break;
-
-            case R.id.nav_beaches:
+            case R.id.nav_desserts:
                 fragment = new breakfastFragment();
+                //fragment = new dessertsFragment();
                 ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                 ft.replace(R.id.content_main, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
                 break;
 
-            case R.id.nav_hillstations:
+            case R.id.nav_lunch:
                 fragment = new breakfastFragment();
+               // fragment = new lunchFragment();
                 ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                 ft.replace(R.id.content_main, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
                 break;
 
-            case R.id.nav_trekking:
+            case R.id.nav_curry:
                 fragment = new breakfastFragment();
+               // fragment = new curryFragment();
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content_main, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
                 break;
 
-            case R.id.nav_waterfalls:
+            case R.id.nav_snacks:
                 fragment = new breakfastFragment();
+                //fragment = new snacksFragment();
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content_main, fragment);
                 ft.addToBackStack(null);
@@ -452,13 +488,6 @@ public class MainActivity extends AppCompatActivity
                 break;
 
 
-            case R.id.new_place:
-                fragment = new breakfastFragment();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-                break;
 
             case R.id.feedback:
                 intent = new Intent(MainActivity.this, MainActivity.class);
@@ -466,8 +495,9 @@ public class MainActivity extends AppCompatActivity
                 break;
 
 
-            case R.id.nav_heritage:
+            case R.id.nav_chicken:
                 fragment = new breakfastFragment();
+               // fragment = new chickenFragment();
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content_main, fragment);
                 ft.addToBackStack(null);
@@ -483,8 +513,9 @@ public class MainActivity extends AppCompatActivity
                 break;
 
 
-            case R.id.nav_districts:
+            case R.id.nav_cuisines:
                 fragment = new breakfastFragment();
+                //fragment = new cuisinesFragment();
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content_main, fragment);
                 ft.addToBackStack(null);
@@ -492,12 +523,22 @@ public class MainActivity extends AppCompatActivity
                 break;
 
 
-            case R.id.nav_otherPlaces:
+            case R.id.nav_fish:
                 fragment = new breakfastFragment();
+                //fragment = new fishFragment();
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content_main, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
+                break;
+
+            case R.id.nav_favourites:
+                fragment = new favoritesFragment();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_main, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+                break;
 
         }
 

@@ -2,6 +2,7 @@ package vadeworks.vadekitchen;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.etsy.android.grid.StaggeredGridView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.ads.InterstitialAd;
@@ -33,7 +37,7 @@ public class SearchResults extends Fragment {
 
     Cursor PlaceCursor;
     private List<generic_adapter> search_adapterList = new ArrayList<>();
-
+    private static final String TAG = "MyAppTag";
     static SimpleDraweeView draweeView;
     View view;
     Context context;
@@ -66,6 +70,8 @@ public class SearchResults extends Fragment {
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
+
+
         Fresco.initialize(getActivity());
         myDBHelper = new DatabaseHelper(context);
         while(PlaceCursor.moveToNext()){
@@ -79,20 +85,17 @@ public class SearchResults extends Fragment {
             search_adapterList.add(
                     new generic_adapter(
                             imagesArray,        //id
-                            PlaceCursor.getString(1),//name
-                            PlaceCursor.getString(2),//description
-                            PlaceCursor.getString(3),//district
-                            PlaceCursor.getString(4),//best season
-                            PlaceCursor.getString(5),//additional info
-                            PlaceCursor.getString(6),//nearby place
-                            PlaceCursor.getDouble(7),//latitude
-                            PlaceCursor.getDouble(8) //longitude
+                            PlaceCursor.getString(1),//title
+                            PlaceCursor.getString(2),//time
+                            PlaceCursor.getString(3),//ingredients
+                            PlaceCursor.getString(4)//directions
                     ));
         }
 
         displayList();
 
         return view;
+
     }
 
 
@@ -105,12 +108,27 @@ public class SearchResults extends Fragment {
 
                 PlaceCursor.moveToPosition(position);
                 int img_id = PlaceCursor.getInt(0);
+                String img[] = search_adapterList.get(position).getImage();
+                String name = search_adapterList.get(position).getTitle();
+                String ingredients =search_adapterList.get(position).getIngredients();
+                String directions = search_adapterList.get(position).getDirections();
+                String time = search_adapterList.get(position).getTime();
+                Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
+                Log.i(TAG, String.valueOf(img));
 
-                Fragment fragment = new recipeDisplayFragment(img_id);
+
+                Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
+                intent.putExtra("name",name);
+                intent.putExtra("time",time);
+                intent.putExtra("ingredients",ingredients);
+                intent.putExtra("directions",directions);
+                intent.putExtra("img",img);
+                startActivity(intent);
+                /*Fragment fragment = new recipeDisplayFragment(img_id);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content_main, fragment);
                 ft.addToBackStack(null);
-                ft.commit();
+                ft.commit();*/
 
             }
         });
@@ -129,20 +147,19 @@ public class SearchResults extends Fragment {
             if (itemView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
                 itemView = inflater.inflate(R.layout.item, parent, false);
-
             }
             generic_adapter current = search_adapterList.get(position);
 
             //Code to download image from url and paste.
-            Uri uri = Uri.parse(current.getImage()[0]);
-            draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
-            draweeView.setImageURI(uri);
+          //  Uri uri = Uri.parse(current.getImage()[0]);
+          //  draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
+          //  draweeView.setImageURI(uri);
             //Code ends here.
             TextView t_name = (TextView) itemView.findViewById(R.id.item_Title);
             t_name.setText(current.getTitle());
 
             TextView t_dist = (TextView) itemView.findViewById(R.id.item_Dist);
-            t_dist.setText(current.getDistrict());
+            t_dist.setText(current.getTime());
 
             return itemView;
         }

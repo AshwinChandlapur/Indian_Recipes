@@ -11,28 +11,33 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
         app:cardBackgroundColor="#ffffff"
-        app:cardElevation="10dp">
-        <LinearLayout
-            android:padding="2dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        app:cardElevation="10dp"
+        >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="99dp"
+            android:orientation="horizontal"
+            >
             <com.facebook.drawee.view.SimpleDraweeView
                 fresco:roundingBorderColor="#a2be94"
-                fresco:roundAsCircle="true"
+                fresco:roundAsCircle="false"
                 fresco:roundingBorderWidth="2dp"
                 android:padding="1dp"
                 android:id="@+id/item_Image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="107dp"
                 fresco:placeholderImage="@drawable/ic_menu_camera" />
+            </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_gravity="bottom">
 
                 <pttextview.widget.PTTextView
                     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,32 +45,31 @@
                     android:id="@+id/item_Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:text="Recipe Name"
-                    android:textColor="#000000"
+                    android:textColor="#2e2e2e"
                     android:textSize="20sp"
-                    app:textWeight="bold" />
-
+                    app:textWeight="bold"
+                    android:paddingLeft="4dp"
+                    />
 
                 <TextView
                     android:id="@+id/item_Dist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
                     android:text="Time Taken"
-                    android:textColor="#000000" />
+                    android:textColor="#2e2e2e"
+                    android:paddingLeft="4dp"/>
 
                 <TextView
                     android:id="@+id/tags"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
                     android:text="Tags"
-                    android:textColor="#000000" />
+                    android:textColor="#2e2e2e"
+                    android:paddingLeft="4dp"/>
+
             </LinearLayout>
 
-
-        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

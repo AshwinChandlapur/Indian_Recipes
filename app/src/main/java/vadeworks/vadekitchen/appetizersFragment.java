@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,10 +31,10 @@ import vadeworks.vadekitchen.adapter.generic_adapter;
 import static com.PBnostra13.PBuniversalimageloader.core.ImageLoader.TAG;
 
 
-public class breakfastFragment extends Fragment {
+public class appetizersFragment extends Fragment {
 
 
-    private List<generic_adapter> breakfast_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
+    private List<generic_adapter> appetizers_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
     static SimpleDraweeView draweeView;
     View view;
     Context context;
@@ -49,18 +48,18 @@ public class breakfastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-     view = inflater.inflate(R.layout.fragment_breakfast, container, false);//TODO: Should CHange this accordinly
+     view = inflater.inflate(R.layout.fragment_appetizers, container, false);//TODO: Should CHange this accordinly
         context = getActivity().getApplicationContext();
-        list = (ListView) view.findViewById(R.id.breakfastList);//TODO: Should CHange this accordinly
+        list = (ListView) view.findViewById(R.id.appetizersList);//TODO: Should CHange this accordinly
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
         Fresco.initialize(getActivity());
-        breakfast_adapterList.clear();
+        appetizers_adapterList.clear();
         myDBHelper = new DatabaseHelper(context);
         //PlaceCursor = myDBHelper.getAllDams();
-        PlaceCursor = myDBHelper.getAllBreakfast();//TODO: Should CHange this accordinly
+        PlaceCursor = myDBHelper.getAllAppetizers();//TODO: Should CHange this accordinly
         while(PlaceCursor.moveToNext()){
 
             String [] imagesArray = new String[25];
@@ -69,7 +68,7 @@ public class breakfastFragment extends Fragment {
                 imagesArray[i] = imageURLCursor.getString(1);
             }
 
-            breakfast_adapterList.add(
+            appetizers_adapterList.add(
                     new generic_adapter(
                             imagesArray,        //id
                             PlaceCursor.getString(1),//name
@@ -92,15 +91,19 @@ public class breakfastFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                generic_adapter current = appetizers_adapterList.get(position);
                 PlaceCursor.moveToPosition(position);
-                int img_id = PlaceCursor.getInt(0);
+               // int img_id = PlaceCursor.getInt(0);
+                Uri uri = Uri.parse(current.getImage()[0]);
+                String sr = String.valueOf(uri);
 
-                String img[] = breakfast_adapterList.get(position).getImage();
-                String name = breakfast_adapterList.get(position).getTitle();
-                String ingredients =breakfast_adapterList.get(position).getIngredients();
-                String directions = breakfast_adapterList.get(position).getDirections();
-                String time = breakfast_adapterList.get(position).getTime();
-                Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
+
+                String img[] = appetizers_adapterList.get(position).getImage();
+                String name = appetizers_adapterList.get(position).getTitle();
+                String ingredients =appetizers_adapterList.get(position).getIngredients();
+                String directions = appetizers_adapterList.get(position).getDirections();
+                String time = appetizers_adapterList.get(position).getTime();
+                Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
                 Log.i(TAG, String.valueOf(img));
 
 
@@ -110,6 +113,7 @@ public class breakfastFragment extends Fragment {
                 intent.putExtra("ingredients",ingredients);
                 intent.putExtra("directions",directions);
                 intent.putExtra("img",img);
+                intent.putExtra("sr",sr);
                 startActivity(intent);
 
 
@@ -126,7 +130,7 @@ public class breakfastFragment extends Fragment {
     public class mybreakfastListAdapterClass extends ArrayAdapter<generic_adapter> {
 
         mybreakfastListAdapterClass() {
-            super(context, R.layout.item, breakfast_adapterList);
+            super(context, R.layout.item, appetizers_adapterList);
         }
 
 
@@ -138,7 +142,7 @@ public class breakfastFragment extends Fragment {
                 itemView = inflater.inflate(R.layout.item, parent, false);
 
             }
-            generic_adapter current = breakfast_adapterList.get(position);
+            generic_adapter current = appetizers_adapterList.get(position);
 
             //Code to download image from url and paste.
             Uri uri = Uri.parse(current.getImage()[0]);

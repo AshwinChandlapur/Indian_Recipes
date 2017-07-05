@@ -11,9 +11,9 @@
 
 
     <string name="place">Place</string>
-    <string name="description">Description</string>
-    <string name="location">Location</string>
-    <string name="season">Best Season</string>
+    <string name="time">Time</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="directions">Directions</string>
     <string name="nearby">Nearby Places</string>
     <string name="transport">Transport</string>
     <string name="additional">Additional Info</string>

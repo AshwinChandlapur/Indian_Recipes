@@ -67,13 +67,9 @@ public class lunchFragment extends Fragment {
                     new generic_adapter(
                             imagesArray,        //id
                             PlaceCursor.getString(1),//name
-                            PlaceCursor.getString(2),//description
-                            PlaceCursor.getString(3),//district
-                            PlaceCursor.getString(4),//best season
-                            PlaceCursor.getString(5),//additional info
-                            PlaceCursor.getString(6),//nearby place
-                            PlaceCursor.getDouble(7),//latitude
-                            PlaceCursor.getDouble(8) //longitude
+                            PlaceCursor.getString(2),//time
+                            PlaceCursor.getString(3),//ingredients
+                            PlaceCursor.getString(4)//directions
                     ));
         }
 
@@ -130,7 +126,7 @@ public class lunchFragment extends Fragment {
             t_name.setText(current.getTitle());
 
             TextView t_dist = (TextView) itemView.findViewById(R.id.item_Dist);
-            t_dist.setText(current.getDistrict());
+            t_dist.setText(current.getTime());
 
             return itemView;
         }

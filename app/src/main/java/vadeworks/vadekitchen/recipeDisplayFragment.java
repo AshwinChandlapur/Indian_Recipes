@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -13,10 +14,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
@@ -28,59 +33,65 @@ import vadeworks.vadekitchen.adapter.DatabaseHelper;
 @SuppressLint("ValidFragment")
 public class recipeDisplayFragment extends Fragment {
     int img_id;
-    private Button gmapButton;
-    private double latitude, longitude;
     SliderLayout mDemoSlider;
-    private InterstitialAd interstitial;
     DatabaseHelper myDBHelper;
-    TextView t;
     ListView list;
     Context context;
-    String places[];
+
 
 
     public recipeDisplayFragment(int img_id) {
         this.img_id = img_id; // Required empty public constructor
     }
-   // private List<nearby_places_adapter> nearby_adapterList = new ArrayList<>();
+    //private List<nearby_places_adapter> nearby_adapterList = new ArrayList<>();
 
-
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_display, container, false);
-        View header = getActivity().getLayoutInflater().inflate(R.layout.header, null);
-       // View footer = getActivity().getLayoutInflater().inflate(R.layout.footer, null);
-
-        list.addHeaderView(header);
-       // list.addFooterView(footer);
+       // View header = getActivity().getLayoutInflater().inflate(R.layout.header, null);
+      //  list.addHeaderView(header);
 
 
-        final TextView place_textView = (TextView) view.findViewById(R.id.place_textView);
-        TextView description_textView = (TextView) view.findViewById(R.id.description_textView);
-        TextView location_textView = (TextView) view.findViewById(R.id.location_textView);
-        TextView season_textView = (TextView) view.findViewById(R.id.season_textView);
-        TextView additionalInformation = (TextView) view.findViewById(R.id.additionalInformation);
+
+        final TextView recipe_textView = (TextView) view.findViewById(R.id.recipe_textView);
+        TextView time_textView = (TextView) view.findViewById(R.id.time_textView);
+        TextView ingredients_textView = (TextView) view.findViewById(R.id.ingredients_textView);
+        TextView directions_textView = (TextView) view.findViewById(R.id.directions_textView);
+
         context = getActivity().getApplicationContext();
-        mDemoSlider = (SliderLayout) view.findViewById(R.id.layout_images);
-
         myDBHelper = new DatabaseHelper(getContext());
-        Cursor cursor = myDBHelper.getPlaceById(img_id);
+
+        Cursor cursor = myDBHelper.getRecipeById(img_id);
 
         while (cursor.moveToNext()){
-            place_textView.setText(cursor.getString(1));
-            description_textView.setText(cursor.getString(2));
-            location_textView.setText(cursor.getString(3));
-            season_textView.setText(cursor.getString(4));
-            additionalInformation.setText(cursor.getString(5));
+            recipe_textView.setText(cursor.getString(1));
+            time_textView.setText(cursor.getString(2));
+            ingredients_textView.setText(cursor.getString(3));
+            directions_textView.setText(cursor.getString(4));
+          //  additionalInformation.setText(cursor.getString(5));
             //nearPlaces = cursor.getString(6);
-            latitude = cursor.getDouble(7);
-            longitude = cursor.getDouble(8);
+          //  latitude = cursor.getDouble(7);
+           // longitude = cursor.getDouble(8);
         }
 
 
+        mDemoSlider = (SliderLayout) view.findViewById(R.id.layout_images);
+        TextSliderView textSliderView;
+        String[] imagesArray = new String[25];
+        Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(img_id);
+        for (int i=0;imageURLCursor.moveToNext();i++){
+            imagesArray[i] = imageURLCursor.getString(0);
+        }
 
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
+        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+        mDemoSlider.setDuration(7000);
+
+        //displayList();
         return view;
     }
 

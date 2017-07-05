@@ -1,15 +1,15 @@
 package vadeworks.vadekitchen;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,47 +30,53 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-import static com.PBnostra13.PBuniversalimageloader.core.ImageLoader.TAG;
+import static com.google.android.gms.internal.zzs.TAG;
 
 
-public class breakfastFragment extends Fragment {
-
-
-    private List<generic_adapter> breakfast_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
+public class favoritesFragment extends Fragment {
     static SimpleDraweeView draweeView;
+    private InterstitialAd interstitial;
     View view;
     Context context;
     ListView list;
     TextView t;
     DatabaseHelper myDBHelper;
-    Cursor PlaceCursor;
+    Cursor cursor, PlaceCursor;
+    int id;
 
+    public favoritesFragment() {
+
+    }
+
+    private List<generic_adapter> favourites_adapterList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-     view = inflater.inflate(R.layout.fragment_breakfast, container, false);//TODO: Should CHange this accordinly
+        view =  inflater.inflate(R.layout.fragment_favorites, container, false);
+
         context = getActivity().getApplicationContext();
-        list = (ListView) view.findViewById(R.id.breakfastList);//TODO: Should CHange this accordinly
 
-        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
+        t = (TextView) view.findViewById(R.id.ppp1);
+        //Typeface myFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/placenames.otf");
+        //t.setTypeface(myFont);
+        list = (ListView) view.findViewById(R.id.favouritesList);
+        favourites_adapterList.clear();
+
         Fresco.initialize(getActivity());
-        breakfast_adapterList.clear();
         myDBHelper = new DatabaseHelper(context);
-        //PlaceCursor = myDBHelper.getAllDams();
-        PlaceCursor = myDBHelper.getAllBreakfast();//TODO: Should CHange this accordinly
-        while(PlaceCursor.moveToNext()){
+        PlaceCursor = myDBHelper.getAllFavourites();
 
+        while(PlaceCursor.moveToNext()){
+            id = PlaceCursor.getInt(0);
             String [] imagesArray = new String[25];
             Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(PlaceCursor.getInt(0));
             for (int i=0;imageURLCursor.moveToNext();i++){
                 imagesArray[i] = imageURLCursor.getString(1);
             }
+            cursor = myDBHelper.getRecipeById(id);
 
-            breakfast_adapterList.add(
+            favourites_adapterList.add(
                     new generic_adapter(
                             imagesArray,        //id
                             PlaceCursor.getString(1),//name
@@ -81,25 +88,24 @@ public class breakfastFragment extends Fragment {
 
         displayList();
 
+
         return view;
     }
 
 
     private void displayList() {
-        ArrayAdapter<generic_adapter> adapter = new mybreakfastListAdapterClass();
+        final ArrayAdapter<generic_adapter> adapter = new myFavouritesListAdapterClass();
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 PlaceCursor.moveToPosition(position);
                 int img_id = PlaceCursor.getInt(0);
-
-                String img[] = breakfast_adapterList.get(position).getImage();
-                String name = breakfast_adapterList.get(position).getTitle();
-                String ingredients =breakfast_adapterList.get(position).getIngredients();
-                String directions = breakfast_adapterList.get(position).getDirections();
-                String time = breakfast_adapterList.get(position).getTime();
+                String img[] = favourites_adapterList.get(position).getImage();
+                String name = favourites_adapterList.get(position).getTitle();
+                String ingredients =favourites_adapterList.get(position).getIngredients();
+                String directions = favourites_adapterList.get(position).getDirections();
+                String time = favourites_adapterList.get(position).getTime();
                 Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
                 Log.i(TAG, String.valueOf(img));
 
@@ -113,23 +119,56 @@ public class breakfastFragment extends Fragment {
                 startActivity(intent);
 
 
-                //Fragment fragment = new placeDisplayFragment(img_id);
+               // Fragment fragment = new recipeDisplayFragment(img_id);
                 //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                //ft.replace(R.id.content_main, fragment);
+               // ft.replace(R.id.content_main, fragment);
                // ft.addToBackStack(null);
-               // ft.commit();
+                //ft.commit();
 
+
+
+            }
+        });
+
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int pos, long l) {
+
+                AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+                adb.setTitle("Delete from favourites ?\n");
+                adb.setCancelable(false);
+                adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        PlaceCursor.moveToPosition(pos);
+                        int img_id = PlaceCursor.getInt(0);
+
+                        myDBHelper = new DatabaseHelper(context);
+                        myDBHelper.deleteFromFavourites(img_id);
+
+                        adapter.remove(adapter.getItem(pos));
+                        adapter.notifyDataSetChanged();
+
+
+                    } });
+                adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    } });
+                adb.show();
+
+                return true;
             }
         });
     }
 
-    public class mybreakfastListAdapterClass extends ArrayAdapter<generic_adapter> {
 
-        mybreakfastListAdapterClass() {
-            super(context, R.layout.item, breakfast_adapterList);
+
+
+    public class myFavouritesListAdapterClass extends ArrayAdapter<generic_adapter> {
+        myFavouritesListAdapterClass() {
+            super(context, R.layout.item, favourites_adapterList);
         }
-
-
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View itemView = convertView;
@@ -138,13 +177,13 @@ public class breakfastFragment extends Fragment {
                 itemView = inflater.inflate(R.layout.item, parent, false);
 
             }
-            generic_adapter current = breakfast_adapterList.get(position);
+            generic_adapter current = favourites_adapterList.get(position);
 
-            //Code to download image from url and paste.
-            Uri uri = Uri.parse(current.getImage()[0]);
-            draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
-            draweeView.setImageURI(uri);
-            //Code ends here.
+
+            //Uri uri = Uri.parse(current.getImage()[0]);
+            //draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
+            //draweeView.getHierarchy();
+           // draweeView.setImageURI(uri);
 
             TextView t_name = (TextView) itemView.findViewById(R.id.item_Title);
             t_name.setText(current.getTitle());
@@ -155,6 +194,10 @@ public class breakfastFragment extends Fragment {
             return itemView;
         }
     }
+
+
+
+
 
 
 }
