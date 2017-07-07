@@ -92,9 +92,12 @@ public class breakfastFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                generic_adapter current = breakfast_adapterList.get(position);
                 PlaceCursor.moveToPosition(position);
-                int img_id = PlaceCursor.getInt(0);
+                Uri uri = Uri.parse(current.getImage()[0]);
+                String sr = String.valueOf(uri);
 
+                int img_id = PlaceCursor.getInt(0);
                 String img[] = breakfast_adapterList.get(position).getImage();
                 String name = breakfast_adapterList.get(position).getTitle();
                 String ingredients =breakfast_adapterList.get(position).getIngredients();
@@ -105,6 +108,7 @@ public class breakfastFragment extends Fragment {
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
+                intent.putExtra("img_id",img_id);
                 intent.putExtra("name",name);
                 intent.putExtra("time",time);
                 intent.putExtra("ingredients",ingredients);

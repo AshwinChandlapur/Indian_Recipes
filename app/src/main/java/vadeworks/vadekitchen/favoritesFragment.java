@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +37,9 @@ import static com.google.android.gms.internal.zzs.TAG;
 
 public class favoritesFragment extends Fragment {
     static SimpleDraweeView draweeView;
-    private InterstitialAd interstitial;
     View view;
     Context context;
     ListView list;
-    TextView t;
     DatabaseHelper myDBHelper;
     Cursor cursor, PlaceCursor;
     int id;
@@ -57,9 +57,6 @@ public class favoritesFragment extends Fragment {
 
         context = getActivity().getApplicationContext();
 
-        t = (TextView) view.findViewById(R.id.ppp1);
-        //Typeface myFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/placenames.otf");
-        //t.setTypeface(myFont);
         list = (ListView) view.findViewById(R.id.favouritesList);
         favourites_adapterList.clear();
 
@@ -67,24 +64,27 @@ public class favoritesFragment extends Fragment {
         myDBHelper = new DatabaseHelper(context);
         PlaceCursor = myDBHelper.getAllFavourites();
 
-        while(PlaceCursor.moveToNext()){
+        while(PlaceCursor.moveToNext()) {
             id = PlaceCursor.getInt(0);
-            String [] imagesArray = new String[25];
+            String[] imagesArray = new String[25];
             Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(PlaceCursor.getInt(0));
-            for (int i=0;imageURLCursor.moveToNext();i++){
+            for (int i = 0; imageURLCursor.moveToNext(); i++) {
                 imagesArray[i] = imageURLCursor.getString(1);
             }
             cursor = myDBHelper.getRecipeById(id);
 
-            favourites_adapterList.add(
-                    new generic_adapter(
-                            imagesArray,        //id
-                            PlaceCursor.getString(1),//name
-                            PlaceCursor.getString(2),//description
-                            PlaceCursor.getString(3),//district
-                            PlaceCursor.getString(4)//best season
-                    ));
-        }
+           // while (cursor.moveToNext()) {
+
+                favourites_adapterList.add(
+                        new generic_adapter(
+                                imagesArray,
+                                PlaceCursor.getString(1),
+                                PlaceCursor.getString(2),
+                                PlaceCursor.getString(3),
+                                PlaceCursor.getString(4)
+                        ));
+           // }
+       }
 
         displayList();
 
@@ -99,8 +99,12 @@ public class favoritesFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                 generic_adapter current = favourites_adapterList.get(position);
                 PlaceCursor.moveToPosition(position);
                 int img_id = PlaceCursor.getInt(0);
+               Uri uri = Uri.parse(current.getImage()[0]);
+                String sr = String.valueOf(uri);
+
                 String img[] = favourites_adapterList.get(position).getImage();
                 String name = favourites_adapterList.get(position).getTitle();
                 String ingredients =favourites_adapterList.get(position).getIngredients();
@@ -111,11 +115,13 @@ public class favoritesFragment extends Fragment {
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
+                intent.putExtra("img_id",img_id);
                 intent.putExtra("name",name);
                 intent.putExtra("time",time);
                 intent.putExtra("ingredients",ingredients);
                 intent.putExtra("directions",directions);
                 intent.putExtra("img",img);
+                //intent.putExtra("sr",sr);
                 startActivity(intent);
 
 
@@ -129,6 +135,7 @@ public class favoritesFragment extends Fragment {
 
             }
         });
+
 
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -179,11 +186,12 @@ public class favoritesFragment extends Fragment {
             }
             generic_adapter current = favourites_adapterList.get(position);
 
-
-            //Uri uri = Uri.parse(current.getImage()[0]);
-            //draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
-            //draweeView.getHierarchy();
-           // draweeView.setImageURI(uri);
+           Uri uri = Uri.parse(current.getImage()[0]);
+           draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
+           // ImageView img =(ImageView) itemView.findViewById(R.id.item_Image);
+            //draweeView.getHierarchy().setProgressBarImage(new CircleProgressBarDrawable(1));
+           draweeView.setImageURI(uri);
+            //Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(img);
 
             TextView t_name = (TextView) itemView.findViewById(R.id.item_Title);
             t_name.setText(current.getTitle());

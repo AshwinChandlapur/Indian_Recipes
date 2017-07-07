@@ -58,7 +58,7 @@ public class appetizersFragment extends Fragment {
         Fresco.initialize(getActivity());
         appetizers_adapterList.clear();
         myDBHelper = new DatabaseHelper(context);
-        //PlaceCursor = myDBHelper.getAllDams();
+
         PlaceCursor = myDBHelper.getAllAppetizers();//TODO: Should CHange this accordinly
         while(PlaceCursor.moveToNext()){
 
@@ -93,11 +93,10 @@ public class appetizersFragment extends Fragment {
 
                 generic_adapter current = appetizers_adapterList.get(position);
                 PlaceCursor.moveToPosition(position);
-               // int img_id = PlaceCursor.getInt(0);
                 Uri uri = Uri.parse(current.getImage()[0]);
                 String sr = String.valueOf(uri);
 
-
+                int img_id = PlaceCursor.getInt(0);
                 String img[] = appetizers_adapterList.get(position).getImage();
                 String name = appetizers_adapterList.get(position).getTitle();
                 String ingredients =appetizers_adapterList.get(position).getIngredients();
@@ -108,6 +107,7 @@ public class appetizersFragment extends Fragment {
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
+                intent.putExtra("img_id",img_id);
                 intent.putExtra("name",name);
                 intent.putExtra("time",time);
                 intent.putExtra("ingredients",ingredients);

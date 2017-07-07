@@ -27,7 +27,7 @@
 
     <item android:id="@+id/action_search"
         android:title="Search"
-        android:icon="@drawable/ic_menu_share"
+        android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 </menu>

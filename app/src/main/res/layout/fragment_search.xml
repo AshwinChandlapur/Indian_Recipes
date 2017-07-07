@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2e2e2e"
+    android:background="@null"
     tools:context="vadeworks.vadekitchen.SearchResults">
 
     <ListView
@@ -10,6 +10,6 @@
         android:id="@+id/searchList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tr1" />
+         />
 
 </FrameLayout>

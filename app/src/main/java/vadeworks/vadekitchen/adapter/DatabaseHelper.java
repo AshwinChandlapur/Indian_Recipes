@@ -153,11 +153,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean insertIntoFavourites(int id){
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean insertIntoFavourites(int id,String name){
+        SQLiteDatabase db  = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(RECIPE_ID, id);
+        contentValues.put(RECIPE_NAME, name);
+
         db.insert(TABLE_FAVOURITE, null, contentValues);
 
         return true;

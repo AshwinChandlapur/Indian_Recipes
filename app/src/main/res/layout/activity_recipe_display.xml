@@ -1,16 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="#212121"
+    android:id="@+id/activity_recipe_display"
+    tools:context="vadeworks.vadekitchen.recipeDisplayActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:background="@drawable/background"
+            android:textAlignment="center">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#212121"
-    tools:context="vadeworks.vadekitchen.recipeDisplayActivity">
+    android:id="@+id/activity_recipe_display"
+    tools:context="vadeworks.vadekitchen.recipeDisplayActivity">-->
 
 
 
-    <ScrollView
+   <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -20,11 +59,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-         <!--   <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#212121"
-                android:orientation="vertical" />-->
 
             <ImageView
         android:layout_width="match_parent"
@@ -35,20 +69,7 @@
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:layout_gravity="center"/>
-           <!-- <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/layout_images"
-                android:layout_width="match_parent"
-                android:layout_height="160dp" />-->
-            <!-- <ImageView
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/recipe_image"/>-->
-           <!-- <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#212121"
-                android:orientation="vertical" />-->
+
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -84,20 +105,33 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal">
 
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:background="@drawable/md_transparent"
-                        android:src="@drawable/ic_menu_share" />
 
-                    <ImageButton
-                        android:id="@+id/fav_icon"
+
+                    <com.github.ivbaranov.mfb.MaterialFavoriteButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/md_transparent"
-                        android:padding="10dp"
-                        android:src="@drawable/heart_coloured" />
+                        app:mfb_animate_favorite="true"
+                        app:mfb_animate_unfavorite="true"
+                        app:mfb_padding="12"
+                        android:id="@+id/share"
+                        app:mfb_favorite_image="@drawable/ic_menu_share"
+                        app:mfb_not_favorite_image="@drawable/ic_menu_share"
+                        app:mfb_rotation_duration="400"
+                        app:mfb_rotation_angle="360"
+                        />
+
+                    <com.github.ivbaranov.mfb.MaterialFavoriteButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/favs"
+                        app:mfb_animate_favorite="true"
+                    app:mfb_animate_unfavorite="true"
+                    app:mfb_padding="12"
+                    app:mfb_favorite_image="@drawable/heart_coloured"
+                    app:mfb_not_favorite_image="@drawable/heart_uncoloured"
+                    app:mfb_rotation_duration="400"
+                    app:mfb_rotation_angle="360"
+                    />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -220,5 +254,6 @@
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+<!--</LinearLayout>-->
 

@@ -105,9 +105,12 @@ public class SearchResults extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                generic_adapter current = search_adapterList.get(position);
                 PlaceCursor.moveToPosition(position);
                 int img_id = PlaceCursor.getInt(0);
+                Uri uri = Uri.parse(current.getImage()[0]);
+                String sr = String.valueOf(uri);
+
                 String img[] = search_adapterList.get(position).getImage();
                 String name = search_adapterList.get(position).getTitle();
                 String ingredients =search_adapterList.get(position).getIngredients();
@@ -118,11 +121,13 @@ public class SearchResults extends Fragment {
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
+                intent.putExtra("img_id",img_id);
                 intent.putExtra("name",name);
                 intent.putExtra("time",time);
                 intent.putExtra("ingredients",ingredients);
                 intent.putExtra("directions",directions);
                 intent.putExtra("img",img);
+                intent.putExtra("sr",sr);
                 startActivity(intent);
                 /*Fragment fragment = new recipeDisplayFragment(img_id);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -151,9 +156,9 @@ public class SearchResults extends Fragment {
             generic_adapter current = search_adapterList.get(position);
 
             //Code to download image from url and paste.
-          //  Uri uri = Uri.parse(current.getImage()[0]);
-          //  draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
-          //  draweeView.setImageURI(uri);
+           Uri uri = Uri.parse(current.getImage()[0]);
+           draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
+           draweeView.setImageURI(uri);
             //Code ends here.
             TextView t_name = (TextView) itemView.findViewById(R.id.item_Title);
             t_name.setText(current.getTitle());

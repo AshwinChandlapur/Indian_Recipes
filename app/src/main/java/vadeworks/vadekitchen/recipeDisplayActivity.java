@@ -1,6 +1,7 @@
 package vadeworks.vadekitchen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
@@ -17,7 +18,10 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.squareup.picasso.Picasso;
+
+import java.util.zip.Inflater;
 
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 
@@ -25,13 +29,13 @@ import vadeworks.vadekitchen.adapter.DatabaseHelper;
 
 public class recipeDisplayActivity extends AppCompatActivity {
     int img_id;
-    SliderLayout mDemoSlider;
     DatabaseHelper myDBHelper;
-    ListView list;
     Context context;
-    String img,name;
-     String sr;
+    String img,name,directions,time,ingredients;
+    String sr;
     ImageView recipeImage;
+
+
 
 
     @Override
@@ -46,22 +50,66 @@ public class recipeDisplayActivity extends AppCompatActivity {
         TextView directions_textView = (TextView) findViewById(R.id.directions_textView);
         recipeImage =(ImageView)findViewById(R.id.recipe_image);
 
+        MaterialFavoriteButton favorite = (MaterialFavoriteButton)findViewById(R.id.favs);
+        favorite.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+
+                        Snackbar.make(findViewById(R.id.activity_recipe_display), name+" Added to Favourites list", Snackbar.LENGTH_SHORT)
+                               .setAction("Action", null).show();
 
 
-        ImageButton favourite_icon = (ImageButton) findViewById(R.id.fav_icon);
-        favourite_icon.setOnClickListener(new View.OnClickListener() {
+                        myDBHelper = new DatabaseHelper(context);
+                       myDBHelper.insertIntoFavourites(img_id,name);
+                    }
+                });
+        favorite.setOnFavoriteAnimationEndListener(
+                new MaterialFavoriteButton.OnFavoriteAnimationEndListener() {
+                    @Override
+                    public void onAnimationEnd(MaterialFavoriteButton buttonView, boolean favorite) {
+
+                        //myDBHelper = new DatabaseHelper(context);
+                        //myDBHelper.insertIntoFavourites(img_id,name);
+                        //myDBHelper = new DatabaseHelper(context);
+                        //myDBHelper.deleteFromFavourites(img_id);
+
+                    }
+                });
+
+        MaterialFavoriteButton share = (MaterialFavoriteButton)findViewById(R.id.share);
+        share.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT,
+                                "Recipe Name: "+name+"\n\n"+"Time Taken: "+time+"\n\n"+"Ingredients: "+ingredients+"\n\n"+"Directions: "+directions);
+                        sendIntent.setType("text/plain");
+                        startActivity(sendIntent);
+                    }
+                });
+
+
+        /*ImageButton share = (ImageButton) findViewById(R.id.share);
+        share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Snackbar.make(view, recipe_textView+" Added to Favourites list", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-
-                myDBHelper = new DatabaseHelper(context);
-                myDBHelper.insertIntoFavourites(img_id);
-
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Recipe Name: "+name+"\n\n"+"Time Taken: "+time+"\n\n"+"Ingredients: "+ingredients+"\n\n"+"Directions: "+directions);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
             }
+        });*/
 
-        });
+
+
+
+
 
 
 
@@ -84,11 +132,12 @@ public class recipeDisplayActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            img_id = extras.getInt("img_id");
             name = extras.getString("name");
             sr=extras.getString("sr");
-            String time = extras.getString("time");
-            String directions = extras.getString("directions");
-            String ingredients = extras.getString("ingredients");
+            time = extras.getString("time");
+            directions = extras.getString("directions");
+            ingredients = extras.getString("ingredients");
             img=extras.getString("img");
 
            // Toast.makeText(recipeDisplayActivity.this, uri, Toast.LENGTH_LONG).show();
