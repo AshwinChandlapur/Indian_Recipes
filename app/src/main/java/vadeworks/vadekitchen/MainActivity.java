@@ -59,8 +59,6 @@ import vadeworks.vadekitchen.adapter.generic_adapter;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView t;
-    SliderLayout mDemoSlider;
-    DrawerLayout drawer;
     static int serverVersion, localVersion;
     ProgressDialog pd;
     DatabaseHelper myDBHelper;
@@ -70,11 +68,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         pd = new ProgressDialog(this);
-
-
 
 
 
@@ -85,45 +83,6 @@ public class MainActivity extends AppCompatActivity
         //Code to ask for User Permissions Ends
 
 
-
-
-     /*   new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                mDemoSlider = (SliderLayout) findViewById(R.id.mainActivitySlider);
-                final HashMap<String, Integer> file_maps = new HashMap<>();
-                //Positively do not change any images
-                file_maps.put("TB Dam", R.drawable.ic_menu_camera);
-                file_maps.put("Jog Falls", R.drawable.ic_menu_manage);
-                file_maps.put("Mysore Palace", R.drawable.ic_menu_share);
-                file_maps.put("Mullayanagiri", R.drawable.ic_menu_gallery);
-                file_maps.put("Dandeli", R.drawable.ic_menu_send);
-                file_maps.put("Wonder La",R.drawable.ic_menu_slideshow);
-
-                for (String name : file_maps.keySet()) {
-                    TextSliderView textSliderView = new TextSliderView(getApplicationContext());
-                    // initialize a SliderLayout
-                    textSliderView
-                            .description(name)
-                            .image(file_maps.get(name))
-                            .setScaleType(BaseSliderView.ScaleType.Fit);
-
-                    //add your extra information
-                    textSliderView.bundle(new Bundle());
-                    textSliderView.getBundle()
-                            .putString("extra", name);
-
-                    mDemoSlider.addSlider(textSliderView);
-                }
-
-                mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
-                mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-                mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-                mDemoSlider.setDuration(7000);
-
-            }
-        }).start();*/
 
 
 
@@ -137,10 +96,16 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        if(isNetworkConnected()){
-            SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
-            localVersion = preferences.getInt("version", 0);
-            new baseNewsVersion().execute("http://nammakarnataka.net23.net/general/base_version.json");
+        if(isNetworkConnected()) {
+            SharedPreferences preferences = getSharedPreferences("only_once", Context.MODE_PRIVATE);
+           if(preferences.getInt("first", 0) == 0) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("first", 1);
+                editor.commit();
+                Toast.makeText(getApplicationContext(), "Please Wait!", Toast.LENGTH_SHORT).show();
+                localVersion = preferences.getInt("version", 0);
+                new baseNewsVersion().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/base_version.json");
+            }
         }
     }
 
@@ -186,7 +151,7 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
             //Compare Server Version of JSON and local version of JSON if not same download the new JSON content
-           // if (localVersion != serverVersion) {
+           if (localVersion != serverVersion) {
                 pd.setMessage("Fethcing for Cooking");
                 pd.setIcon(R.mipmap.ic_launcher);
                 pd.setCancelable(false);
@@ -194,10 +159,10 @@ public class MainActivity extends AppCompatActivity
                // new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/base.json");
                 new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/new_version.json");
                 //new baseFile().execute("http://nammakarnataka.net23.net/general/base.json");
-            //}
-           // else {
-          //      Toast.makeText(getApplicationContext(), "All Recipes are up to date!", Toast.LENGTH_SHORT).show();
-          //  }
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "All Recipes are up to date!", Toast.LENGTH_SHORT).show();
+           }
         }
     }
 
@@ -245,6 +210,8 @@ public class MainActivity extends AppCompatActivity
                 JSONArray items = parent.getJSONArray("list");
 
                 if (items != null){
+                    if (pd.isShowing())
+                        pd.dismiss();
 
                     myDBHelper = new DatabaseHelper(getApplicationContext());
                     myDBHelper.deleteTables();
@@ -266,13 +233,17 @@ public class MainActivity extends AppCompatActivity
                     editor.commit();
 
 
-                    if(pd.isShowing())
-                        pd.dismiss();
+                   // if(pd.isShowing())
+                     //   pd.dismiss();
 
                     Toast.makeText(getApplicationContext(),"Update Successful",Toast.LENGTH_SHORT).show();
 
                 }else {
-                    Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
+                    SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putInt("version", localVersion);
+                    editor.commit();
+                    Toast.makeText(getApplicationContext(),"Reatining The Same List",Toast.LENGTH_SHORT).show();
                 }
 
             } catch (JSONException e) {
@@ -411,7 +382,8 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(getApplicationContext(), "Please wait..", Toast.LENGTH_SHORT).show();
                     SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
                     localVersion = preferences.getInt("version", 0);
-                    new baseNewsVersion().execute("http://nammakarnataka.net23.net/general/base_version.json");
+                    //new baseNewsVersion().execute("http://nammakarnataka.net23.net/general/base_version.json");
+                    new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/new_version.json");
                 } else {
                     Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }

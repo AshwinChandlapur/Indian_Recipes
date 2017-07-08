@@ -40,7 +40,6 @@ public class breakfastFragment extends Fragment {
     View view;
     Context context;
     ListView list;
-    TextView t;
     DatabaseHelper myDBHelper;
     Cursor PlaceCursor;
 
@@ -114,6 +113,7 @@ public class breakfastFragment extends Fragment {
                 intent.putExtra("ingredients",ingredients);
                 intent.putExtra("directions",directions);
                 intent.putExtra("img",img);
+                intent.putExtra("sr",sr);
                 startActivity(intent);
 
 

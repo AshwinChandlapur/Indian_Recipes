@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.drawable.ProgressBarDrawable;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -38,8 +39,7 @@ public class appetizersFragment extends Fragment {
     static SimpleDraweeView draweeView;
     View view;
     Context context;
-    ListView list,list1;
-    TextView t;
+    ListView list;
     DatabaseHelper myDBHelper;
     Cursor PlaceCursor;
 
@@ -48,20 +48,23 @@ public class appetizersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-     view = inflater.inflate(R.layout.fragment_appetizers, container, false);//TODO: Should CHange this accordinly
+        view = inflater.inflate(R.layout.fragment_appetizers, container, false);//TODO: Should CHange this accordinly
         context = getActivity().getApplicationContext();
+
+
         list = (ListView) view.findViewById(R.id.appetizersList);//TODO: Should CHange this accordinly
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
+
+
         Fresco.initialize(getActivity());
+
         appetizers_adapterList.clear();
         myDBHelper = new DatabaseHelper(context);
-
         PlaceCursor = myDBHelper.getAllAppetizers();//TODO: Should CHange this accordinly
         while(PlaceCursor.moveToNext()){
-
             String [] imagesArray = new String[25];
             Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(PlaceCursor.getInt(0));
             for (int i=0;imageURLCursor.moveToNext();i++){
@@ -102,8 +105,8 @@ public class appetizersFragment extends Fragment {
                 String ingredients =appetizers_adapterList.get(position).getIngredients();
                 String directions = appetizers_adapterList.get(position).getDirections();
                 String time = appetizers_adapterList.get(position).getTime();
-                Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
-                Log.i(TAG, String.valueOf(img));
+                //Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
+                //Log.i(TAG, String.valueOf(img));
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);

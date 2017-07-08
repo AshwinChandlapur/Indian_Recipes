@@ -3,10 +3,12 @@ package vadeworks.vadekitchen;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,13 +44,46 @@ public class recipeDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_display);
+        android.support.v7.app.ActionBar AB = getSupportActionBar();
+            AB.hide();
 
-        //ImageView recipe_image= (ImageView) findViewById(R.id.recipe_image);
         final TextView recipe_textView = (TextView) findViewById(R.id.recipe_textView);
         TextView time_textView = (TextView) findViewById(R.id.time_textView);
         TextView ingredients_textView = (TextView) findViewById(R.id.ingredients_textView);
         TextView directions_textView = (TextView) findViewById(R.id.directions_textView);
         recipeImage =(ImageView)findViewById(R.id.recipe_image);
+        TextView onPicText= (TextView)findViewById(R.id.onPicText);
+
+
+        Typeface regular_font =Typeface.createFromAsset(this.getAssets(),"fonts/Aller_Rg.ttf");
+        Typeface heading_font = Typeface.createFromAsset(this.getAssets(),"fonts/AllerDisplay.ttf");
+
+
+
+        TextView time_heading=(TextView)findViewById(R.id.time);
+        TextView ingredients_heading=(TextView)findViewById(R.id.ingredients);
+        TextView directions_heading=(TextView)findViewById(R.id.directions);
+        time_heading.setTypeface(heading_font);
+        ingredients_heading.setTypeface(heading_font);
+        directions_heading.setTypeface(heading_font);
+        recipe_textView.setTypeface(heading_font);
+        onPicText.setTypeface(heading_font);
+        time_textView.setTypeface(regular_font);
+        ingredients_textView.setTypeface(regular_font);
+        directions_textView.setTypeface(regular_font);
+
+
+
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool);
+       // setSupportActionBar(toolbar);
+        if(getSupportActionBar()!=null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+        //ImageView recipe_image= (ImageView) findViewById(R.id.recipe_image);
+
 
         MaterialFavoriteButton favorite = (MaterialFavoriteButton)findViewById(R.id.favs);
         favorite.setOnFavoriteChangeListener(
@@ -57,7 +92,7 @@ public class recipeDisplayActivity extends AppCompatActivity {
                     public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
 
                         Snackbar.make(findViewById(R.id.activity_recipe_display), name+" Added to Favourites list", Snackbar.LENGTH_SHORT)
-                               .setAction("Action", null).show();
+                              .setAction("Action", null).show();
 
 
                         myDBHelper = new DatabaseHelper(context);
@@ -153,6 +188,8 @@ public class recipeDisplayActivity extends AppCompatActivity {
         time_textView.setText(extras.getString("time"));
         ingredients_textView.setText(extras.getString("ingredients"));
         directions_textView.setText(extras.getString("directions"));
+
+        onPicText.setText(extras.getString("name"));
 
 
         context = getApplicationContext();

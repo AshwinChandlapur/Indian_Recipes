@@ -116,8 +116,8 @@ public class SearchResults extends Fragment {
                 String ingredients =search_adapterList.get(position).getIngredients();
                 String directions = search_adapterList.get(position).getDirections();
                 String time = search_adapterList.get(position).getTime();
-                Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
-                Log.i(TAG, String.valueOf(img));
+               // Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
+               // Log.i(TAG, String.valueOf(img));
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
