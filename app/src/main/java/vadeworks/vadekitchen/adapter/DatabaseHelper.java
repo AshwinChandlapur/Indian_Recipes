@@ -195,6 +195,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery("select * from "+RECIPE_TABLE+" where "+RECIPE_CATEGORY+" = 'breakfast' ;",null);
     }
 
+    public Cursor getAllMaincourse()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("select * from "+RECIPE_TABLE+" where "+RECIPE_CATEGORY+" = 'maincourse' ;",null);
+    }
+
+    public Cursor getAllDessert()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("select * from "+RECIPE_TABLE+" where "+RECIPE_CATEGORY+" = 'dessert' ;",null);
+    }
+
+    public Cursor getAllSnacks()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("select * from "+RECIPE_TABLE+" where "+RECIPE_CATEGORY+" = 'snacks' ;",null);
+    }
+
+    public Cursor getAllFestive()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("select * from "+RECIPE_TABLE+" where "+RECIPE_CATEGORY+" = 'festive' ;",null);
+    }
+
+
+
+
     public Cursor getRecipeById(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();

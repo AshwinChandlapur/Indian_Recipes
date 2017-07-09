@@ -18,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,6 +30,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +39,7 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,6 +65,20 @@ public class MainActivity extends AppCompatActivity
     static int serverVersion, localVersion;
     ProgressDialog pd;
     DatabaseHelper myDBHelper;
+    String [] sr = {"https://kathyscookbook.files.wordpress.com/2014/02/snip.png","https://i.ytimg.com/vi/GjwxuQqT_yg/maxresdefault.jpg",
+    "http://img.sndimg.com/food/image/upload/v1/img/recipes/84/32/4/picH10WDy.jpg","https://www.tarladalal.com/sliders/Quick-Rava-Idli-(-South-Indian-Recipes).jpg"};
+
+    String [] img = {"https://kathyscookbook.files.wordpress.com/2014/02/snip.png","https://i.ytimg.com/vi/GjwxuQqT_yg/maxresdefault.jpg",
+            "http://img.sndimg.com/food/image/upload/v1/img/recipes/84/32/4/picH10WDy.jpg","https://www.tarladalal.com/sliders/Quick-Rava-Idli-(-South-Indian-Recipes).jpg"};
+
+
+    String [] name = {"Ok Dude","Dhal Makshani","Mukesh Ji","all is well"};
+
+    String [] time ={"20 Min","30 Min","40 Min","50 min"};
+
+    String [] ingre ={"1 Full","2 Full","3 Half","4 Foull"};
+
+    String [] dir = {"Due Make","Dhal Make","Mukeshmake","all is make"};
 
 
     @Override
@@ -73,6 +90,81 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         pd = new ProgressDialog(this);
+
+        CardView c1 =(CardView)findViewById(R.id.c1);
+        ImageView i1 = (ImageView)findViewById(R.id.i1);
+        Picasso.with(this).load(sr[0]).placeholder(R.drawable.background).into(i1);
+        c1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                //intent.putExtra("img_id",1);
+                intent.putExtra("name",name[0]);
+                intent.putExtra("time",time[0]);
+                intent.putExtra("ingredients",ingre[0]);
+                intent.putExtra("directions",dir[0]);
+                intent.putExtra("img",img[0]);
+                intent.putExtra("sr",sr[0]);
+                startActivity(intent);
+            }
+        });
+
+
+        CardView c2 =(CardView)findViewById(R.id.c2);
+        ImageView i2 = (ImageView)findViewById(R.id.i2);
+        Picasso.with(this).load(sr[1]).placeholder(R.drawable.oreo).into(i2);
+        c2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                //intent.putExtra("img_id",1);
+                intent.putExtra("name",name[0]);
+                intent.putExtra("time",time[0]);
+                intent.putExtra("ingredients",ingre[0]);
+                intent.putExtra("directions",dir[0]);
+                intent.putExtra("img",img[0]);
+                intent.putExtra("sr",sr[0]);
+                startActivity(intent);
+            }
+        });
+
+        CardView c3 =(CardView)findViewById(R.id.c3);
+        ImageView i3 = (ImageView)findViewById(R.id.i3);
+        Picasso.with(this).load(sr[2]).placeholder(R.drawable.background).into(i3);
+        c3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                //intent.putExtra("img_id",1);
+                intent.putExtra("name",name[0]);
+                intent.putExtra("time",time[0]);
+                intent.putExtra("ingredients",ingre[0]);
+                intent.putExtra("directions",dir[0]);
+                intent.putExtra("img",img[0]);
+                intent.putExtra("sr",sr[0]);
+                startActivity(intent);
+            }
+        });
+
+        CardView c4 =(CardView)findViewById(R.id.c4);
+        ImageView i4 = (ImageView)findViewById(R.id.i4);
+        Picasso.with(this).load(sr[3]).placeholder(R.drawable.oreo).into(i4);
+        c4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                //intent.putExtra("img_id",1);
+                intent.putExtra("name",name[0]);
+                intent.putExtra("time",time[0]);
+                intent.putExtra("ingredients",ingre[0]);
+                intent.putExtra("directions",dir[0]);
+                intent.putExtra("img",img[0]);
+                intent.putExtra("sr",sr[0]);
+                startActivity(intent);
+            }
+        });
+
+
 
 
 
@@ -93,6 +185,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -308,7 +401,7 @@ public class MainActivity extends AppCompatActivity
                                         Fragment fragment = new SearchResults(cursor);
                                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                         //ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-                                        ft.replace(R.id.content_main, fragment);
+                                        ft.replace(R.id.app_bar, fragment);
                                         ft.commit();
                                         return false;
                                     }
@@ -320,7 +413,7 @@ public class MainActivity extends AppCompatActivity
                                         Fragment fragment = new SearchResults(cursor);
                                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                         // ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-                                        ft.replace(R.id.content_main, fragment);
+                                        ft.replace(R.id.app_bar, fragment);
                                         ft.commit();
                                         return false;
                                     }
@@ -335,7 +428,7 @@ public class MainActivity extends AppCompatActivity
                         Fragment fragment = new breakfastFragment();
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         //ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-                        ft.replace(R.id.content_main, fragment);
+                        ft.replace(R.id.app_bar, fragment);
                         //ft.hide(fragment);
                         //ft.detach(fragment);
                         ft.commit();
@@ -371,7 +464,7 @@ public class MainActivity extends AppCompatActivity
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "All you need to know about Karnataka\n\nDownload:\n" + str);
+                        "One Stop for your Indian Cusine Dishes\nDownload Now:\n" + str);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 break;
@@ -402,59 +495,75 @@ public class MainActivity extends AppCompatActivity
             int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_appetizers:
-                fragment = new appetizersFragment();
-                //fragment = new riceitemsFragment();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
+            case R.id.nav_home:
+                intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
                 break;
 
             case R.id.nav_breakfast:
                 fragment = new breakfastFragment();
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-                ft.replace(R.id.content_main, fragment);
+                ft.replace(R.id.app_bar, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
                 break;
 
-            case R.id.nav_desserts:
-                fragment = new breakfastFragment();
+            case R.id.nav_appetizers:
+                fragment = new appetizersFragment();
+                //fragment = new riceitemsFragment();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                ft.replace(R.id.app_bar, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+                break;
+
+            case R.id.nav_main_course:
+                fragment = new maincourseFragment();
+                // fragment = new lunchFragment();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                ft.replace(R.id.app_bar, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+                break;
+
+
+
+            case R.id.nav_dessert:
+                fragment = new dessertFragment();
                 //fragment = new dessertsFragment();
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-                break;
-
-            case R.id.nav_lunch:
-                fragment = new breakfastFragment();
-               // fragment = new lunchFragment();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-                break;
-
-            case R.id.nav_curry:
-                fragment = new breakfastFragment();
-               // fragment = new curryFragment();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_main, fragment);
+                ft.replace(R.id.app_bar, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
                 break;
 
             case R.id.nav_snacks:
-                fragment = new breakfastFragment();
+                fragment = new snacksFragment();
                 //fragment = new snacksFragment();
                 ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_main, fragment);
+                ft.replace(R.id.app_bar, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+                break;
+
+            case R.id.nav_festive:
+                fragment = new festiveFragment();
+               // fragment = new curryFragment();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.app_bar, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+                break;
+
+            case R.id.nav_favourites:
+                fragment = new favoritesFragment();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.app_bar, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
                 break;
@@ -467,50 +576,9 @@ public class MainActivity extends AppCompatActivity
                 break;
 
 
-            case R.id.nav_chicken:
-                fragment = new breakfastFragment();
-               // fragment = new chickenFragment();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-
-                break;
 
 
-            case R.id.nav_home:
-                intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-                break;
 
-
-            case R.id.nav_cuisines:
-                fragment = new breakfastFragment();
-                //fragment = new cuisinesFragment();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-                break;
-
-
-            case R.id.nav_fish:
-                fragment = new breakfastFragment();
-                //fragment = new fishFragment();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-                break;
-
-            case R.id.nav_favourites:
-                fragment = new favoritesFragment();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-                break;
 
         }
 

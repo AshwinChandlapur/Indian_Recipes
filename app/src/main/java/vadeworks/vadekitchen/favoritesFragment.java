@@ -26,6 +26,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,12 +59,16 @@ public class favoritesFragment extends Fragment {
 
         context = getActivity().getApplicationContext();
 
+
+
+
         list = (ListView) view.findViewById(R.id.favouritesList);
         favourites_adapterList.clear();
 
         Fresco.initialize(getActivity());
         myDBHelper = new DatabaseHelper(context);
         PlaceCursor = myDBHelper.getAllFavourites();
+
 
         while(PlaceCursor.moveToNext()) {
             id = PlaceCursor.getInt(0);

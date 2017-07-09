@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="#2e2e2e"
     tools:context="vadeworks.vadekitchen.favoritesFragment">
 
 
@@ -14,7 +14,8 @@
         android:padding="12dp"
         android:text="Favourites"
         android:textColor="#ffffff"
-        android:textSize="28sp" />
+        android:textSize="28sp"
+        android:layout_marginTop="55dp"/>
 
 
 
@@ -23,6 +24,7 @@
         android:id="@+id/favouritesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/ppp1"
          />
 
 

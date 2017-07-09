@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +38,7 @@ public class recipeDisplayActivity extends AppCompatActivity {
     String img,name,directions,time,ingredients;
     String sr;
     ImageView recipeImage;
+    Snackbar mSnackBar;
 
 
 
@@ -91,8 +94,33 @@ public class recipeDisplayActivity extends AppCompatActivity {
                     @Override
                     public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
 
-                        Snackbar.make(findViewById(R.id.activity_recipe_display), name+" Added to Favourites list", Snackbar.LENGTH_SHORT)
-                              .setAction("Action", null).show();
+                        Snackbar snackbar = Snackbar
+                                .make(findViewById(R.id.activity_recipe_display), "Favorites Added", Snackbar.LENGTH_LONG)
+                                .setAction("View", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Fragment fragment;
+                                        FragmentTransaction ft;
+                                        fragment = new favoritesFragment();
+                                        ft = getSupportFragmentManager().beginTransaction();
+                                        ft.replace(R.id.activity_recipe_display, fragment);
+                                        ft.addToBackStack(null);
+                                        ft.commit();
+                                       // Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
+                                       // snackbar1.show();
+                                    }
+                                });
+
+                        snackbar.show();
+
+
+
+
+
+
+
+                        //Snackbar.make(findViewById(R.id.activity_recipe_display), name+" Added to Favourites list", Snackbar.LENGTH_SHORT)
+                          //    .setAction("Action", null).show();
 
 
                         myDBHelper = new DatabaseHelper(context);

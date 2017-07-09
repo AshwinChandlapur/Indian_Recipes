@@ -32,10 +32,10 @@ import vadeworks.vadekitchen.adapter.generic_adapter;
 import static com.PBnostra13.PBuniversalimageloader.core.ImageLoader.TAG;
 
 
-public class appetizersFragment extends Fragment {
+public class festiveFragment extends Fragment {
 
 
-    private List<generic_adapter> appetizers_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
+    private List<generic_adapter> festive_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
     static SimpleDraweeView draweeView;
     View view;
     Context context;
@@ -48,11 +48,11 @@ public class appetizersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_appetizers, container, false);//TODO: Should CHange this accordinly
+        view = inflater.inflate(R.layout.fragment_festive, container, false);//TODO: Should CHange this accordinly
         context = getActivity().getApplicationContext();
 
 
-        list = (ListView) view.findViewById(R.id.appetizersList);//TODO: Should CHange this accordinly
+        list = (ListView) view.findViewById(R.id.festiveList);//TODO: Should CHange this accordinly
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -61,9 +61,9 @@ public class appetizersFragment extends Fragment {
 
         Fresco.initialize(getActivity());
 
-        appetizers_adapterList.clear();
+        festive_adapterList.clear();
         myDBHelper = new DatabaseHelper(context);
-        PlaceCursor = myDBHelper.getAllAppetizers();//TODO: Should CHange this accordinly
+        PlaceCursor = myDBHelper.getAllFestive();//TODO: Should CHange this accordinly
         while(PlaceCursor.moveToNext()){
             String [] imagesArray = new String[25];
             Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(PlaceCursor.getInt(0));
@@ -71,7 +71,7 @@ public class appetizersFragment extends Fragment {
                 imagesArray[i] = imageURLCursor.getString(1);
             }
 
-            appetizers_adapterList.add(
+            festive_adapterList.add(
                     new generic_adapter(
                             imagesArray,        //id
                             PlaceCursor.getString(1),//name
@@ -81,15 +81,10 @@ public class appetizersFragment extends Fragment {
                     ));
         }
 
-
-
         displayList();
-
 
         return view;
     }
-
-
 
 
     private void displayList() {
@@ -99,17 +94,17 @@ public class appetizersFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                generic_adapter current = appetizers_adapterList.get(position);
+                generic_adapter current = festive_adapterList.get(position);
                 PlaceCursor.moveToPosition(position);
                 Uri uri = Uri.parse(current.getImage()[0]);
                 String sr = String.valueOf(uri);
 
                 int img_id = PlaceCursor.getInt(0);
-                String img[] = appetizers_adapterList.get(position).getImage();
-                String name = appetizers_adapterList.get(position).getTitle();
-                String ingredients =appetizers_adapterList.get(position).getIngredients();
-                String directions = appetizers_adapterList.get(position).getDirections();
-                String time = appetizers_adapterList.get(position).getTime();
+                String img[] = festive_adapterList.get(position).getImage();
+                String name = festive_adapterList.get(position).getTitle();
+                String ingredients =festive_adapterList.get(position).getIngredients();
+                String directions = festive_adapterList.get(position).getDirections();
+                String time = festive_adapterList.get(position).getTime();
                 //Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
                 //Log.i(TAG, String.valueOf(img));
 
@@ -128,8 +123,8 @@ public class appetizersFragment extends Fragment {
                 //Fragment fragment = new placeDisplayFragment(img_id);
                 //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 //ft.replace(R.id.content_main, fragment);
-               // ft.addToBackStack(null);
-               // ft.commit();
+                // ft.addToBackStack(null);
+                // ft.commit();
 
             }
         });
@@ -138,7 +133,7 @@ public class appetizersFragment extends Fragment {
     public class mybreakfastListAdapterClass extends ArrayAdapter<generic_adapter> {
 
         mybreakfastListAdapterClass() {
-            super(context, R.layout.item, appetizers_adapterList);
+            super(context, R.layout.item, festive_adapterList);
         }
 
 
@@ -150,7 +145,7 @@ public class appetizersFragment extends Fragment {
                 itemView = inflater.inflate(R.layout.item, parent, false);
 
             }
-            generic_adapter current = appetizers_adapterList.get(position);
+            generic_adapter current = festive_adapterList.get(position);
 
             //Code to download image from url and paste.
             Uri uri = Uri.parse(current.getImage()[0]);
@@ -167,8 +162,6 @@ public class appetizersFragment extends Fragment {
             return itemView;
         }
     }
-
-
 
 
 }

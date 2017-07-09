@@ -4,58 +4,42 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_menu_camera"
+        android:icon="@drawable/home"
         android:title="Home" />
 
         <item
+            android:id="@+id/nav_breakfast"
+            android:icon="@drawable/breakfast"
+            android:title="Breakfast" />
+
+        <item
             android:id="@+id/nav_appetizers"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/appetizers"
             android:title="Appetizers" />
 
-    <item
-        android:id="@+id/nav_breakfast"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="Breakfast" />
 
     <item
-        android:id="@+id/nav_lunch"
-        android:icon="@drawable/ic_menu_manage"
-        android:title="Lunch" />
+        android:id="@+id/nav_main_course"
+        android:icon="@drawable/main_course"
+        android:title="Main Course" />
+
+        <item
+            android:id="@+id/nav_dessert"
+            android:icon="@drawable/dessert"
+            android:title="Dessert" />
 
     <item
         android:id="@+id/nav_snacks"
-        android:icon="@drawable/ic_menu_send"
+        android:icon="@drawable/snacks"
         android:title="Snacks" />
 
 
-
     <item
-        android:id="@+id/nav_curry"
-        android:icon="@drawable/ic_menu_slideshow"
-        android:title="Curry" />
-
-    <item
-        android:id="@+id/nav_desserts"
-        android:icon="@drawable/ic_menu_share"
-        android:title="Desserts" />
+        android:id="@+id/nav_festive"
+        android:icon="@drawable/festive"
+        android:title="Festive Delicacy" />
 
 
-    <item
-        android:id="@+id/nav_chicken"
-        android:icon="@drawable/ic_menu_send"
-        android:title="Chicken" />
-
-
-    <item
-        android:id="@+id/nav_fish"
-        android:icon="@drawable/ic_menu_slideshow"
-        android:title="Fish" />
-
-
-    <item
-        android:id="@+id/nav_cuisines"
-        android:icon="@drawable/ic_menu_camera"
-        android:title="Cuisines" />
 
 </group>
 
@@ -64,12 +48,12 @@ android:id="@+id/bottomPanel"
 android:checkableBehavior="single">
 <item
     android:id="@+id/nav_favourites"
-    android:icon="@drawable/ic_menu_share"
+    android:icon="@drawable/heart_coloured"
     android:title="Favourites" />
 
 <item
     android:id="@+id/feedback"
-    android:icon="@drawable/ic_menu_gallery"
+    android:icon="@drawable/indian_fav"
     android:title="Feedback" />
 </group>
 
