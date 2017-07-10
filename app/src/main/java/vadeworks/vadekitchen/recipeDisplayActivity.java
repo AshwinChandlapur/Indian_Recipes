@@ -146,9 +146,12 @@ public class recipeDisplayActivity extends AppCompatActivity {
                     @Override
                     public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
                         Intent sendIntent = new Intent();
+                        String str = "https://play.google.com/store/apps/details?id=" + getPackageName();
                         sendIntent.setAction(Intent.ACTION_SEND);
                         sendIntent.putExtra(Intent.EXTRA_TEXT,
-                                "Recipe Name: "+name+"\n\n"+"Time Taken: "+time+"\n\n"+"Ingredients: "+ingredients+"\n\n"+"Directions: "+directions);
+                                "Recipe Name: "+name+"\n\n"+"Time Taken: "+time+"\n\n"+"Ingredients: "+ingredients+"\n\n"+"Directions: "+directions+"\n\n"
+                                        +"One Stop for your Indian Cusine Dishes.  Download Now:\n"+str);
+
                         sendIntent.setType("text/plain");
                         startActivity(sendIntent);
                     }
