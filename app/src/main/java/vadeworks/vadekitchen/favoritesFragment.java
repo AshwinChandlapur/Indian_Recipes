@@ -63,6 +63,8 @@ public class favoritesFragment extends Fragment {
 
 
         list = (ListView) view.findViewById(R.id.favouritesList);
+        list.setSmoothScrollbarEnabled(true);
+
         favourites_adapterList.clear();
 
         Fresco.initialize(getActivity());

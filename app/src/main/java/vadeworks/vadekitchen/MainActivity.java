@@ -31,7 +31,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,6 +119,17 @@ public class MainActivity extends AppCompatActivity
 
         pd = new ProgressDialog(this);
         Typeface regular_font =Typeface.createFromAsset(this.getAssets(),"fonts/Aller_Rg.ttf");
+
+        HorizontalScrollView h1 = (HorizontalScrollView)findViewById(R.id.h1);
+        h1.setBackground(getResources().getDrawable(R.drawable.h1));
+
+        HorizontalScrollView h2 = (HorizontalScrollView)findViewById(R.id.h2);
+        h2.setBackground(getResources().getDrawable(R.drawable.h2));
+
+        HorizontalScrollView h3 = (HorizontalScrollView)findViewById(R.id.h3);
+        h3.setBackground(getResources().getDrawable(R.drawable.h3));
+
+       // Picasso.with(this).load("https://images6.alphacoders.com/336/336514.jpg").placeholder(R.drawable.background).centerCrop().into(h1);
 
 
         CardView c1 =(CardView)findViewById(R.id.c1);
@@ -725,7 +738,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_breakfast:
                 fragment = new breakfastFragment();
                 ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                 ft.replace(R.id.app_bar, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -735,7 +748,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new appetizersFragment();
                 //fragment = new riceitemsFragment();
                 ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                 ft.replace(R.id.app_bar, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -745,7 +758,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new maincourseFragment();
                 // fragment = new lunchFragment();
                 ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                 ft.replace(R.id.app_bar, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -757,7 +770,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new dessertFragment();
                 //fragment = new dessertsFragment();
                 ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                 ft.replace(R.id.app_bar, fragment);
                 ft.addToBackStack(null);
                 ft.commit();

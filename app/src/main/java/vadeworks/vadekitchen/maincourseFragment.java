@@ -53,6 +53,7 @@ public class maincourseFragment extends Fragment {
 
 
         list = (ListView) view.findViewById(R.id.maincourseList);//TODO: Should CHange this accordinly
+        list.setSmoothScrollbarEnabled(true);
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);

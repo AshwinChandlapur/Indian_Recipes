@@ -51,6 +51,10 @@ public class breakfastFragment extends Fragment {
      view = inflater.inflate(R.layout.fragment_breakfast, container, false);//TODO: Should CHange this accordinly
         context = getActivity().getApplicationContext();
         list = (ListView) view.findViewById(R.id.breakfastList);//TODO: Should CHange this accordinly
+        list.setSmoothScrollbarEnabled(true);
+
+
+
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -159,6 +163,4 @@ public class breakfastFragment extends Fragment {
             return itemView;
         }
     }
-
-
 }

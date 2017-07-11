@@ -67,6 +67,8 @@ public class SearchResults extends Fragment {
         context = getActivity().getApplicationContext();
 
         list = (ListView) view.findViewById(R.id.searchList);
+        list.setSmoothScrollbarEnabled(true);
+
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }

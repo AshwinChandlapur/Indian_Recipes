@@ -52,7 +52,8 @@ public class festiveFragment extends Fragment {
         context = getActivity().getApplicationContext();
 
 
-        list = (ListView) view.findViewById(R.id.festiveList);//TODO: Should CHange this accordinly
+        list = (ListView) view.findViewById(R.id.festiveList);
+        list.setSmoothScrollbarEnabled(true);//TODO: Should CHange this accordinly
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);

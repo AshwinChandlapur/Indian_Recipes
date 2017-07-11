@@ -47,6 +47,7 @@ public class lunchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lunch, container, false);
         context = getActivity().getApplicationContext();
         list = (ListView) view.findViewById(R.id.lunch);
+        list.setSmoothScrollbarEnabled(true);
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
