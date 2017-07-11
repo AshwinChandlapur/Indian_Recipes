@@ -29,7 +29,6 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-import static com.PBnostra13.PBuniversalimageloader.core.ImageLoader.TAG;
 
 
 public class dessertFragment extends Fragment {
@@ -54,6 +53,7 @@ public class dessertFragment extends Fragment {
 
         list = (ListView) view.findViewById(R.id.dessertList);//TODO: Should CHange this accordinly
         list.setSmoothScrollbarEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Desserts");
 
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

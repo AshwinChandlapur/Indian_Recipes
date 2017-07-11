@@ -29,7 +29,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-import static com.PBnostra13.PBuniversalimageloader.core.ImageLoader.TAG;
+
 
 
 public class festiveFragment extends Fragment {
@@ -50,7 +50,7 @@ public class festiveFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_festive, container, false);//TODO: Should CHange this accordinly
         context = getActivity().getApplicationContext();
-
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Festive Delicacy");
 
         list = (ListView) view.findViewById(R.id.festiveList);
         list.setSmoothScrollbarEnabled(true);//TODO: Should CHange this accordinly

@@ -29,7 +29,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-import static com.PBnostra13.PBuniversalimageloader.core.ImageLoader.TAG;
+
 
 
 public class maincourseFragment extends Fragment {
@@ -50,7 +50,7 @@ public class maincourseFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_maincourse, container, false);//TODO: Should CHange this accordinly
         context = getActivity().getApplicationContext();
-
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Main-Course");
 
         list = (ListView) view.findViewById(R.id.maincourseList);//TODO: Should CHange this accordinly
         list.setSmoothScrollbarEnabled(true);

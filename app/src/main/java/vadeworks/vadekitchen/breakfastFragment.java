@@ -29,7 +29,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-import static com.PBnostra13.PBuniversalimageloader.core.ImageLoader.TAG;
+
 
 
 public class breakfastFragment extends Fragment {
@@ -52,7 +52,7 @@ public class breakfastFragment extends Fragment {
         context = getActivity().getApplicationContext();
         list = (ListView) view.findViewById(R.id.breakfastList);//TODO: Should CHange this accordinly
         list.setSmoothScrollbarEnabled(true);
-
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Breakfast");
 
 
 
@@ -106,8 +106,8 @@ public class breakfastFragment extends Fragment {
                 String ingredients =breakfast_adapterList.get(position).getIngredients();
                 String directions = breakfast_adapterList.get(position).getDirections();
                 String time = breakfast_adapterList.get(position).getTime();
-                Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
-                Log.i(TAG, String.valueOf(img));
+               // Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
+                //Log.i(TAG, String.valueOf(img));
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);

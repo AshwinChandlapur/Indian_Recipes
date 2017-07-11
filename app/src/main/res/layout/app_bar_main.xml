@@ -25,10 +25,24 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
+
+
     <!--</android.support.design.widget.CollapsingToolbarLayout>-->
 
-
     <include layout="@layout/content_main" />
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:id="@+id/fab"
+        android:src="@drawable/chef"
+        app:backgroundTint="#2a2a2a"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        />
+
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -39,13 +39,6 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/chef"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -180,12 +173,6 @@
                         android:orientation="vertical"
                         android:layout_gravity="center">
 
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/hotpepper"
-                        android:layout_gravity="center"
-                        android:visibility="gone"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -319,12 +306,6 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="12dp">
 
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/chakra"
-                        android:visibility="invisible"
-                        android:layout_gravity="center"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -437,13 +418,6 @@
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
             </HorizontalScrollView>
-
-
-
-
-
-
-        </LinearLayout> </ScrollView>
-
+        </LinearLayout></ScrollView>
 
 </RelativeLayout>

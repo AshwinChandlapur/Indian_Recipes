@@ -18,10 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
+
 import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
@@ -33,7 +30,6 @@ import vadeworks.vadekitchen.adapter.DatabaseHelper;
 @SuppressLint("ValidFragment")
 public class recipeDisplayFragment extends Fragment {
     int img_id;
-    SliderLayout mDemoSlider;
     DatabaseHelper myDBHelper;
     ListView list;
     Context context;
@@ -78,7 +74,7 @@ public class recipeDisplayFragment extends Fragment {
         }
 
 
-        mDemoSlider = (SliderLayout) view.findViewById(R.id.layout_images);
+       /* mDemoSlider = (SliderLayout) view.findViewById(R.id.layout_images);
         TextSliderView textSliderView;
         String[] imagesArray = new String[25];
         Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(img_id);
@@ -89,7 +85,7 @@ public class recipeDisplayFragment extends Fragment {
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(7000);
+        mDemoSlider.setDuration(7000);*/
 
         //displayList();
         return view;

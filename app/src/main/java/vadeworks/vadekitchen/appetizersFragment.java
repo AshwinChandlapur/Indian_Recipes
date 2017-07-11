@@ -29,7 +29,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-import static com.PBnostra13.PBuniversalimageloader.core.ImageLoader.TAG;
+
 
 
 public class appetizersFragment extends Fragment {
@@ -50,9 +50,10 @@ public class appetizersFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_appetizers, container, false);//TODO: Should CHange this accordinly
         context = getActivity().getApplicationContext();
+        //getActivity().getActionBar().setTitle("Appetizers");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Appetizers");
 
-
-        list = (ListView) view.findViewById(R.id.appetizersList);//TODO: Should CHange this accordinly
+        list = (ListView) view.findViewById(R.id.appetizersList);//TODO: Should Change this accordinly
         list.setSmoothScrollbarEnabled(true);
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -89,6 +90,7 @@ public class appetizersFragment extends Fragment {
 
         return view;
     }
+
 
 
 

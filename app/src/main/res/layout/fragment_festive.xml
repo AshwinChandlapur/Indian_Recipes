@@ -5,6 +5,7 @@
     android:background="#2e2e2e"
     tools:context="vadeworks.vadekitchen.festiveFragment">
 
+
     <ListView
         android:divider="@null"
         android:id="@+id/festiveList"

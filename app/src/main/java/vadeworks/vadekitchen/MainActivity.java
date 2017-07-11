@@ -1,6 +1,7 @@
 package vadeworks.vadekitchen;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +23,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.SearchView;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -38,10 +41,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
+
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -118,6 +118,25 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         pd = new ProgressDialog(this);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                switch (R.id.fab){
+                    case R.id.fab:
+                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        drawer.openDrawer(GravityCompat.START);
+                        break;
+                    default:
+                        DrawerLayout drawers = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        drawers.closeDrawer(Gravity.START);
+                        break;
+                }
+            }
+        });
+
+
         Typeface regular_font =Typeface.createFromAsset(this.getAssets(),"fonts/Aller_Rg.ttf");
 
         HorizontalScrollView h1 = (HorizontalScrollView)findViewById(R.id.h1);
@@ -127,7 +146,7 @@ public class MainActivity extends AppCompatActivity
         h2.setBackground(getResources().getDrawable(R.drawable.h2));
 
         HorizontalScrollView h3 = (HorizontalScrollView)findViewById(R.id.h3);
-        h3.setBackground(getResources().getDrawable(R.drawable.h3));
+        h3.setBackground(getResources().getDrawable(R.drawable.h5));
 
        // Picasso.with(this).load("https://images6.alphacoders.com/336/336514.jpg").placeholder(R.drawable.background).centerCrop().into(h1);
 
@@ -141,7 +160,7 @@ public class MainActivity extends AppCompatActivity
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d1[1]);
                 intent.putExtra("time",d1[2]);
@@ -163,7 +182,7 @@ public class MainActivity extends AppCompatActivity
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d2[1]);
                 intent.putExtra("time",d2[2]);
@@ -185,7 +204,7 @@ public class MainActivity extends AppCompatActivity
         c3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d3[1]);
                 intent.putExtra("time",d3[2]);
@@ -207,7 +226,7 @@ public class MainActivity extends AppCompatActivity
         c4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d4[1]);
                 intent.putExtra("time",d4[2]);
@@ -229,7 +248,7 @@ public class MainActivity extends AppCompatActivity
         c5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d5[1]);
                 intent.putExtra("time",d5[2]);
@@ -251,7 +270,7 @@ public class MainActivity extends AppCompatActivity
         c6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d6[1]);
                 intent.putExtra("time",d6[2]);
@@ -273,7 +292,7 @@ public class MainActivity extends AppCompatActivity
         c7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d7[1]);
                 intent.putExtra("time",d7[2]);
@@ -295,7 +314,7 @@ public class MainActivity extends AppCompatActivity
         c8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d8[1]);
                 intent.putExtra("time",d8[2]);
@@ -317,7 +336,7 @@ public class MainActivity extends AppCompatActivity
         c9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d9[1]);
                 intent.putExtra("time",d9[2]);
@@ -338,7 +357,7 @@ public class MainActivity extends AppCompatActivity
         c10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d10[1]);
                 intent.putExtra("time",d10[2]);
@@ -359,7 +378,7 @@ public class MainActivity extends AppCompatActivity
         c11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d11[1]);
                 intent.putExtra("time",d11[2]);
@@ -380,7 +399,7 @@ public class MainActivity extends AppCompatActivity
         c12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), recipeDisplayActivity.class);
+                Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                 //intent.putExtra("img_id",1);
                 intent.putExtra("name",d12[1]);
                 intent.putExtra("time",d12[2]);
@@ -435,6 +454,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
 
 
     private boolean isNetworkConnected() {
@@ -658,14 +678,19 @@ public class MainActivity extends AppCompatActivity
                     }
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        //((Activity) getApplicationContext()).overridePendingTransition(0,0);
                     //Press Search and then If u press back, then the below mentioned fargment is loaded
-                        Fragment fragment = new breakfastFragment();
-                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                      //  Fragment fragment = new breakfastFragment();
+                       // FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         //ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-                        ft.replace(R.id.app_bar, fragment);
-                        //ft.hide(fragment);
-                        //ft.detach(fragment);
-                        ft.commit();
+                       // ft.replace(R.id.app_bar, fragment);
+                       // ft.hide(fragment);
+                       // ft.detach(fragment);
+                       // ft.commit();
 
                         // Do whatever you need
                         return true; // OR FALSE IF YOU DIDN'T WANT IT TO CLOSE!
@@ -687,9 +712,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (item.getItemId()) {
-            case R.id.action_dev:
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);//TODO: Create Dev Here
-                startActivity(intent);
+
+
+            case android.R.id.home:
+                Toast.makeText(getApplicationContext(),"Back button clicked", Toast.LENGTH_SHORT).show();
                 break;
 
 
@@ -740,6 +766,7 @@ public class MainActivity extends AppCompatActivity
                 ft = getSupportFragmentManager().beginTransaction();
 //                ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                 ft.replace(R.id.app_bar, fragment);
+                //ft.disallowAddToBackStack()
                 ft.addToBackStack(null);
                 ft.commit();
                 break;
@@ -805,14 +832,10 @@ public class MainActivity extends AppCompatActivity
 
 
             case R.id.feedback:
-                intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "ashwinchandlapur@gmail.com"));
+                intent1.putExtra(Intent.EXTRA_SUBJECT,"Kitchen Feedback");
+                startActivity(intent1);
                 break;
-
-
-
-
-
 
         }
 
@@ -820,4 +843,8 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
+
 }

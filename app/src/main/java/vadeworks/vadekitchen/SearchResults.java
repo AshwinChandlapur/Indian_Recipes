@@ -20,8 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.etsy.android.grid.StaggeredGridView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.ads.InterstitialAd;
@@ -42,7 +40,6 @@ public class SearchResults extends Fragment {
     View view;
     Context context;
     ListView list;
-    TextView t;
     DatabaseHelper myDBHelper;
 
 

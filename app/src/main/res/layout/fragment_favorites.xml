@@ -5,19 +5,16 @@
     android:background="#2e2e2e"
     tools:context="vadeworks.vadekitchen.favoritesFragment">
 
-
     <TextView
-        android:id="@+id/ppp1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:padding="12dp"
         android:text="Favourites"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
         android:textColor="#ffffff"
-        android:textSize="28sp"
-        android:layout_marginTop="55dp"/>
-
-
+        android:typeface="monospace"
+        android:id="@+id/ppp1"/>
 
     <ListView
         android:divider="@null"

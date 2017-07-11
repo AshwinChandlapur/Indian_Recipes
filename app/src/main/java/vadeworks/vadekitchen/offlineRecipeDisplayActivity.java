@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +28,7 @@ import vadeworks.vadekitchen.adapter.DatabaseHelper;
 
 
 
-public class recipeDisplayActivity extends AppCompatActivity {
+public class offlineRecipeDisplayActivity extends AppCompatActivity {
     int img_id;
     DatabaseHelper myDBHelper;
     Context context;
@@ -42,9 +43,9 @@ public class recipeDisplayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_display);
+        setContentView(R.layout.activity_offline_recipe_display);
         android.support.v7.app.ActionBar AB = getSupportActionBar();
-            AB.hide();
+        AB.hide();
 
         final TextView recipe_textView = (TextView) findViewById(R.id.recipe_textView);
         TextView time_textView = (TextView) findViewById(R.id.time_textView);
@@ -75,7 +76,7 @@ public class recipeDisplayActivity extends AppCompatActivity {
 
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool);
-       // setSupportActionBar(toolbar);
+        // setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -84,7 +85,7 @@ public class recipeDisplayActivity extends AppCompatActivity {
         //ImageView recipe_image= (ImageView) findViewById(R.id.recipe_image);
 
 
-        MaterialFavoriteButton favorite = (MaterialFavoriteButton)findViewById(R.id.favs);
+        /*MaterialFavoriteButton favorite = (MaterialFavoriteButton)findViewById(R.id.favs);
         favorite.setOnFavoriteChangeListener(
                 new MaterialFavoriteButton.OnFavoriteChangeListener() {
                     @Override
@@ -102,8 +103,8 @@ public class recipeDisplayActivity extends AppCompatActivity {
                                         ft.replace(R.id.activity_recipe_display, fragment);
                                         ft.addToBackStack(null);
                                         ft.commit();
-                                       // Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
-                                       // snackbar1.show();
+                                        // Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
+                                        // snackbar1.show();
                                     }
                                 });
 
@@ -116,14 +117,14 @@ public class recipeDisplayActivity extends AppCompatActivity {
 
 
                         //Snackbar.make(findViewById(R.id.activity_recipe_display), name+" Added to Favourites list", Snackbar.LENGTH_SHORT)
-                          //    .setAction("Action", null).show();
+                        //    .setAction("Action", null).show();
 
 
                         myDBHelper = new DatabaseHelper(context);
-                       myDBHelper.insertIntoFavourites(img_id,name);
+                        myDBHelper.insertIntoFavourites(img_id,name);
                     }
                 });
-        favorite.setOnFavoriteAnimationEndListener(
+      /*  favorite.setOnFavoriteAnimationEndListener(
                 new MaterialFavoriteButton.OnFavoriteAnimationEndListener() {
                     @Override
                     public void onAnimationEnd(MaterialFavoriteButton buttonView, boolean favorite) {
@@ -134,7 +135,7 @@ public class recipeDisplayActivity extends AppCompatActivity {
                         //myDBHelper.deleteFromFavourites(img_id);
 
                     }
-                });
+                });*/
 
         MaterialFavoriteButton share = (MaterialFavoriteButton)findViewById(R.id.share);
         share.setOnFavoriteChangeListener(
@@ -202,7 +203,7 @@ public class recipeDisplayActivity extends AppCompatActivity {
             ingredients = extras.getString("ingredients");
             img=extras.getString("img");
 
-           // Toast.makeText(recipeDisplayActivity.this, uri, Toast.LENGTH_LONG).show();
+            // Toast.makeText(recipeDisplayActivity.this, uri, Toast.LENGTH_LONG).show();
             //The key argument here must match that used in the other activity
         }
         Picasso.with(this)
@@ -247,12 +248,12 @@ public class recipeDisplayActivity extends AppCompatActivity {
         sliderShow.addSlider(textSliderView);*/
 
 
-       // mDemoSlider = (SliderLayout) findViewById(R.id.layout_images);
-       // TextSliderView textSliderView;
+        // mDemoSlider = (SliderLayout) findViewById(R.id.layout_images);
+        // TextSliderView textSliderView;
         //String[] imagesArray = new String[25];
         //Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(img_id);
         //for (int i=0;imageURLCursor.moveToNext();i++){
-         //   imagesArray[i] = imageURLCursor.getString(0);
+        //   imagesArray[i] = imageURLCursor.getString(0);
         //}
 
         //mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);

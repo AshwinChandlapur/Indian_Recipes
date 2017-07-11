@@ -58,7 +58,7 @@ public class favoritesFragment extends Fragment {
         view =  inflater.inflate(R.layout.fragment_favorites, container, false);
 
         context = getActivity().getApplicationContext();
-
+        //((MainActivity) getActivity()).getSupportActionBar().setTitle("Favourites");
 
 
 
@@ -118,8 +118,8 @@ public class favoritesFragment extends Fragment {
                 String ingredients =favourites_adapterList.get(position).getIngredients();
                 String directions = favourites_adapterList.get(position).getDirections();
                 String time = favourites_adapterList.get(position).getTime();
-                Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
-                Log.i(TAG, String.valueOf(img));
+                //Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
+               // Log.i(TAG, String.valueOf(img));
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
@@ -129,7 +129,7 @@ public class favoritesFragment extends Fragment {
                 intent.putExtra("ingredients",ingredients);
                 intent.putExtra("directions",directions);
                 intent.putExtra("img",img);
-                //intent.putExtra("sr",sr);
+                intent.putExtra("sr",sr);
                 startActivity(intent);
 
 
