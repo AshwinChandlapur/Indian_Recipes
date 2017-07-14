@@ -21,7 +21,7 @@
             android:id="@+id/item_Image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            fresco:placeholderImage="@drawable/ic_menu_camera" />
+            fresco:placeholderImage="@drawable/main_course" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
