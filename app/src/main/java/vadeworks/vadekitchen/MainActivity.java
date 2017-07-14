@@ -41,7 +41,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity
 
     String [] d4 = {"http://www.ndtv.com/cooks/images/falhari-pakode-new.jpg", "Falhari Pakore","20 Minutes", "•3 to 4 medium potatoes \n•5 Tbsp buckwheat flour \n•1 green chili, chopped \n•1 tsp anardana \n•1/2 tsp cumin powder \n•3/4 to 1 cup water, as required \n•Oil for frying \n•Rock salt, as required", "•Wash, peel and cut the potatoes into small cubes. Mix in the buckwheat flour. \n\n•Add the rest of the ingredients to the potatoes and mix well. \n\n•Add little water in intervals and keep on mixing till you get a thick batter. It should be thicker than idli batter. \n\n•Heat oil in a pan for deep frying. With the help of a tablespoon, shape the batter with your hands and drop the shaped batter in hot oil. \n\n•Fry till the pakoras are golden and crisp. Drain the excessive oil with the help of a tissue. \n\n•Serve them hot with freshly made mint yoghurt dip."};
 
-    String [] d5 = {"http://www.ndtv.com/cooks/images/malai.kofta.dum.1.jpg", "Malai Kofta","1 Hour 40 Minutes", "•4 big potatoes, boiled \n•250 gm paneer  (cottage cheese) \n•50 gm maida \n•1 Tbsp coriander leaves, chopped \n•3 onions \n•1 Tbsp ginger garlic paste \n•2 tomatoes \n•200 ml malai or cream \n•2 Tbsp raisins and cashew nuts \n•50 gms cashew nuts paste \n•1/2 tsp haldi (turmeric) \n•1/2 tsp red chilli powder \n•1/2 tsp kitchen king masala \n•1 Tbsp kasturi methi \n•Salt to Taste \n•1Tbsp sugar", "For the koftas: \n\n•Refrigerate the boiled potatoes for 4 to 6 hours as this makes it easy to cook koftas. \n\n•Mash the boiled potatoes, paneer, maida. The mix should not be too hard or too soft. Add salt, chopped coriander leaves and mix well. \n\n•Cut the raisins and cashew nuts into very small pieces and add 1/2 tsp of sugar to the mix. \n\n•Heat up the oil for deep frying. Roll out the balls from the dough you prepared and stuff the dry fruit mix in the centre. \n•Fry the koftas and if they break in hot oil then dust them with dry maida before putting them in. \n\nFor the gravy: \n\n•Fry some onion, ginger garlic paste and tomato paste. \n\n•Mix the cashew nut paste with 2 Tbsp of warm milk and pour it into the paste. \n\n•Except kasturi methi, add all the dry masala into the paste and saute till the oil separates itself. \n\n•Add  and a half cup of water and simmer the gravy till it's done. \n\n•Add cream/malai, 1 Tbsp of sugar and kasturi methi. \n\n•Simmer the gravy till the oil starts separating and once it's done, put the fried koftas into the gravy and serve hot with chapatis. "};
+    String [] d5 = {"http://veggiefoodrecipes.com/wp-content/uploads/2016/07/malai-kofta-curry-03-700x525.jpg", "Malai Kofta","1 Hour 40 Minutes", "•4 big potatoes, boiled \n•250 gm paneer  (cottage cheese) \n•50 gm maida \n•1 Tbsp coriander leaves, chopped \n•3 onions \n•1 Tbsp ginger garlic paste \n•2 tomatoes \n•200 ml malai or cream \n•2 Tbsp raisins and cashew nuts \n•50 gms cashew nuts paste \n•1/2 tsp haldi (turmeric) \n•1/2 tsp red chilli powder \n•1/2 tsp kitchen king masala \n•1 Tbsp kasturi methi \n•Salt to Taste \n•1Tbsp sugar", "For the koftas: \n\n•Refrigerate the boiled potatoes for 4 to 6 hours as this makes it easy to cook koftas. \n\n•Mash the boiled potatoes, paneer, maida. The mix should not be too hard or too soft. Add salt, chopped coriander leaves and mix well. \n\n•Cut the raisins and cashew nuts into very small pieces and add 1/2 tsp of sugar to the mix. \n\n•Heat up the oil for deep frying. Roll out the balls from the dough you prepared and stuff the dry fruit mix in the centre. \n•Fry the koftas and if they break in hot oil then dust them with dry maida before putting them in. \n\nFor the gravy: \n\n•Fry some onion, ginger garlic paste and tomato paste. \n\n•Mix the cashew nut paste with 2 Tbsp of warm milk and pour it into the paste. \n\n•Except kasturi methi, add all the dry masala into the paste and saute till the oil separates itself. \n\n•Add  and a half cup of water and simmer the gravy till it's done. \n\n•Add cream/malai, 1 Tbsp of sugar and kasturi methi. \n\n•Simmer the gravy till the oil starts separating and once it's done, put the fried koftas into the gravy and serve hot with chapatis. "};
 
     String [] d6 = {"http://www.ndtv.com/cooks/images/Gaajar-Halwa_600.jpg", "Gaajar Halwa","40 Minites", "   •1 1/2 kg carrots \n•10 green cardamom, whole \n•2 cinnamon sticks \n•500 g sugar \n•250 g desi ghee(clarified butter) \n•400 g condensed milk (option: mawa / khoya) \n•4 pieces gold vark \n•50 g almonds \n•50 g pistachios", "   •Grate the carrot and put it in a pot on heat, stir fry continuously till all the water is evaporated. \n\n•Then put some green cardamom, cinnamon and sugar and cook for a while. Then add desi ghee and cook 5-7 minutes further.\n\n•At last, finish with condensed milk (or mawa/khoya). \n•Place gold vark on top for decoration. \n\n•Present on a plate and garnish with pistachios and almonds."};
 
@@ -115,7 +114,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        if(!(android.os.Build.VERSION.SDK_INT <21))
+            setSupportActionBar(toolbar);
+
+
+
+
+
+
 
         pd = new ProgressDialog(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -147,7 +153,7 @@ public class MainActivity extends AppCompatActivity
 
         HorizontalScrollView h3 = (HorizontalScrollView)findViewById(R.id.h3);
         h3.setBackground(getResources().getDrawable(R.drawable.h5));
-
+setSupportActionBar(toolbar);
        // Picasso.with(this).load("https://images6.alphacoders.com/336/336514.jpg").placeholder(R.drawable.background).centerCrop().into(h1);
 
 
@@ -499,7 +505,7 @@ public class MainActivity extends AppCompatActivity
             }
             //Compare Server Version of JSON and local version of JSON if not same download the new JSON content
            if (localVersion != serverVersion) {
-                pd.setMessage("Fethcing for Cooking");
+                pd.setMessage("Stirring Things Up. Please Wait.....");
                 pd.setIcon(R.mipmap.ic_launcher);
                 pd.setCancelable(false);
                 pd.show();
@@ -832,9 +838,11 @@ public class MainActivity extends AppCompatActivity
 
 
             case R.id.feedback:
-                Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "ashwinchandlapur@gmail.com"));
-                intent1.putExtra(Intent.EXTRA_SUBJECT,"Kitchen Feedback");
-                startActivity(intent1);
+                Intent intent3 = new Intent(getApplicationContext(), feedback.class);
+                startActivity(intent3);
+                //Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "ashwinchandlapur@gmail.com"));
+              //  intent1.putExtra(Intent.EXTRA_SUBJECT,"Kitchen Feedback");
+              //  startActivity(intent1);
                 break;
 
         }

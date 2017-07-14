@@ -13,7 +13,8 @@
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fastScrollEnabled="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -22,10 +23,11 @@
 
 <HorizontalScrollView
     android:layout_width="wrap_content"
-    android:layout_height="220dp"
+    android:layout_height="225dp"
     android:scrollbars="none"
     android:id="@+id/h1"
     android:scaleType="centerCrop"
+    android:fastScrollEnabled="true"
    >
 <LinearLayout
     android:layout_width="wrap_content"
@@ -156,10 +158,11 @@
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="220dp"
+                android:layout_height="225dp"
                 android:scrollbars="none"
                 android:id="@+id/h2"
                 android:scaleType="centerCrop"
+                android:fastScrollEnabled="true"
                 >
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -288,10 +291,11 @@
             </HorizontalScrollView>
             <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="220dp"
+                android:layout_height="225dp"
                 android:scrollbars="none"
                 android:id="@+id/h3"
                 android:scaleType="centerCrop"
+                android:fastScrollEnabled="true"
                 >
                 <LinearLayout
                     android:layout_width="wrap_content"

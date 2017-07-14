@@ -21,7 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".recipeDisplayActivity" />
-        <activity android:name=".offlineRecipeDisplayActivity"></activity>
+        <activity android:name=".offlineRecipeDisplayActivity" />
+        <activity android:name=".feedback"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

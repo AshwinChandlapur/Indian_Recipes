@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.squareup.picasso.Picasso;
 
 import java.util.zip.Inflater;
@@ -35,7 +39,8 @@ public class recipeDisplayActivity extends AppCompatActivity {
     String sr;
     ImageView recipeImage;
     Snackbar mSnackBar;
-
+    InterstitialAd mInterstitialAd;
+    private InterstitialAd interstitial;
 
 
 
@@ -45,6 +50,46 @@ public class recipeDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_display);
         android.support.v7.app.ActionBar AB = getSupportActionBar();
             AB.hide();
+
+
+
+        //Interstitial Ad Space
+        AdRequest adRequests = new AdRequest.Builder()
+                //.addTestDevice("E1C583B224120C3BEF4A3DB0177A7A37")
+                .build();
+        // Prepare the Interstitial Ad
+        interstitial = new InterstitialAd(recipeDisplayActivity.this);
+// Insert the Ad Unit ID
+        interstitial.setAdUnitId(getString(R.string.recipeDisplay_interstitial_id));
+        interstitial.loadAd(adRequests);
+// Prepare an Interstitial Ad Listener
+        interstitial.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+// Call displayInterstitial() function
+                //displayInterstitial();
+            }
+        });
+// Interstetial ad Finished
+
+
+
+
+
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (interstitial.isLoaded()) {
+                    interstitial.show();}
+
+            }
+        }, 7000);
+
+
+
+
 
         final TextView recipe_textView = (TextView) findViewById(R.id.recipe_textView);
         TextView time_textView = (TextView) findViewById(R.id.time_textView);
@@ -267,5 +312,13 @@ public class recipeDisplayActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    public void displayInterstitial() {
+// If Ads are loaded, show Interstitial else show nothing.
+        if (interstitial.isLoaded()) {
+            interstitial.show();
+        }
     }
 }

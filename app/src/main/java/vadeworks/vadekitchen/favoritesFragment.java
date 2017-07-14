@@ -34,7 +34,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-import static com.google.android.gms.internal.zzs.TAG;
+
 
 
 public class favoritesFragment extends Fragment {

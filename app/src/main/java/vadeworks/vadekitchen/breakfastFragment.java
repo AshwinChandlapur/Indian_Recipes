@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -43,6 +44,12 @@ public class breakfastFragment extends Fragment {
     DatabaseHelper myDBHelper;
     Cursor PlaceCursor;
 
+    static class ViewHolder {
+        static int img_id;
+        static String name,ingredients,directions,time;
+        static SimpleDraweeView draweeView;
+        static TextView t_name,t_dist;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +68,10 @@ public class breakfastFragment extends Fragment {
         }
         Fresco.initialize(getActivity());
         breakfast_adapterList.clear();
+
+
+
+
         myDBHelper = new DatabaseHelper(context);
         //PlaceCursor = myDBHelper.getAllDams();
         PlaceCursor = myDBHelper.getAllBreakfast();//TODO: Should CHange this accordinly
@@ -99,23 +110,24 @@ public class breakfastFragment extends Fragment {
                 PlaceCursor.moveToPosition(position);
                 Uri uri = Uri.parse(current.getImage()[0]);
                 String sr = String.valueOf(uri);
+                ViewHolder holder = new ViewHolder();
 
-                int img_id = PlaceCursor.getInt(0);
+                holder.img_id = PlaceCursor.getInt(0);
                 String img[] = breakfast_adapterList.get(position).getImage();
-                String name = breakfast_adapterList.get(position).getTitle();
-                String ingredients =breakfast_adapterList.get(position).getIngredients();
-                String directions = breakfast_adapterList.get(position).getDirections();
-                String time = breakfast_adapterList.get(position).getTime();
+                holder.name = breakfast_adapterList.get(position).getTitle();
+                holder.ingredients =breakfast_adapterList.get(position).getIngredients();
+                holder.directions = breakfast_adapterList.get(position).getDirections();
+                holder.time = breakfast_adapterList.get(position).getTime();
                // Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
                 //Log.i(TAG, String.valueOf(img));
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
-                intent.putExtra("img_id",img_id);
-                intent.putExtra("name",name);
-                intent.putExtra("time",time);
-                intent.putExtra("ingredients",ingredients);
-                intent.putExtra("directions",directions);
+                intent.putExtra("img_id",holder.img_id);
+                intent.putExtra("name",holder.name);
+                intent.putExtra("time",holder.time);
+                intent.putExtra("ingredients",holder.ingredients);
+                intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
                 startActivity(intent);
@@ -147,20 +159,27 @@ public class breakfastFragment extends Fragment {
 
             }
             generic_adapter current = breakfast_adapterList.get(position);
+            ViewHolder holder = new ViewHolder();
 
             //Code to download image from url and paste.
             Uri uri = Uri.parse(current.getImage()[0]);
-            draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
-            draweeView.setImageURI(uri);
+            holder.draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
+            holder.draweeView.setImageURI(uri);
             //Code ends here.
 
-            TextView t_name = (TextView) itemView.findViewById(R.id.item_Title);
-            t_name.setText(current.getTitle());
+            holder.t_name = (TextView) itemView.findViewById(R.id.item_Title);
+            holder.t_name.setText(current.getTitle());
 
-            TextView t_dist = (TextView) itemView.findViewById(R.id.item_Dist);
-            t_dist.setText(current.getTime());
+            holder.t_dist = (TextView) itemView.findViewById(R.id.item_Dist);
+            holder.t_dist.setText(current.getTime());
 
             return itemView;
         }
     }
+
+
+
+
+
+
 }

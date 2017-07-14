@@ -34,6 +34,13 @@ import vadeworks.vadekitchen.adapter.generic_adapter;
 
 public class maincourseFragment extends Fragment {
 
+    static class ViewHolder {
+        int img_id;
+        String name,ingredients,directions,time;
+        SimpleDraweeView draweeView;
+        TextView t_name,t_dist;
+    }
+
 
     private List<generic_adapter> maincourse_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
     static SimpleDraweeView draweeView;
@@ -100,22 +107,24 @@ public class maincourseFragment extends Fragment {
                 Uri uri = Uri.parse(current.getImage()[0]);
                 String sr = String.valueOf(uri);
 
-                int img_id = PlaceCursor.getInt(0);
+                ViewHolder holder = new ViewHolder();
+
+                holder.img_id = PlaceCursor.getInt(0);
                 String img[] = maincourse_adapterList.get(position).getImage();
-                String name = maincourse_adapterList.get(position).getTitle();
-                String ingredients =maincourse_adapterList.get(position).getIngredients();
-                String directions = maincourse_adapterList.get(position).getDirections();
-                String time = maincourse_adapterList.get(position).getTime();
+                holder.name = maincourse_adapterList.get(position).getTitle();
+                holder.ingredients =maincourse_adapterList.get(position).getIngredients();
+                holder.directions = maincourse_adapterList.get(position).getDirections();
+                holder.time = maincourse_adapterList.get(position).getTime();
                 //Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
                 //Log.i(TAG, String.valueOf(img));
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
-                intent.putExtra("img_id",img_id);
-                intent.putExtra("name",name);
-                intent.putExtra("time",time);
-                intent.putExtra("ingredients",ingredients);
-                intent.putExtra("directions",directions);
+                intent.putExtra("img_id",holder.img_id);
+                intent.putExtra("name",holder.name);
+                intent.putExtra("time",holder.time);
+                intent.putExtra("ingredients",holder.ingredients);
+                intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
                 startActivity(intent);
@@ -141,6 +150,8 @@ public class maincourseFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View itemView = convertView;
+
+
             if (itemView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
                 itemView = inflater.inflate(R.layout.item, parent, false);
@@ -150,15 +161,18 @@ public class maincourseFragment extends Fragment {
 
             //Code to download image from url and paste.
             Uri uri = Uri.parse(current.getImage()[0]);
-            draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
-            draweeView.setImageURI(uri);
+
+            ViewHolder holder = new ViewHolder();
+
+            holder.draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
+            holder.draweeView.setImageURI(uri);
             //Code ends here.
 
-            TextView t_name = (TextView) itemView.findViewById(R.id.item_Title);
-            t_name.setText(current.getTitle());
+             holder.t_name = (TextView) itemView.findViewById(R.id.item_Title);
+            holder.t_name.setText(current.getTitle());
 
-            TextView t_dist = (TextView) itemView.findViewById(R.id.item_Dist);
-            t_dist.setText(current.getTime());
+            holder.t_dist = (TextView) itemView.findViewById(R.id.item_Dist);
+            holder.t_dist.setText(current.getTime());
 
             return itemView;
         }

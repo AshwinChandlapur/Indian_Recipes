@@ -33,6 +33,11 @@ import vadeworks.vadekitchen.adapter.generic_adapter;
 
 public class SearchResults extends Fragment {
 
+    static class ViewHolder {
+        int img_id;
+        String name,ingredients,directions,time;
+    }
+
     Cursor PlaceCursor;
     private List<generic_adapter> search_adapterList = new ArrayList<>();
     private static final String TAG = "MyAppTag";

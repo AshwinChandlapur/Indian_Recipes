@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vadeworks.vadekitchen.feedback"
+    android:background="#2e2e2e">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textSize="30sp"
+        android:typeface="monospace"
+        android:textColor="#FFFFFF"
+        android:id="@+id/appname"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:id="@+id/version"
+        android:text="Version: Almond 1.0"
+        android:layout_below="@id/appname"
+        android:layout_centerHorizontal="true"
+        android:typeface="monospace"
+        android:textColor="#ffffff"/>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/feedbackgif"
+        android:layout_below="@id/version"
+        android:src="@mipmap/ic_launcher"
+        android:layout_margin="5dp"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
+        />
+
+
+    <com.hsalf.smilerating.SmileRating
+        android:id="@+id/smile_rating"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/feedbackgif"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.drawable.ProgressBarDrawable;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.NativeExpressAdView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,13 @@ import vadeworks.vadekitchen.adapter.generic_adapter;
 
 
 public class appetizersFragment extends Fragment {
+
+    static class ViewHolder {
+        static int img_id;
+        static String name,ingredients,directions,time;
+        static SimpleDraweeView draweeView;
+        static TextView t_name,t_dist;
+    }
 
 
     private List<generic_adapter> appetizers_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
@@ -83,16 +94,18 @@ public class appetizersFragment extends Fragment {
                     ));
         }
 
-
-
         displayList();
+
+
+//         NativeExpressAdView adView = (NativeExpressAdView)view.findViewById(R.id.adView);
+//        AdRequest request = new AdRequest.Builder()
+//        .addTestDevice("E1C583B224120C3BEF4A3DB0177A7A37")
+//               .build();
+// adView.loadAd(request);
 
 
         return view;
     }
-
-
-
 
 
     private void displayList() {
@@ -104,29 +117,30 @@ public class appetizersFragment extends Fragment {
 
                 generic_adapter current = appetizers_adapterList.get(position);
                 PlaceCursor.moveToPosition(position);
+
                 Uri uri = Uri.parse(current.getImage()[0]);
                 String sr = String.valueOf(uri);
 
-                int img_id = PlaceCursor.getInt(0);
+                ViewHolder holder = new ViewHolder();
+                holder.img_id = PlaceCursor.getInt(0);
                 String img[] = appetizers_adapterList.get(position).getImage();
-                String name = appetizers_adapterList.get(position).getTitle();
-                String ingredients =appetizers_adapterList.get(position).getIngredients();
-                String directions = appetizers_adapterList.get(position).getDirections();
-                String time = appetizers_adapterList.get(position).getTime();
+                holder.name = appetizers_adapterList.get(position).getTitle();
+                holder.ingredients =appetizers_adapterList.get(position).getIngredients();
+                holder.directions = appetizers_adapterList.get(position).getDirections();
+                holder.time = appetizers_adapterList.get(position).getTime();
                 //Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
                 //Log.i(TAG, String.valueOf(img));
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
-                intent.putExtra("img_id",img_id);
-                intent.putExtra("name",name);
-                intent.putExtra("time",time);
-                intent.putExtra("ingredients",ingredients);
-                intent.putExtra("directions",directions);
+                intent.putExtra("img_id",holder.img_id);
+                intent.putExtra("name",holder.name);
+                intent.putExtra("time",holder.time);
+                intent.putExtra("ingredients",holder.ingredients);
+                intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
                 startActivity(intent);
-
 
                 //Fragment fragment = new placeDisplayFragment(img_id);
                 //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -145,6 +159,7 @@ public class appetizersFragment extends Fragment {
         }
 
 
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View itemView = convertView;
@@ -155,23 +170,21 @@ public class appetizersFragment extends Fragment {
             }
             generic_adapter current = appetizers_adapterList.get(position);
 
+            ViewHolder holder =  new ViewHolder();
+
             //Code to download image from url and paste.
             Uri uri = Uri.parse(current.getImage()[0]);
-            draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
-            draweeView.setImageURI(uri);
+            holder.draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
+            holder.draweeView.setImageURI(uri);
             //Code ends here.
 
-            TextView t_name = (TextView) itemView.findViewById(R.id.item_Title);
-            t_name.setText(current.getTitle());
+            holder.t_name = (TextView) itemView.findViewById(R.id.item_Title);
+            holder.t_name.setText(current.getTitle());
 
-            TextView t_dist = (TextView) itemView.findViewById(R.id.item_Dist);
-            t_dist.setText(current.getTime());
+            holder.t_dist = (TextView) itemView.findViewById(R.id.item_Dist);
+            holder.t_dist.setText(current.getTime());
 
             return itemView;
         }
     }
-
-
-
-
 }
