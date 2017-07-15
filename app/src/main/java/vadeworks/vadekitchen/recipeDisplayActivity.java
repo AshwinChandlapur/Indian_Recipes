@@ -85,7 +85,7 @@ public class recipeDisplayActivity extends AppCompatActivity {
                     interstitial.show();}
 
             }
-        }, 7000);
+        }, 4500);
 
 
 
