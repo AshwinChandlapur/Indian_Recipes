@@ -43,7 +43,7 @@ public class festiveFragment extends Fragment {
 
     private List<generic_adapter> festive_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
     static SimpleDraweeView draweeView;
-    View view;
+    View view,view1;
     Context context;
     ListView list;
     DatabaseHelper myDBHelper;
