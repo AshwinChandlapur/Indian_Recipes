@@ -88,9 +88,6 @@ public class recipeDisplayActivity extends AppCompatActivity {
         }, 4500);
 
 
-
-
-
         final TextView recipe_textView = (TextView) findViewById(R.id.recipe_textView);
         TextView time_textView = (TextView) findViewById(R.id.time_textView);
         TextView ingredients_textView = (TextView) findViewById(R.id.ingredients_textView);
