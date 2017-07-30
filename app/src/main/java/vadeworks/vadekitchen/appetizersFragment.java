@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -34,7 +35,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-
+import static vadeworks.vadekitchen.appetizersFragment.ViewHolder.uri;
 
 
 public class appetizersFragment extends Fragment {
@@ -44,6 +45,7 @@ public class appetizersFragment extends Fragment {
         static String name,ingredients,directions,time;
         static SimpleDraweeView draweeView;
         static TextView t_name,t_dist;
+        static Uri uri;
     }
 
 
@@ -68,34 +70,16 @@ public class appetizersFragment extends Fragment {
         list = (ListView) view.findViewById(R.id.appetizersList);//TODO: Should Change this accordinly
         list.setSmoothScrollbarEnabled(true);
 
+
+
+
+
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
 
-
-        Fresco.initialize(getActivity());
-
-        appetizers_adapterList.clear();
-        myDBHelper = new DatabaseHelper(context);
-        PlaceCursor = myDBHelper.getAllAppetizers();//TODO: Should CHange this accordinly
-        while(PlaceCursor.moveToNext()){
-            String [] imagesArray = new String[25];
-            Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(PlaceCursor.getInt(0));
-            for (int i=0;imageURLCursor.moveToNext();i++){
-                imagesArray[i] = imageURLCursor.getString(1);
-            }
-
-            appetizers_adapterList.add(
-                    new generic_adapter(
-                            imagesArray,        //id
-                            PlaceCursor.getString(1),//name
-                            PlaceCursor.getString(2),//description
-                            PlaceCursor.getString(3),//district
-                            PlaceCursor.getString(4)//best season
-                    ));
-        }
-
-        displayList();
+        new AsyncCaller().execute();
+       // displayList();
 
 
 //         NativeExpressAdView adView = (NativeExpressAdView)view.findViewById(R.id.adView);
@@ -108,6 +92,55 @@ public class appetizersFragment extends Fragment {
         return view;
     }
 
+
+
+
+
+    private class AsyncCaller extends AsyncTask<Void, Void, Void>
+    {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            //this method will be running on background thread so don't update UI frome here
+            //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
+            Fresco.initialize(getActivity());
+            appetizers_adapterList.clear();
+            myDBHelper = new DatabaseHelper(context);
+            PlaceCursor = myDBHelper.getAllAppetizers();//TODO: Should CHange this accordinly
+            while(PlaceCursor.moveToNext()){
+                String [] imagesArray = new String[1];
+                Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(PlaceCursor.getInt(0));
+                for (int i=0;imageURLCursor.moveToNext();i++){
+                    imagesArray[i] = imageURLCursor.getString(1);
+                }
+
+                appetizers_adapterList.add(
+                        new generic_adapter(
+                                imagesArray,        //id
+                                PlaceCursor.getString(1),//name
+                                PlaceCursor.getString(2),//Time Taken
+                                PlaceCursor.getString(3),//Ingredients
+                                PlaceCursor.getString(4)//Directions
+                        ));
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            displayList();
+        }
+
+    }
 
     private void displayList() {
         ArrayAdapter<generic_adapter> adapter = new mybreakfastListAdapterClass();
@@ -174,7 +207,7 @@ public class appetizersFragment extends Fragment {
             ViewHolder holder =  new ViewHolder();
 
             //Code to download image from url and paste.
-            Uri uri = Uri.parse(current.getImage()[0]);
+            holder.uri = Uri.parse(current.getImage()[0]);
             holder.draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
 
             holder.draweeView.setImageURI(uri);

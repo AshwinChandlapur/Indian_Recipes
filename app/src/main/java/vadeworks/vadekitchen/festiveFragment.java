@@ -29,7 +29,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-
+import static vadeworks.vadekitchen.festiveFragment.ViewHolder.uri;
 
 
 public class festiveFragment extends Fragment {
@@ -39,6 +39,7 @@ public class festiveFragment extends Fragment {
         static String name,ingredients,directions,time;
         static SimpleDraweeView draweeView;
         static TextView t_name,t_dist;
+        static Uri uri;
     }
 
     private List<generic_adapter> festive_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
@@ -159,7 +160,7 @@ public class festiveFragment extends Fragment {
             ViewHolder holder = new ViewHolder();
 
             //Code to download image from url and paste.
-            Uri uri = Uri.parse(current.getImage()[0]);
+            holder.uri = Uri.parse(current.getImage()[0]);
             holder.draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
             holder.draweeView.setImageURI(uri);
             //Code ends here.

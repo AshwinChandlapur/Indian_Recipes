@@ -29,6 +29,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
+import static vadeworks.vadekitchen.dessertFragment.ViewHolder.uri;
 
 
 public class dessertFragment extends Fragment {
@@ -38,6 +39,7 @@ public class dessertFragment extends Fragment {
         static String name,ingredients,directions,time;
         static SimpleDraweeView draweeView;
         static TextView t_name,t_dist;
+        static Uri uri;
     }
 
     private List<generic_adapter> dessert_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
@@ -73,7 +75,7 @@ public class dessertFragment extends Fragment {
         myDBHelper = new DatabaseHelper(context);
         PlaceCursor = myDBHelper.getAllDessert();//TODO: Should CHange this accordinly
         while(PlaceCursor.moveToNext()){
-            String [] imagesArray = new String[25];
+            String [] imagesArray = new String[1];
             Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(PlaceCursor.getInt(0));
             for (int i=0;imageURLCursor.moveToNext();i++){
                 imagesArray[i] = imageURLCursor.getString(1);
@@ -159,7 +161,7 @@ public class dessertFragment extends Fragment {
             ViewHolder holder = new ViewHolder();
 
             //Code to download image from url and paste.
-            Uri uri = Uri.parse(current.getImage()[0]);
+            holder.uri = Uri.parse(current.getImage()[0]);
             holder.draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
             holder.draweeView.setImageURI(uri);
             //Code ends here.

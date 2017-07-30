@@ -801,7 +801,7 @@ setSupportActionBar(toolbar);
                 break;
 
             case R.id.nav_festive:
-                fragment = new festiveFragment();
+                fragment = new festiveFragment() ;
                // fragment = new curryFragment();
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.app_bar, fragment);

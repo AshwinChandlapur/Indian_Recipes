@@ -74,7 +74,7 @@ public class favoritesFragment extends Fragment {
 
         while(PlaceCursor.moveToNext()) {
             id = PlaceCursor.getInt(0);
-            String[] imagesArray = new String[25];
+            String[] imagesArray = new String[1];
             Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(PlaceCursor.getInt(0));
             for (int i = 0; imageURLCursor.moveToNext(); i++) {
                 imagesArray[i] = imageURLCursor.getString(1);

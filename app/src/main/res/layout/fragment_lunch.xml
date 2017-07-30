@@ -1,14 +1,22 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vadeworks.vadekitchen.lunchFragment">
+    tools:context="vadeworks.vadekitchen.lunchFragment"
+    android:background="#23E424">
 
-    <ListView
-        android:divider="@null"
-        android:id="@+id/lunch"
+    <!--<ListView-->
+        <!--android:id="@+id/list"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:divider="#2e2e2e"-->
+        <!--android:dividerHeight="1dp"-->
+          <!--/>-->
+
+    <android.support.v7.app.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:id="@+id/recylerView">
+    </android.support.v7.app.widget.RecyclerView>
 
-</FrameLayout>
+</RelativeLayout>

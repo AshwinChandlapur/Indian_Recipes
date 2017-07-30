@@ -80,7 +80,7 @@ public class SearchResults extends Fragment {
         myDBHelper = new DatabaseHelper(context);
         while(PlaceCursor.moveToNext()){
 
-            String [] imagesArray = new String[25];
+            String [] imagesArray = new String[1];
             Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(PlaceCursor.getInt(0));
             for (int i=0;imageURLCursor.moveToNext();i++){
                 imagesArray[i] = imageURLCursor.getString(1);
