@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +26,9 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,6 +167,7 @@ public class breakfastFragment extends Fragment {
             generic_adapter current = breakfast_adapterList.get(position);
             ViewHolder holder = new ViewHolder();
 
+
             //Code to download image from url and paste.
             holder.uri = Uri.parse(current.getImage()[0]);
             holder.draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
@@ -177,6 +183,10 @@ public class breakfastFragment extends Fragment {
             return itemView;
         }
     }
+
+
+
+
 
 
 

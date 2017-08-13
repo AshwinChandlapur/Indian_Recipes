@@ -6,16 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-
-
 
 
 public class lunchFragment extends Fragment {
 
     View view;
     Context context;
-    ListView list;
+
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,6 +20,10 @@ public class lunchFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_lunch, container, false);
         context = getContext();
+
+
+
+
 
 
 
@@ -120,6 +121,12 @@ public class lunchFragment extends Fragment {
 
         return view;
     }
+
+
+
+
+
+
 
 
 //

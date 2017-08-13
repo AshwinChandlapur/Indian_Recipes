@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="vadeworks.vadekitchen.lunchFragment"
-    android:background="#23E424">
+    android:background="#2e2e2e">
 
     <!--<ListView-->
         <!--android:id="@+id/list"-->
@@ -13,10 +13,12 @@
         <!--android:dividerHeight="1dp"-->
           <!--/>-->
 
-    <android.support.v7.app.widget.RecyclerView
+
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recylerView">
-    </android.support.v7.app.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerView"
+        ></android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

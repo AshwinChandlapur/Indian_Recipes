@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,13 +53,20 @@ public class festiveFragment extends Fragment {
     Cursor PlaceCursor;
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_festive, container, false);//TODO: Should CHange this accordinly
         context = getActivity().getApplicationContext();
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Festive Delicacy");
+
+
+
+
 
         list = (ListView) view.findViewById(R.id.festiveList);
         list.setSmoothScrollbarEnabled(true);//TODO: Should CHange this accordinly

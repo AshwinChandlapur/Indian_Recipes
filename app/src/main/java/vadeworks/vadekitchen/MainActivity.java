@@ -12,7 +12,9 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -57,6 +59,13 @@ public class MainActivity extends AppCompatActivity
     static int serverVersion, localVersion;
     ProgressDialog pd;
     DatabaseHelper myDBHelper;
+
+
+
+
+
+
+
     //String [] sr = {"http://www.ndtv.com/cooks/images/bhapaa.aloo.jpg","https://i.ytimg.com/vi/GjwxuQqT_yg/maxresdefault.jpg",
     //"http://img.sndimg.com/food/image/upload/v1/img/recipes/84/32/4/picH10WDy.jpg","https://www.tarladalal.com/sliders/Quick-Rava-Idli-(-South-Indian-Recipes).jpg"};
 
@@ -109,6 +118,24 @@ public class MainActivity extends AppCompatActivity
             setSupportActionBar(toolbar);
 
 
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                if(isNetworkConnected()) {
+                    SharedPreferences preferences = getSharedPreferences("only_once", Context.MODE_PRIVATE);
+                    if(preferences.getInt("first", 0) == 0) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt("first", 1);
+                        editor.commit();
+                        Toast.makeText(getApplicationContext(), "Please Wait!", Toast.LENGTH_SHORT).show();
+                        localVersion = preferences.getInt("version", 0);
+                        new baseNewsVersion().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/base_version.json");
+                    }
+                }
+
+            }
+        };
+        thread.start();
 
 
 
@@ -133,7 +160,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
         Typeface regular_font =Typeface.createFromAsset(this.getAssets(),"fonts/Aller_Rg.ttf");
 
         HorizontalScrollView h1 = (HorizontalScrollView)findViewById(R.id.h1);
@@ -144,8 +170,8 @@ public class MainActivity extends AppCompatActivity
 
         HorizontalScrollView h3 = (HorizontalScrollView)findViewById(R.id.h3);
         h3.setBackground(getResources().getDrawable(R.drawable.h3));
-setSupportActionBar(toolbar);
-       // Picasso.with(this).load("https://images6.alphacoders.com/336/336514.jpg").placeholder(R.drawable.background).centerCrop().into(h1);
+        setSupportActionBar(toolbar);
+        // Picasso.with(this).load("https://images6.alphacoders.com/336/336514.jpg").placeholder(R.drawable.background).centerCrop().into(h1);
 
 
         CardView c1 =(CardView)findViewById(R.id.c1);
@@ -409,6 +435,9 @@ setSupportActionBar(toolbar);
         });
 
 
+
+
+
         //Code To ask for User Permissions
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -430,18 +459,10 @@ setSupportActionBar(toolbar);
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        if(isNetworkConnected()) {
-            SharedPreferences preferences = getSharedPreferences("only_once", Context.MODE_PRIVATE);
-           if(preferences.getInt("first", 0) == 0) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("first", 1);
-                editor.commit();
-                Toast.makeText(getApplicationContext(), "Please Wait!", Toast.LENGTH_SHORT).show();
-                localVersion = preferences.getInt("version", 0);
-                new baseNewsVersion().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/base_version.json");
-            }
-        }
     }
+
+
+
 
 
 
@@ -533,59 +554,68 @@ setSupportActionBar(toolbar);
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(final String s) {
             super.onPostExecute(s);
 
 
-            pd.setMessage("Updating Database...");
+            Thread thread = new Thread() {
+                @Override
+                public void run() {
+
+                    pd.setMessage("Updating Database...");
 
 
-            try {
-                JSONObject parent = new JSONObject(s);
-                JSONArray items = parent.getJSONArray("list");
+                    try {
+                        JSONObject parent = new JSONObject(s);
+                        JSONArray items = parent.getJSONArray("list");
 
-                if (items != null){
-                    if (pd.isShowing())
-                        pd.dismiss();
+                        if (items != null){
+                            if (pd.isShowing())
+                                pd.dismiss();
 
-                    myDBHelper = new DatabaseHelper(getApplicationContext());
-                    myDBHelper.deleteTables();
+                            myDBHelper = new DatabaseHelper(getApplicationContext());
+                            myDBHelper.deleteTables();
 
-                    for (int i = 0; i < items.length(); i++) {
-                        JSONObject child = items.getJSONObject(i);
-                        JSONArray images = child.getJSONArray("image");
+                            for (int i = 0; i < items.length(); i++) {
+                                JSONObject child = items.getJSONObject(i);
+                                JSONArray images = child.getJSONArray("image");
 
-                        for (int j = 0; j < images.length(); j++) {
-                            myDBHelper.insertIntoImages(child.getInt("id"),images.getString(j));
+                                for (int j = 0; j < images.length(); j++) {
+                                    myDBHelper.insertIntoImages(child.getInt("id"),images.getString(j));
+                                }
+                                // myDBHelper.insertIntoPlace(child.getInt("id"), child.getString("name"), child.getString("description"), child.getString("district"), child.getString("bestSeason"), child.getString("additionalInformation"), child.getString("nearByPlaces"), child.getDouble("latitude"), child.getDouble("longitude"), child.getString("category"));
+                                myDBHelper.insertIntoRecipe(child.getInt("id"), child.getString("name"), child.getString("time"), child.getString("ingredients"), child.getString("directions"), child.getString("category"));
+                            }
+
+                            SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putInt("version", serverVersion);
+                            editor.commit();
+
+
+//                            if(pd.isShowing())
+//                               pd.dismiss();
+//
+
+
+                        }else {
+                            SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putInt("version", localVersion);
+                            editor.commit();
+                            Toast.makeText(getApplicationContext(),"Reatining The Same List",Toast.LENGTH_SHORT).show();
                         }
-                       // myDBHelper.insertIntoPlace(child.getInt("id"), child.getString("name"), child.getString("description"), child.getString("district"), child.getString("bestSeason"), child.getString("additionalInformation"), child.getString("nearByPlaces"), child.getDouble("latitude"), child.getDouble("longitude"), child.getString("category"));
-                        myDBHelper.insertIntoRecipe(child.getInt("id"), child.getString("name"), child.getString("time"), child.getString("ingredients"), child.getString("directions"), child.getString("category"));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
 
-                    SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putInt("version", serverVersion);
-                    editor.commit();
-
-
-                   // if(pd.isShowing())
-                     //   pd.dismiss();
-
-                    Toast.makeText(getApplicationContext(),"Update Successful",Toast.LENGTH_SHORT).show();
-
-                }else {
-                    SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putInt("version", localVersion);
-                    editor.commit();
-                    Toast.makeText(getApplicationContext(),"Reatining The Same List",Toast.LENGTH_SHORT).show();
                 }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
+            };
+            thread.start();
+            Toast.makeText(getApplicationContext(),"Update Successful",Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void saveJsonFile(String data) {
@@ -697,6 +727,12 @@ setSupportActionBar(toolbar);
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+
+
+
+
+
         int id = item.getItemId();
 
         switch (item.getItemId()) {

@@ -197,6 +197,7 @@ public class appetizersFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View itemView = convertView;
+
             if (itemView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
                 itemView = inflater.inflate(R.layout.item, parent, false);
@@ -209,7 +210,6 @@ public class appetizersFragment extends Fragment {
             //Code to download image from url and paste.
             holder.uri = Uri.parse(current.getImage()[0]);
             holder.draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
-
             holder.draweeView.setImageURI(uri);
             //Code ends here.
 
