@@ -4,23 +4,17 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="recipeDisplay_interstitial_id">ca-app-pub-1924436259631090/1242731164</string>
     <string name="listView_native_id_medium">ca-app-pub-1924436259631090/8207594762</string>
 
- <string name="listView_native_id_small">ca-app-pub-1924436259631090/6205246435</string>
-
-    <string name="place">Place</string>
     <string name="time">Time</string>
     <string name="ingredients">Ingredients</string>
     <string name="directions">Directions</string>
-    <string name="nearby">Nearby Places</string>
-    <string name="transport">Transport</string>
-    <string name="additional">Additional Info</string>
-    <string name="comments">Leave your experience here</string>
-    <string name="loading">Loading</string>
+
+    <!-- -
+        This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
 </resources>

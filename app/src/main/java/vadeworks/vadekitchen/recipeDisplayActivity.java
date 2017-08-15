@@ -12,22 +12,27 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ScrollingView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.Correlator;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.NativeExpressAdView;
 import com.squareup.picasso.Picasso;
@@ -38,17 +43,15 @@ import vadeworks.vadekitchen.adapter.DatabaseHelper;
 
 
 
-public class recipeDisplayActivity extends AppCompatActivity {
+public class recipeDisplayActivity extends AppCompatActivity  {
     int img_id;
     DatabaseHelper myDBHelper;
     Context context;
     String img,name,directions,time,ingredients;
     String sr;
     ImageView recipeImage;
-    Snackbar mSnackBar;
-    InterstitialAd mInterstitialAd;
     private InterstitialAd interstitial;
-    final String PREFS_NAME = "MyPrefsFile";
+    int i = 0;
 
 
 
@@ -56,6 +59,24 @@ public class recipeDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_display);
+
+        CoordinatorLayout  co= (CoordinatorLayout)findViewById(R.id.activity_recipe_display);
+        co.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-ge`enter code here`nerated method stub
+                Log.d("Touching","Touching");
+                i++;
+                if(i>47)
+                {
+                    i=0;
+                    displayInterstitial();
+                }
+                return false;
+            }
+        });
+
 
         android.support.v7.app.ActionBar AB = getSupportActionBar();
             AB.hide();
@@ -67,42 +88,11 @@ public class recipeDisplayActivity extends AppCompatActivity {
                .build();
  adView.loadAd(request);
 
-//        NativeExpressAdView adViews = (NativeExpressAdView)findViewById(R.id.adViews);
-//        AdRequest requests = new AdRequest.Builder()
-//                .addTestDevice("E1C583B224120C3BEF4A3DB0177A7A37")
-//                .build();
-//        adView.loadAd(requests);
-
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        if (settings.getBoolean("firstrun", true)) {
-            Log.i("First Time Open","OK BRU");
-            settings.edit().putBoolean("firstrun", false).commit();
-        }
-        else
-        {
-            final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                interstitial.setAdListener(new AdListener() {
-                    public void onAdLoaded() {
-                // Call displayInterstitial() function
-               displayInterstitial();
-                    }
-                });
-
-            }
-        }, 4500);
-
-
-        }
-
 
 
         //Interstitial Ad Space
         AdRequest adRequests = new AdRequest.Builder()
-                //.addTestDevice("E1C583B224120C3BEF4A3DB0177A7A37")
+                .addTestDevice("E1C583B224120C3BEF4A3DB0177A7A37")
                 .build();
         // Prepare the Interstitial Ad
         interstitial = new InterstitialAd(recipeDisplayActivity.this);
@@ -110,25 +100,13 @@ public class recipeDisplayActivity extends AppCompatActivity {
         interstitial.setAdUnitId(getString(R.string.recipeDisplay_interstitial_id));
         interstitial.loadAd(adRequests);
 // Prepare an Interstitial Ad Listener
-
-// Interstetial ad Finished
-
-
-
-
-
-
-
-//        final Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                if (interstitial.isLoaded()) {
-//                    interstitial.show();}
-//
+//        interstitial.setAdListener(new AdListener() {
+//            public void onAdLoaded() {
+//                // Call displayInterstitial() function
+//                displayInterstitial();
 //            }
-//        }, 4500);
+//        });
+// Interstetial ad Finished
 
 
         final TextView recipe_textView = (TextView) findViewById(R.id.recipe_textView);
@@ -353,6 +331,8 @@ public class recipeDisplayActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
     public void displayInterstitial() {
