@@ -10,7 +10,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="recipeDisplay_interstitial_id">ca-app-pub-1924436259631090/1242731164</string>
-    <string name="listView_native_id">ca-app-pub-1924436259631090/8207594762</string>
+    <string name="listView_native_id_medium">ca-app-pub-1924436259631090/8207594762</string>
+
+ <string name="listView_native_id_small">ca-app-pub-1924436259631090/6205246435</string>
 
     <string name="place">Place</string>
     <string name="time">Time</string>

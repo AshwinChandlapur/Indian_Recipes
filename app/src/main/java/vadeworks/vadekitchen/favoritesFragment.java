@@ -60,10 +60,11 @@ public class favoritesFragment extends Fragment {
         context = getActivity().getApplicationContext();
         //((MainActivity) getActivity()).getSupportActionBar().setTitle("Favourites");
 
-
+        Toast.makeText(getContext(),"Long Click on a Recipe, to delete from Favourites",Toast.LENGTH_SHORT).show();
 
         list = (ListView) view.findViewById(R.id.favouritesList);
         list.setSmoothScrollbarEnabled(true);
+        //((MainActivity) getActivity()).getSupportActionBar().setTitle("Favourites");
 
         favourites_adapterList.clear();
 
