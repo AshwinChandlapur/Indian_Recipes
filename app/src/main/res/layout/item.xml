@@ -42,7 +42,7 @@
             android:id="@+id/item_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recipe Name"
+            android:text="@string/recipeName"
             android:textColor="#ffffff"
             android:textSize="20sp"
             app:textWeight="bold"
@@ -54,7 +54,7 @@
             android:id="@+id/item_Dist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time Taken"
+            android:text="@string/time"
             android:textColor="#ffffff"
             android:paddingLeft="4dp"
             android:layout_gravity="center"/>

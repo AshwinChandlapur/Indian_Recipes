@@ -106,7 +106,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/defTextColor"
                     android:textSize="26sp"
-                    android:text="Recipe Name"/>
+                    android:text="@string/recipeName"/>
 
 
 

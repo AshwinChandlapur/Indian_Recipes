@@ -5,39 +5,39 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="@string/Home" />
 
         <item
             android:id="@+id/nav_breakfast"
             android:icon="@drawable/breakfast"
-            android:title="Breakfast" />
+            android:title="@string/Breakfast" />
 
         <item
             android:id="@+id/nav_appetizers"
             android:icon="@drawable/appetizers"
-            android:title="Appetizers" />
+            android:title="@string/Appetizers" />
 
 
     <item
         android:id="@+id/nav_main_course"
         android:icon="@drawable/main_course"
-        android:title="Main Course" />
+        android:title="@string/MainCourse" />
 
         <item
             android:id="@+id/nav_dessert"
             android:icon="@drawable/dessert"
-            android:title="Dessert" />
+            android:title="@string/Dessert" />
 
     <item
         android:id="@+id/nav_snacks"
         android:icon="@drawable/snacks"
-        android:title="Snacks" />
+        android:title="@string/Snacks" />
 
 
     <item
         android:id="@+id/nav_festive"
         android:icon="@drawable/festive"
-        android:title="Festive Delicacy" />
+        android:title="@string/Snacks"/>
 
 
 
@@ -49,12 +49,12 @@ android:checkableBehavior="single">
 <item
     android:id="@+id/nav_favourites"
     android:icon="@drawable/heart_coloured"
-    android:title="Favourites" />
+    android:title="@string/Favourites" />
 
 <item
     android:id="@+id/feedback"
     android:icon="@drawable/indian_fav"
-    android:title="Feedback" />
+    android:title="@string/Feedback" />
 </group>
 
 </menu>

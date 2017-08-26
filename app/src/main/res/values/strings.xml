@@ -3,15 +3,29 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-
     <string name="recipeDisplay_interstitial_id">ca-app-pub-1924436259631090/1242731164</string>
     <string name="listView_native_id_medium">ca-app-pub-1924436259631090/8207594762</string>
-
     <string name="time">Time</string>
     <string name="ingredients">Ingredients</string>
     <string name="directions">Directions</string>
+    <string name="version">Almond 1.0</string>
+    <string name="recipeName">Recipe Name</string>
+    <string name="KitchenSpecial">Kitchen\nSpecials</string>
+    <string name="SweetNspicy">Sweet:)\nSpicy:P</string>
+    <string name="TrueIndian">True\nIndian</string>
+    <string name="Home">Home</string>
+    <string name="Breakfast">Breakfast</string>
+    <string name="Appetizers">Appetizers</string>
+    <string name="MainCourse">Main Course</string>
+    <string name="Dessert">Dessert</string>
+    <string name="Snacks">Snacks</string>
+    <string name="Festive">Festive Delicacy</string>
+    <string name="Favourites">Favourites</string>
+    <string name="Feedback">Feedback</string>
+    <string name="Refresh">Refresh</string>
+    <string name="Share">Share</string>
+    <string name="Search">Search</string>
+
 
     <!-- -
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.

@@ -102,7 +102,7 @@
                     android:layout_gravity="center_horizontal"
                     android:padding="10dp"
                     android:textAllCaps="false"
-                    android:text="Recipe Name"
+                    android:text="@string/recipeName"
                     android:textColor="@color/defTextColor"
                     android:textSize="26sp" />
 

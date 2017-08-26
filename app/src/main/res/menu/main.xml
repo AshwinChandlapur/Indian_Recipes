@@ -5,18 +5,18 @@
     <item
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
-        android:title="Refresh"
+        android:title="@string/Refresh"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_share"
         android:orderInCategory="100"
-        android:title="Share"
+        android:title="@string/Share"
         app:showAsAction="never" />
 
 
     <item android:id="@+id/action_search"
-        android:title="Search"
+        android:title="@string/Search"
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView" />

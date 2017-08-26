@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kitchen\nSpecial"
+            android:text="@string/KitchenSpecial"
             android:gravity="center"
             android:textSize="27sp"
             android:textAllCaps="true"
@@ -181,7 +181,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sweet:)\nSpicy:p"
+                            android:text="@string/SweetNspicy"
                             android:gravity="center"
                             android:textSize="27sp"
                             android:textAllCaps="true"
@@ -315,7 +315,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="True\nIndian"
+                        android:text="@string/TrueIndian"
                         android:gravity="center"
                         android:textSize="27sp"
                         android:textAllCaps="true"
