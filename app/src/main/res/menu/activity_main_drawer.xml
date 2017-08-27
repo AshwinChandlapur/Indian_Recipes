@@ -37,7 +37,7 @@
     <item
         android:id="@+id/nav_festive"
         android:icon="@drawable/festive"
-        android:title="@string/Snacks"/>
+        android:title="@string/Festive"/>
 
 
 

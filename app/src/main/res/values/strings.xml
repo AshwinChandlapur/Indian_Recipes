@@ -5,26 +5,26 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="recipeDisplay_interstitial_id">ca-app-pub-1924436259631090/1242731164</string>
     <string name="listView_native_id_medium">ca-app-pub-1924436259631090/8207594762</string>
-    <string name="time">Time</string>
-    <string name="ingredients">Ingredients</string>
-    <string name="directions">Directions</string>
+    <string name="time">ಸಮಯ</string>
+    <string name="ingredients">ಬೇಕಾಗುವ ಪದಾರ್ಥಗಳು</string>
+    <string name="directions">ಮಾಡುವ ವಿಧಾನ</string>
     <string name="version">Almond 1.0</string>
     <string name="recipeName">Recipe Name</string>
-    <string name="KitchenSpecial">Kitchen\nSpecials</string>
-    <string name="SweetNspicy">Sweet:)\nSpicy:P</string>
-    <string name="TrueIndian">True\nIndian</string>
+    <string name="KitchenSpecial">ಬೋಂಬಾಟ್\nಭೋಜನ</string>
+    <string name="SweetNspicy">ಸ್ವಲ್ಪ ಸಿಹಿ:)\nಸ್ವಲ್ಪ ಖಾರ:P</string>
+    <string name="TrueIndian">ಅಪ್ಪಟ ಕನ್ನಡ\nರುಚಿ</string>
     <string name="Home">Home</string>
-    <string name="Breakfast">Breakfast</string>
-    <string name="Appetizers">Appetizers</string>
-    <string name="MainCourse">Main Course</string>
-    <string name="Dessert">Dessert</string>
-    <string name="Snacks">Snacks</string>
-    <string name="Festive">Festive Delicacy</string>
-    <string name="Favourites">Favourites</string>
-    <string name="Feedback">Feedback</string>
-    <string name="Refresh">Refresh</string>
-    <string name="Share">Share</string>
-    <string name="Search">Search</string>
+    <string name="Breakfast">ಉಪಹಾರ</string>
+    <string name="Appetizers">ಅಪೆಟೈಸರ್</string>
+    <string name="MainCourse">ಮೈನ್ ಕೋರ್ಸ್</string>
+    <string name="Dessert">ಸಿಹಿತಿನಿಸು</string>
+    <string name="Snacks">ಸ್ನ್ಯಾಕ್ಸ್ </string>
+    <string name="Festive">ಹಬ್ಬದ ಅಡಿಗೆ</string>
+    <string name="Favourites">ಮೆಚ್ಚಿನವುಗಳು</string>
+    <string name="Feedback">ಪ್ರತಿಕ್ರಿಯೆ</string>
+    <string name="Refresh">ರಿಫ್ರೆಶ್</string>
+    <string name="Share">ಹಂಚು</string>
+    <string name="Search">ಹುಡುಕು</string>
 
 
     <!-- -

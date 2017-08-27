@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(getApplicationContext(), "Please Wait!", Toast.LENGTH_SHORT).show();
                         localVersion = preferences.getInt("version", 0);
                         new baseNewsVersion().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/base_version.json");
-                        new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/new_version.json");
+                        new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/kannada_recipes.json");
                     }
                 }
                 else
@@ -550,7 +550,7 @@ public class MainActivity extends AppCompatActivity
                         pd.setCancelable(false);
                         pd.show();
                         // new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/base.json");
-                        new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/new_version.json");
+                        new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/kannada_recipes.json");
                         //new baseFile().execute("http://nammakarnataka.net23.net/general/base.json");
                     }
                     else {
@@ -617,7 +617,7 @@ public class MainActivity extends AppCompatActivity
                                     myDBHelper.insertIntoImages(child.getInt("id"),images.getString(j));
                                 }
                                 // myDBHelper.insertIntoPlace(child.getInt("id"), child.getString("name"), child.getString("description"), child.getString("district"), child.getString("bestSeason"), child.getString("additionalInformation"), child.getString("nearByPlaces"), child.getDouble("latitude"), child.getDouble("longitude"), child.getString("category"));
-                                myDBHelper.insertIntoRecipe(child.getInt("id"), child.getString("name"), child.getString("time"), child.getString("ingredients"), child.getString("directions"), child.getString("category"));
+                                myDBHelper.insertIntoRecipe(child.getInt("id"), child.getString("name"), child.getString("time"), child.getString("ingredients"), child.getString("directions"), child.getString("category"),child.getString("inenglish"));
                             }
 
                             SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
@@ -699,7 +699,7 @@ public class MainActivity extends AppCompatActivity
                                     @Override
                                     public boolean onQueryTextSubmit(String query) {
                                         myDBHelper = new DatabaseHelper(getApplicationContext());
-                                        Cursor cursor = myDBHelper.getRecipeByString(query);
+                                        Cursor cursor = myDBHelper.getRecipeByEnglishName(query);
                                         Fragment fragment = new SearchResults(cursor);
                                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                         //ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
@@ -712,7 +712,7 @@ public class MainActivity extends AppCompatActivity
                                     @Override
                                     public boolean onQueryTextChange(String newText) {
                                         myDBHelper = new DatabaseHelper(getApplicationContext());
-                                        Cursor cursor = myDBHelper.getRecipeByString(newText);
+                                        Cursor cursor = myDBHelper.getRecipeByEnglishName(newText);
                                         Fragment fragment = new SearchResults(cursor);
                                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                         // ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
@@ -792,7 +792,7 @@ public class MainActivity extends AppCompatActivity
                     SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
                     localVersion = preferences.getInt("version", 0);
                     //new baseNewsVersion().execute("http://nammakarnataka.net23.net/general/base_version.json");
-                    new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/new_version.json");
+                    new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/kannada_recipes.json");
                 } else {
                     Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }

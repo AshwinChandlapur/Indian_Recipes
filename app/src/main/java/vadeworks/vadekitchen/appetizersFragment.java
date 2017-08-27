@@ -128,7 +128,8 @@ public class appetizersFragment extends Fragment {
                                 PlaceCursor.getString(1),//name
                                 PlaceCursor.getString(2),//Time Taken
                                 PlaceCursor.getString(3),//Ingredients
-                                PlaceCursor.getString(4)//Directions
+                                PlaceCursor.getString(4),
+                                PlaceCursor.getString(5)//Directions
                         ));
             }
             return null;

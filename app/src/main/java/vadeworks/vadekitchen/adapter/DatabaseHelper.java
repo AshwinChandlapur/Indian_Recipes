@@ -34,7 +34,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DIRECTIONS = "directions";
     private static final String RECIPE_CATEGORY = "category";
     private static final String IMAGE_URL = "image_url";
+    private static final String IN_ENGLISH = "inenglish";
     private static final String TABLE_FAVOURITE = "vk_fav";
+
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null,1 );
@@ -50,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         //ALL New Codes
-        String create_recipe_tables = "create table "+RECIPE_TABLE+" ("+RECIPE_ID+" integer primary key , "+RECIPE_NAME+"  text, "+TIME+" text, "+INGREDIENTS+" text, "+DIRECTIONS+" text,"+RECIPE_CATEGORY+" text );";
+        String create_recipe_tables = "create table "+RECIPE_TABLE+" ("+RECIPE_ID+" integer primary key , "+RECIPE_NAME+"  text, "+TIME+" text, "+INGREDIENTS+" text, "+DIRECTIONS+" text,"+RECIPE_CATEGORY+" text,"+IN_ENGLISH+" text );";
         db.execSQL(create_recipe_tables);
 
         String create_images_tables = "create table "+RECIPE_IMAGES+" ( "+RECIPE_ID+" integer, "+IMAGE_URL+" text );";
@@ -128,7 +131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //ALL New Codes
-    public boolean insertIntoRecipe(int id, String name, String time, String ingredients, String directions, String category){
+    public boolean insertIntoRecipe(int id, String name, String time, String ingredients, String directions, String category,String inenglish){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(RECIPE_ID, id);
@@ -137,6 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(INGREDIENTS,ingredients);
         contentValues.put(DIRECTIONS,directions);
         contentValues.put(RECIPE_CATEGORY, category);
+        contentValues.put(IN_ENGLISH,inenglish);
         db.insert(RECIPE_TABLE, null, contentValues);
         return true;
     }
@@ -176,6 +180,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getRecipeByString(String str){
         SQLiteDatabase db = this.getWritableDatabase();
         return db.rawQuery("select * from "+RECIPE_TABLE+" where "+RECIPE_NAME+" like '%"+str+"%' ;",null);
+
+    }
+
+    public Cursor getRecipeByEnglishName(String str){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("select * from "+RECIPE_TABLE+" where "+IN_ENGLISH+" like '%"+str+"%' ;",null);
     }
     public Cursor getAllLunch()
     {

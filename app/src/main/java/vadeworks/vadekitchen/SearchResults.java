@@ -92,7 +92,8 @@ public class SearchResults extends Fragment {
                             PlaceCursor.getString(1),//title
                             PlaceCursor.getString(2),//time
                             PlaceCursor.getString(3),//ingredients
-                            PlaceCursor.getString(4)//directions
+                            PlaceCursor.getString(4),
+                            PlaceCursor.getString(5)//directions
                     ));
         }
 

@@ -90,7 +90,8 @@ public class favoritesFragment extends Fragment {
                                 PlaceCursor.getString(1),
                                 PlaceCursor.getString(2),
                                 PlaceCursor.getString(3),
-                                PlaceCursor.getString(4)
+                                PlaceCursor.getString(4),
+                                PlaceCursor.getString(5)
                         ));
            // }
        }

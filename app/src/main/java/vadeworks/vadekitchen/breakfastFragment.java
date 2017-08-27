@@ -95,7 +95,8 @@ public class breakfastFragment extends Fragment {
                             PlaceCursor.getString(1),//name
                             PlaceCursor.getString(2),//description
                             PlaceCursor.getString(3),//district
-                            PlaceCursor.getString(4)//best season
+                            PlaceCursor.getString(4),//best season
+                            PlaceCursor.getString(5)
                     ));
         }
 
