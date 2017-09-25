@@ -29,13 +29,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.Correlator;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.NativeExpressAdView;
-import com.squareup.picasso.Picasso;
 
 import java.util.zip.Inflater;
 
@@ -68,7 +69,7 @@ public class recipeDisplayActivity extends AppCompatActivity  {
                 // TODO Auto-ge`enter code here`nerated method stub
                 Log.d("Touching","Touching");
                 i++;
-                if(i>47)
+                if(i>10)
                 {
                     i=0;
                     displayInterstitial();
@@ -268,12 +269,25 @@ public class recipeDisplayActivity extends AppCompatActivity  {
            // Toast.makeText(recipeDisplayActivity.this, uri, Toast.LENGTH_LONG).show();
             //The key argument here must match that used in the other activity
         }
-        Picasso.with(this)
+//        Picasso.with(this)
+//                .load(sr)
+//                .fit()
+//                .centerCrop()
+//                .noFade()
+//                .into(recipeImage);
+
+        RequestOptions options = new RequestOptions();
+        options.centerCrop();
+//        options.placeholder(R.drawable.burger);
+        options.error(R.drawable.background);
+
+        Glide
+                .with(this) // replace with 'this' if it's in activity
                 .load(sr)
-                .fit()
-                .centerCrop()
-                .noFade()
+                .apply(options)
                 .into(recipeImage);
+
+
         recipe_textView.setText(extras.getString("name"));
         time_textView.setText(extras.getString("time"));
         ingredients_textView.setText(extras.getString("ingredients"));

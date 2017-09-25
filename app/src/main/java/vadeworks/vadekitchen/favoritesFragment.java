@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.squareup.picasso.Picasso;
+
 
 import org.w3c.dom.Text;
 
