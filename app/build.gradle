@@ -14,6 +14,10 @@ android {
         targetSdkVersion 25
         versionCode 4
         versionName "Broccoli"
+
+        manifestPlaceholders = [onesignal_app_id: "82be3819-c67c-47db-a8d3-220212541b10",
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE"]
     }
     buildTypes {
         release {
@@ -32,11 +36,14 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.9.0'
     compile 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
     compile 'com.github.olegosipenko:pttextview:1.0.0'
-    compile 'com.google.android.gms:play-services-ads:11.0.2'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.github.ivbaranov:materialfavoritebutton:0.1.4'
     compile 'com.github.sujithkanna:smileyrating:1.6.7'
     compile 'com.github.bumptech.glide:glide:4.0.0'
+    compile 'com.google.android.gms:play-services-gcm:11.2.0'
+    compile 'com.onesignal:OneSignal:3.+@aar'
+    compile 'com.google.android.gms:play-services-ads:11.2.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     testCompile 'junit:junit:4.12'
 }
+apply plugin: 'com.google.gms.google-services'

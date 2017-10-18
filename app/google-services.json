@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "944210005526",
+    "firebase_url": "https://indian-recipes-9a090.firebaseio.com",
+    "project_id": "indian-recipes-9a090",
+    "storage_bucket": "indian-recipes-9a090.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944210005526:android:c6971fdc1fdce5b1",
+        "android_client_info": {
+          "package_name": "indian.recipes.cooking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944210005526-pl8kvdc64e6t2bc91ti79p962bvcv2rf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM4GxU7WdgRYERtK3dtttLrL1BK77xiyY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

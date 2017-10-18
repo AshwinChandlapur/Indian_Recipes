@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,6 +25,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.zip.Inflater;
 
@@ -37,6 +42,8 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
     String sr;
     ImageView recipeImage;
     Snackbar mSnackBar;
+    private InterstitialAd interstitial;
+    int i=0;
 
 
 
@@ -54,6 +61,34 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
         TextView directions_textView = (TextView) findViewById(R.id.directions_textView);
         recipeImage =(ImageView)findViewById(R.id.recipe_image);
         TextView onPicText= (TextView)findViewById(R.id.onPicText);
+
+
+
+        CoordinatorLayout co= (CoordinatorLayout)findViewById(R.id.activity_recipe_display);
+        co.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d("Touching","Touching");
+                i++;
+                if(i>1)
+                {
+                    i=0;
+                    displayInterstitial();
+                }
+                return false;
+            }
+        });
+
+
+        //Interstitial Ad Space
+        AdRequest adRequests = new AdRequest.Builder()
+                .addTestDevice("E1C583B224120C3BEF4A3DB0177A7A37")
+                .build();
+        // Prepare the Interstitial Ad
+        interstitial = new InterstitialAd(offlineRecipeDisplayActivity.this);
+// Insert the Ad Unit ID
+        interstitial.setAdUnitId(getString(R.string.recipeDisplay_interstitial_id));
+        interstitial.loadAd(adRequests);
 
 
         Typeface regular_font =Typeface.createFromAsset(this.getAssets(),"fonts/Aller_Rg.ttf");
@@ -177,20 +212,7 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
 
 
 
-       /* ImageView favourite_icon = (ImageView) findViewById(R.id.fav_icon);
-        favourite_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Snackbar.make(view," Added to Favourites list", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                myDBHelper = new DatabaseHelper(context);
-                myDBHelper.insertIntoFavourites(img_id);
-
-            }
-
-        });*/
 
 
 
@@ -219,6 +241,8 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
 //        options.placeholder(R.drawable.burger);
         options.error(R.drawable.background);
 
+//        Toast.makeText(this,"String is"+sr,Toast.LENGTH_LONG).show();
+
         Glide
                 .with(this) // replace with 'this' if it's in activity
                 .load(sr)
@@ -244,42 +268,18 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
             time_textView.setText(cursor.getString(2));
             ingredients_textView.setText(cursor.getString(3));
             directions_textView.setText(cursor.getString(4));
-            //  additionalInformation.setText(cursor.getString(5));
-            //nearPlaces = cursor.getString(6);
-            //  latitude = cursor.getDouble(7);
-            // longitude = cursor.getDouble(8);
         }
-
-
-        /*SliderLayout sliderShow = (SliderLayout) findViewById(R.id.layout_images);
-        TextSliderView textSliderView = new TextSliderView(this);
-        textSliderView
-                .description(name)
-                .image(uri)
-                .setScaleType(BaseSliderView.ScaleType.Fit);
-         //.image("http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
-        sliderShow.addSlider(textSliderView);*/
-
-
-        // mDemoSlider = (SliderLayout) findViewById(R.id.layout_images);
-        // TextSliderView textSliderView;
-        //String[] imagesArray = new String[25];
-        //Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(img_id);
-        //for (int i=0;imageURLCursor.moveToNext();i++){
-        //   imagesArray[i] = imageURLCursor.getString(0);
-        //}
-
-        //mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
-        //mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        //mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        //mDemoSlider.setDuration(7000);
-
-        //displayList();
-
 
         return;
 
 
 
+    }
+
+    public void displayInterstitial() {
+// If Ads are loaded, show Interstitial else show nothing.
+        if (interstitial.isLoaded()) {
+            interstitial.show();
+        }
     }
 }
