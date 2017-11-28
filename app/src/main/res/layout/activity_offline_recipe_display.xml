@@ -108,11 +108,26 @@
                     android:textColor="@color/defTextColor"
                     android:textSize="26sp" />
 
+            </android.support.v7.widget.CardView>
+
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="4dp"
+                >
+
+
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="35dp">
+                    android:orientation="horizontal">
 
 
 
@@ -121,10 +136,22 @@
                         android:layout_height="wrap_content"
                         app:mfb_animate_favorite="true"
                         app:mfb_animate_unfavorite="true"
-                        app:mfb_padding="12"
                         android:id="@+id/share"
                         app:mfb_favorite_image="@drawable/ic_menu_share"
                         app:mfb_not_favorite_image="@drawable/ic_menu_share"
+                        app:mfb_rotation_duration="400"
+                        app:mfb_rotation_angle="360"
+                        />
+
+
+                    <com.github.ivbaranov.mfb.MaterialFavoriteButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:mfb_animate_favorite="true"
+                        app:mfb_animate_unfavorite="true"
+                        android:id="@+id/play"
+                        app:mfb_favorite_image="@drawable/youtube"
+                        app:mfb_not_favorite_image="@drawable/youtube"
                         app:mfb_rotation_duration="400"
                         app:mfb_rotation_angle="360"
                         />
@@ -142,7 +169,30 @@
                           app:mfb_rotation_angle="360"
                           />-->
                 </LinearLayout>
+
+
+
             </android.support.v7.widget.CardView>
+
+
+
+                <!--<com.google.android.youtube.player.YouTubePlayerView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:id="@+id/youtubePlayer"></com.google.android.youtube.player.YouTubePlayerView>-->
+
+
+                <!--<Button-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:text="Play"-->
+                    <!--android:id="@+id/play"/>-->
+
+
+
+
+
 
 
 

@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,6 +28,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
 
 import java.util.zip.Inflater;
 
@@ -38,17 +44,17 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
     int img_id;
     DatabaseHelper myDBHelper;
     Context context;
-    String img,name,directions,time,ingredients;
+    String img,name,directions,time,ingredients,youtubeLink;
     String sr;
     ImageView recipeImage;
     Snackbar mSnackBar;
     private InterstitialAd interstitial;
     int i=0;
+    private YouTubePlayerView youTubePlayerView;
+    private YouTubePlayer.OnInitializedListener onInitializedListener;
 
 
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_recipe_display);
@@ -61,6 +67,20 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
         TextView directions_textView = (TextView) findViewById(R.id.directions_textView);
         recipeImage =(ImageView)findViewById(R.id.recipe_image);
         TextView onPicText= (TextView)findViewById(R.id.onPicText);
+
+
+//        youTubePlayerView = (YouTubePlayerView)findViewById(R.id.youtubePlayer);
+//        onInitializedListener =   new YouTubePlayer.OnInitializedListener() {
+//            @Override
+//            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+//                youTubePlayer.loadVideo("yoFr8hA1NGg");
+//            }
+//
+//            @Override
+//            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+//                Log.e("Error","Error");
+//            }
+//        };
 
 
 
@@ -111,10 +131,10 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
 
 
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tool);
-        // setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        Toolbar toolbar = (Toolbar)findViewById(R.id.tool);
+//         setSupportActionBar(toolbar);
+////        if(getSupportActionBar()!=null)
+////            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -191,29 +211,16 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
                 });
 
 
-        /*ImageButton share = (ImageButton) findViewById(R.id.share);
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Recipe Name: "+name+"\n\n"+"Time Taken: "+time+"\n\n"+"Ingredients: "+ingredients+"\n\n"+"Directions: "+directions);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-            }
-        });*/
-
-
-
-
-
-
-
-
-
-
+        MaterialFavoriteButton play = (MaterialFavoriteButton)findViewById(R.id.play);
+        play.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                        Intent intent = new Intent(getApplicationContext(), YoutubePlayerActivity.class);
+                        intent.putExtra("youtubeLink",youtubeLink);
+                        startActivity(intent);
+                    }
+                });
 
 
         Bundle extras = getIntent().getExtras();
@@ -225,6 +232,7 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
             directions = extras.getString("directions");
             ingredients = extras.getString("ingredients");
             img=extras.getString("img");
+            youtubeLink = extras.getString("youtubeLink");
 
             // Toast.makeText(recipeDisplayActivity.this, uri, Toast.LENGTH_LONG).show();
             //The key argument here must match that used in the other activity
@@ -282,4 +290,9 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
             interstitial.show();
         }
     }
+
+
+
 }
+
+
