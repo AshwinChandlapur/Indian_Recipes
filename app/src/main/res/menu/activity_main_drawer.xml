@@ -40,6 +40,12 @@
         android:title="@string/Snacks"/>
 
 
+        <item
+            android:id="@+id/nav_specials"
+            android:icon="@drawable/festive"
+            android:title="@string/Specials"/>
+
+
 
 </group>
 

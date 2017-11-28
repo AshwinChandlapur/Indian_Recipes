@@ -156,14 +156,6 @@ public class MainActivity extends AppCompatActivity
                 }
         pd = new ProgressDialog(this);
 
-        //Recycler View Horizontal-Retrofit Code
-        initWeeklySpecialsViews();
-        initDietViews();
-
-
-
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -194,11 +186,6 @@ public class MainActivity extends AppCompatActivity
         HorizontalScrollView h3 = (HorizontalScrollView)findViewById(R.id.h3);
         h3.setBackground(getResources().getDrawable(R.drawable.h3));
 
-        HorizontalScrollView h4 = (HorizontalScrollView)findViewById(R.id.h4);
-        h4.setBackground(getResources().getDrawable(R.drawable.h4));
-
-        HorizontalScrollView h5 = (HorizontalScrollView)findViewById(R.id.h5);
-        h5.setBackground(getResources().getDrawable(R.drawable.h5));
         //setSupportActionBar(toolbar);
         // Picasso.with(this).load("https://images6.alphacoders.com/336/336514.jpg").apply(options).centerCrop().into(h1);
 
@@ -497,134 +484,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    private void initWeeklySpecialsViews(){
-        recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        loadJSON();//WeeklySpecials
-    }
 
-    private void initDietViews(){
-        recyclerViews = (RecyclerView)findViewById(R.id.card_recycler_views);
-        recyclerViews.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL, false);
-        recyclerViews.setLayoutManager(layoutManager);
-        loadDiet();//Diet Food
-    }
-
-    private void loadJSON(){
-
-        int cacheSize = 10 * 1024 * 1024; // 10 MB
-        Cache cache = new Cache(getCacheDir(), cacheSize);
-
-
-
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .cache(cache)
-                .addInterceptor(chain -> {
-                    try {
-                        return chain.proceed(chain.request());
-                    } catch (Exception e) {
-                        Request offlineRequest = chain.request().newBuilder()
-                                .header("Cache-Control", "public, only-if-cached," +
-                                        "max-stale=" + 60 * 60 * 24)
-                                .build();
-                        return chain.proceed(offlineRequest);
-                    }
-                })
-                .build();
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://raw.githubusercontent.com")
-                //    https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/example.json
-                .client(httpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RequestInterface request = retrofit.create(RequestInterface.class);
-        Call<JSONResponse> call = request.getJSON();
-        call.enqueue(new Callback<JSONResponse>() {
-            @Override
-            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
-
-
-                try{
-                    JSONResponse jsonResponse = response.body();
-                    Log.d("Json Response", "onResponse: "+response.body() );
-                    data = new ArrayList<AndroidVersion>(Arrays.asList(jsonResponse.getAndroid()));
-                    adapter = new DataAdapter(data);
-                    recyclerView.setAdapter(adapter);
-                }catch (Exception e)
-                {
-                    Log.e("Error","Error ");
-                }
-
-
-
-            }
-
-            @Override
-            public void onFailure(Call<JSONResponse> call, Throwable t) {
-                Log.d("Error",t.getMessage());
-            }
-        });
-    }
-
-
-    private void loadDiet(){
-
-        int cacheSize = 10 * 1024 * 1024; // 10 MB
-        Cache cache = new Cache(getCacheDir(), cacheSize);
-
-
-
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .cache(cache)
-                .addInterceptor(chain -> {
-                    try {
-                        return chain.proceed(chain.request());
-                    } catch (Exception e) {
-                        Request offlineRequest = chain.request().newBuilder()
-                                .header("Cache-Control", "public, only-if-cached," +
-                                        "max-stale=" + 60 * 60 * 24)
-                                .build();
-                        return chain.proceed(offlineRequest);
-                    }
-                })
-                .build();
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://raw.githubusercontent.com")
-                //    https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/example.json
-                .client(httpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RequestInterface request = retrofit.create(RequestInterface.class);
-        Call<JSONResponse> call = request.getDiet();
-        call.enqueue(new Callback<JSONResponse>() {
-            @Override
-            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
-
-                try{
-                    JSONResponse jsonResponse = response.body();
-                    Log.d("Json Response", "onResponse: "+response.body() );
-                    data = new ArrayList<AndroidVersion>(Arrays.asList(jsonResponse.getAndroid()));
-                    adapter = new DataAdapter(data);
-                    recyclerViews.setAdapter(adapter);
-                }catch(Exception e)
-                {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JSONResponse> call, Throwable t) {
-                Log.d("Error",t.getMessage());
-            }
-        });
-    }
 
 
     private boolean isNetworkConnected() {
@@ -1000,6 +860,16 @@ public class MainActivity extends AppCompatActivity
                 ft.addToBackStack(null);
                 ft.commit();
                 break;
+
+            case R.id.nav_specials:
+                fragment = new SpecialsFragment() ;
+                // fragment = new curryFragment();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.app_bar, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+                break;
+
 
             case R.id.nav_favourites:
                 fragment = new favoritesFragment();

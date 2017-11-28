@@ -11,6 +11,7 @@
     <string name="version">Almond 1.0</string>
     <string name="recipeName">Recipe Name</string>
     <string name="KitchenSpecial">Kitchen\nSpecials</string>
+    <string name="Specials">Specials</string>
     <string name="WeekelySpecials">Weekly\nSpecials</string>
     <string name="DietSpecials">Diet\nSpecials</string>
     <string name="SweetNspicy">Sweet:)\nSpicy:P</string>

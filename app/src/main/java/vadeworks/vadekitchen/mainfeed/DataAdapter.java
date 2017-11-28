@@ -49,17 +49,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         String directions = android.get(i).getDirections();
         String youtubeLink = android.get(i).getVideoUrl();
 
-//        Bundle bundle = new Bundle();
-//        bundle.putString("name",name);
-//        bundle.putString("image",image);
-//        bundle.putString("time",time);
-//        bundle.putString("ingredients",ingredients);
-//        bundle.putString("directions",directions);
-//        bundle.putString("videoUrl",youtubeLink);
-//        MainFeed mainFeed = new MainFeed();
-//        mainFeed.setArguments(bundle);
-
-
 
         viewHolder.tv_name.setText(android.get(i).getName());
         Glide.with(viewHolder.feedimage.getContext())
