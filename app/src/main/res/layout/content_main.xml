@@ -22,6 +22,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+
 <HorizontalScrollView
     android:layout_width="wrap_content"
     android:layout_height="225dp"
@@ -423,6 +425,87 @@
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
             </HorizontalScrollView>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:scrollbars="none"
+                android:id="@+id/h4"
+                android:scaleType="centerCrop"
+                android:fastScrollEnabled="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                   >
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/WeekelySpecials"
+                        android:textAllCaps="true"
+                        android:textColor="#ffffff"
+                        android:textSize="27sp"
+                        android:typeface="monospace"
+                        android:layout_marginLeft="40dp"/>
+
+
+                    <android.support.v7.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_recycler_view"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:scrollbars="none"
+                android:id="@+id/h5"
+                android:scaleType="centerCrop"
+                android:fastScrollEnabled="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/DietSpecials"
+                        android:textAllCaps="true"
+                        android:textColor="#ffffff"
+                        android:textSize="27sp"
+                        android:typeface="monospace"
+                        android:layout_marginLeft="40dp"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/card_recycler_views"
+                        android:orientation="horizontal"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
         </LinearLayout></ScrollView>
 
 

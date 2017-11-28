@@ -11,6 +11,8 @@
     <string name="version">Almond 1.0</string>
     <string name="recipeName">Recipe Name</string>
     <string name="KitchenSpecial">Kitchen\nSpecials</string>
+    <string name="WeekelySpecials">Weekly\nSpecials</string>
+    <string name="DietSpecials">Diet\nSpecials</string>
     <string name="SweetNspicy">Sweet:)\nSpicy:P</string>
     <string name="TrueIndian">True\nIndian</string>
     <string name="Home">Home</string>
@@ -25,6 +27,7 @@
     <string name="Refresh">Refresh</string>
     <string name="Share">Share</string>
     <string name="Search">Search</string>
+
 
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 

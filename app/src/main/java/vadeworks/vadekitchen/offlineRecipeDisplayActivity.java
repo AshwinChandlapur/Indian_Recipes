@@ -234,6 +234,7 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
             img=extras.getString("img");
             youtubeLink = extras.getString("youtubeLink");
 
+
             // Toast.makeText(recipeDisplayActivity.this, uri, Toast.LENGTH_LONG).show();
             //The key argument here must match that used in the other activity
         }

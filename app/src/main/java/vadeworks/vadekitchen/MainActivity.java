@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BaseTransientBottomBar;
@@ -21,6 +22,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Gravity;
@@ -54,14 +57,32 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
+import vadeworks.vadekitchen.mainfeed.AndroidVersion;
+import vadeworks.vadekitchen.mainfeed.DataAdapter;
+import vadeworks.vadekitchen.mainfeed.JSONResponse;
+import vadeworks.vadekitchen.mainfeed.RequestInterface;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     static int serverVersion, localVersion;
     ProgressDialog pd;
     DatabaseHelper myDBHelper;
+
+    private RecyclerView recyclerView,recyclerViews;
+    private ArrayList<AndroidVersion> data;
+    private DataAdapter adapter;
 
 
     String [] d1= {"https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/aloo-gobi-10-min.jpg","Bhapaa Aloo", "50 Minutes","•200 gm small potatoes \n•2 tsp mustard oil \n•1/2 tsp Bengali five spice mixture (panchphoron) (whole jeera, saunf seeds, fenugreek seeds, black mustrad seeds and kalaunji) \n•2 dry red chillies \n•1/2 tsp mustard paste \n•1 tsp hung curd \n•3/4 tsp desiccated coconut paste \n•Pinch of green chilli paste \n•Pinch of turmeric powder \n•Salt - to taste \n•Dash of lime juice \n•2 banana leaves","•Peel the potatoes and par boil them in salted water, drain and keep aside. \n\n•Heat oil in a non-stick pan, add the five spice mixture, break the red chillies in half and add them next. \n\n•Stir the spices around till they splutter.Pour this over the potatoes and put aside \n\n•In a mixing bowl prepare a marinade with the mustard paste, curd, coconut paste, green chilli paste and turmeric powder, whip it well. \n\n•Gently mix the potatoes into this marinade. \n\n•Add the salt and lime juice, mix again. \n\n•Put the potatoes on a steel plate, cover with the banana leaves and steam them for 6-8 minutes. Serve hot.","_JMRmx__XNA"};
@@ -135,6 +156,13 @@ public class MainActivity extends AppCompatActivity
                 }
         pd = new ProgressDialog(this);
 
+        //Recycler View Horizontal-Retrofit Code
+        initWeeklySpecialsViews();
+        initDietViews();
+
+
+
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -165,14 +193,20 @@ public class MainActivity extends AppCompatActivity
 
         HorizontalScrollView h3 = (HorizontalScrollView)findViewById(R.id.h3);
         h3.setBackground(getResources().getDrawable(R.drawable.h3));
+
+        HorizontalScrollView h4 = (HorizontalScrollView)findViewById(R.id.h4);
+        h4.setBackground(getResources().getDrawable(R.drawable.h4));
+
+        HorizontalScrollView h5 = (HorizontalScrollView)findViewById(R.id.h5);
+        h5.setBackground(getResources().getDrawable(R.drawable.h5));
         //setSupportActionBar(toolbar);
         // Picasso.with(this).load("https://images6.alphacoders.com/336/336514.jpg").apply(options).centerCrop().into(h1);
 
 
         RequestOptions options = new RequestOptions();
         options.centerCrop();
-        options.placeholder(R.drawable.background);
-        options.error(R.drawable.background);
+        options.placeholder(R.drawable.temp2);
+        options.error(R.drawable.temp2);
 
         CardView c1 =(CardView)findViewById(R.id.c1);
         ImageView i1 = (ImageView)findViewById(R.id.i1);
@@ -461,6 +495,136 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+
+    private void initWeeklySpecialsViews(){
+        recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        loadJSON();//WeeklySpecials
+    }
+
+    private void initDietViews(){
+        recyclerViews = (RecyclerView)findViewById(R.id.card_recycler_views);
+        recyclerViews.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL, false);
+        recyclerViews.setLayoutManager(layoutManager);
+        loadDiet();//Diet Food
+    }
+
+    private void loadJSON(){
+
+        int cacheSize = 10 * 1024 * 1024; // 10 MB
+        Cache cache = new Cache(getCacheDir(), cacheSize);
+
+
+
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .cache(cache)
+                .addInterceptor(chain -> {
+                    try {
+                        return chain.proceed(chain.request());
+                    } catch (Exception e) {
+                        Request offlineRequest = chain.request().newBuilder()
+                                .header("Cache-Control", "public, only-if-cached," +
+                                        "max-stale=" + 60 * 60 * 24)
+                                .build();
+                        return chain.proceed(offlineRequest);
+                    }
+                })
+                .build();
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://raw.githubusercontent.com")
+                //    https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/example.json
+                .client(httpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RequestInterface request = retrofit.create(RequestInterface.class);
+        Call<JSONResponse> call = request.getJSON();
+        call.enqueue(new Callback<JSONResponse>() {
+            @Override
+            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+
+
+                try{
+                    JSONResponse jsonResponse = response.body();
+                    Log.d("Json Response", "onResponse: "+response.body() );
+                    data = new ArrayList<AndroidVersion>(Arrays.asList(jsonResponse.getAndroid()));
+                    adapter = new DataAdapter(data);
+                    recyclerView.setAdapter(adapter);
+                }catch (Exception e)
+                {
+                    Log.e("Error","Error ");
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponse> call, Throwable t) {
+                Log.d("Error",t.getMessage());
+            }
+        });
+    }
+
+
+    private void loadDiet(){
+
+        int cacheSize = 10 * 1024 * 1024; // 10 MB
+        Cache cache = new Cache(getCacheDir(), cacheSize);
+
+
+
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .cache(cache)
+                .addInterceptor(chain -> {
+                    try {
+                        return chain.proceed(chain.request());
+                    } catch (Exception e) {
+                        Request offlineRequest = chain.request().newBuilder()
+                                .header("Cache-Control", "public, only-if-cached," +
+                                        "max-stale=" + 60 * 60 * 24)
+                                .build();
+                        return chain.proceed(offlineRequest);
+                    }
+                })
+                .build();
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://raw.githubusercontent.com")
+                //    https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/example.json
+                .client(httpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RequestInterface request = retrofit.create(RequestInterface.class);
+        Call<JSONResponse> call = request.getDiet();
+        call.enqueue(new Callback<JSONResponse>() {
+            @Override
+            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+
+                try{
+                    JSONResponse jsonResponse = response.body();
+                    Log.d("Json Response", "onResponse: "+response.body() );
+                    data = new ArrayList<AndroidVersion>(Arrays.asList(jsonResponse.getAndroid()));
+                    adapter = new DataAdapter(data);
+                    recyclerViews.setAdapter(adapter);
+                }catch(Exception e)
+                {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponse> call, Throwable t) {
+                Log.d("Error",t.getMessage());
+            }
+        });
+    }
 
 
     private boolean isNetworkConnected() {
@@ -861,6 +1025,10 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
+
 
 
 
