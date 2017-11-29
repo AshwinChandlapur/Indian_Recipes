@@ -125,8 +125,7 @@ public class SearchResults extends Fragment {
                 String directions = search_adapterList.get(position).getDirections();
                 String time = search_adapterList.get(position).getTime();
                 videoUrl = search_adapterList.get(position).getVideoUrl();
-               // Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
-               // Log.i(TAG, String.valueOf(img));
+
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
@@ -140,11 +139,7 @@ public class SearchResults extends Fragment {
                 intent.putExtra("videoUrl",videoUrl);
                 Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
-                /*Fragment fragment = new recipeDisplayFragment(img_id);
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_main, fragment);
-                ft.addToBackStack(null);
-                ft.commit();*/
+
 
             }
         });

@@ -121,8 +121,7 @@ public class snacksFragment extends Fragment {
                 holder.directions = snacks_adapterList.get(position).getDirections();
                 holder.time = snacks_adapterList.get(position).getTime();
                 holder.videoUrl = snacks_adapterList.get(position).getVideoUrl();
-                //Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
-                //Log.i(TAG, String.valueOf(img));
+
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);

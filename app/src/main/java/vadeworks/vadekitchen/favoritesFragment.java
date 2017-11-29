@@ -122,8 +122,7 @@ public class favoritesFragment extends Fragment {
                 String directions = favourites_adapterList.get(position).getDirections();
                 String time = favourites_adapterList.get(position).getTime();
                 String videoUrl = favourites_adapterList.get(position).getVideoUrl();
-                //Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
-               // Log.i(TAG, String.valueOf(img));
+
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
@@ -137,15 +136,6 @@ public class favoritesFragment extends Fragment {
                 intent.putExtra("videoUrl",videoUrl);
                 Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
-
-
-               // Fragment fragment = new recipeDisplayFragment(img_id);
-                //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-               // ft.replace(R.id.content_main, fragment);
-               // ft.addToBackStack(null);
-                //ft.commit();
-
-
 
             }
         });
@@ -202,10 +192,7 @@ public class favoritesFragment extends Fragment {
 
            Uri uri = Uri.parse(current.getImage()[0]);
            draweeView = (SimpleDraweeView) itemView.findViewById(R.id.item_Image);
-           // ImageView img =(ImageView) itemView.findViewById(R.id.item_Image);
-            //draweeView.getHierarchy().setProgressBarImage(new CircleProgressBarDrawable(1));
            draweeView.setImageURI(uri);
-            //Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(img);
 
             TextView t_name = (TextView) itemView.findViewById(R.id.item_Title);
             t_name.setText(current.getTitle());

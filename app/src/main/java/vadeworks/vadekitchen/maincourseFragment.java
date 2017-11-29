@@ -118,8 +118,7 @@ public class maincourseFragment extends Fragment {
                 holder.directions = maincourse_adapterList.get(position).getDirections();
                 holder.time = maincourse_adapterList.get(position).getTime();
                 holder.videoUrl = maincourse_adapterList.get(position).getVideoUrl();
-                //Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
-                //Log.i(TAG, String.valueOf(img));
+
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
@@ -135,11 +134,6 @@ public class maincourseFragment extends Fragment {
                 startActivity(intent);
 
 
-                //Fragment fragment = new placeDisplayFragment(img_id);
-                //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                //ft.replace(R.id.content_main, fragment);
-                // ft.addToBackStack(null);
-                // ft.commit();
 
             }
         });

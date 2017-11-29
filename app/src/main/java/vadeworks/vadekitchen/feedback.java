@@ -34,14 +34,8 @@ public class feedback extends AppCompatActivity {
         }
 
 
-//        input = new EditText(feedback.this);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT);
-//        input.setLayoutParams(lp);
 
         SmileRating smileRating = (SmileRating) findViewById(R.id.smile_rating);
-        //smileRating.setSelectedSmile(BaseRating.GREAT, true);
 
         smileRating.setOnRatingSelectedListener(new SmileRating.OnRatingSelectedListener() {
             @Override

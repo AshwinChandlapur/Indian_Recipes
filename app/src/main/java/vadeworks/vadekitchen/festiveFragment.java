@@ -127,8 +127,7 @@ public class festiveFragment extends Fragment {
                 holder.directions = festive_adapterList.get(position).getDirections();
                 holder.time = festive_adapterList.get(position).getTime();
                 holder.videoUrl = festive_adapterList.get(position).getVideoUrl();
-                //Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
-                //Log.i(TAG, String.valueOf(img));
+
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
@@ -143,13 +142,6 @@ public class festiveFragment extends Fragment {
                 Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
-
-
-                //Fragment fragment = new placeDisplayFragment(img_id);
-                //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                //ft.replace(R.id.content_main, fragment);
-                // ft.addToBackStack(null);
-                // ft.commit();
 
             }
         });

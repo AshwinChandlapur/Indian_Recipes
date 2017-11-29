@@ -51,7 +51,6 @@ public class appetizersFragment extends Fragment {
 
 
     private List<generic_adapter> appetizers_adapterList = new ArrayList<>();//TODO: Should CHange this accordinly
-    static SimpleDraweeView draweeView;
     View view;
     Context context;
     ListView list;
@@ -65,7 +64,6 @@ public class appetizersFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_appetizers, container, false);//TODO: Should CHange this accordinly
         context = getActivity().getApplicationContext();
-        //getActivity().getActionBar().setTitle("Appetizers");
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Appetizers");
 
         list = (ListView) view.findViewById(R.id.appetizersList);//TODO: Should Change this accordinly
@@ -173,11 +171,6 @@ public class appetizersFragment extends Fragment {
                 Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
-                //Fragment fragment = new placeDisplayFragment(img_id);
-                //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                //ft.replace(R.id.content_main, fragment);
-               // ft.addToBackStack(null);
-               // ft.commit();
 
             }
         });

@@ -47,11 +47,9 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
     String img,name,directions,time,ingredients,youtubeLink;
     String sr;
     ImageView recipeImage;
-    Snackbar mSnackBar;
     private InterstitialAd interstitial;
     int i=0;
-    private YouTubePlayerView youTubePlayerView;
-    private YouTubePlayer.OnInitializedListener onInitializedListener;
+
 
 
 
@@ -67,21 +65,6 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
         TextView directions_textView = (TextView) findViewById(R.id.directions_textView);
         recipeImage =(ImageView)findViewById(R.id.recipe_image);
         TextView onPicText= (TextView)findViewById(R.id.onPicText);
-
-
-//        youTubePlayerView = (YouTubePlayerView)findViewById(R.id.youtubePlayer);
-//        onInitializedListener =   new YouTubePlayer.OnInitializedListener() {
-//            @Override
-//            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-//                youTubePlayer.loadVideo("yoFr8hA1NGg");
-//            }
-//
-//            @Override
-//            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-//                Log.e("Error","Error");
-//            }
-//        };
-
 
 
         CoordinatorLayout co= (CoordinatorLayout)findViewById(R.id.activity_recipe_display);
@@ -174,19 +157,12 @@ public class offlineRecipeDisplayActivity extends AppCompatActivity {
             // Toast.makeText(recipeDisplayActivity.this, uri, Toast.LENGTH_LONG).show();
             //The key argument here must match that used in the other activity
         }
-//        Picasso.with(this)
-//                .load(sr)
-//                .fit()
-//                .centerCrop()
-//                .noFade()
-//                .into(recipeImage);
+
 
         RequestOptions options = new RequestOptions();
         options.centerCrop();
-//        options.placeholder(R.drawable.burger);
         options.error(R.drawable.background);
 
-//        Toast.makeText(this,"String is"+sr,Toast.LENGTH_LONG).show();
 
         Glide
                 .with(this) // replace with 'this' if it's in activity

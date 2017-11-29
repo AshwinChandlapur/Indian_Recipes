@@ -166,22 +166,11 @@ public class recipeDisplayActivity extends AppCompatActivity  {
                                         ft.replace(R.id.activity_recipe_display, fragment);
                                         ft.addToBackStack(null);
                                         ft.commit();
-                                       // Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
-                                       // snackbar1.show();
+
                                     }
                                 });
 
                         snackbar.show();
-
-
-
-
-
-
-
-                        //Snackbar.make(findViewById(R.id.activity_recipe_display), name+" Added to Favourites list", Snackbar.LENGTH_SHORT)
-                          //    .setAction("Action", null).show();
-
 
                         myDBHelper = new DatabaseHelper(context);
                        myDBHelper.insertIntoFavourites(img_id,name);
@@ -192,10 +181,6 @@ public class recipeDisplayActivity extends AppCompatActivity  {
                     @Override
                     public void onAnimationEnd(MaterialFavoriteButton buttonView, boolean favorite) {
 
-                        //myDBHelper = new DatabaseHelper(context);
-                        //myDBHelper.insertIntoFavourites(img_id,name);
-                        //myDBHelper = new DatabaseHelper(context);
-                        //myDBHelper.deleteFromFavourites(img_id);
 
                     }
                 });
@@ -229,41 +214,6 @@ public class recipeDisplayActivity extends AppCompatActivity  {
                     }
                 });
 
-        /*ImageButton share = (ImageButton) findViewById(R.id.share);
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Recipe Name: "+name+"\n\n"+"Time Taken: "+time+"\n\n"+"Ingredients: "+ingredients+"\n\n"+"Directions: "+directions);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-            }
-        });*/
-
-
-
-
-
-
-
-
-       /* ImageView favourite_icon = (ImageView) findViewById(R.id.fav_icon);
-        favourite_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Snackbar.make(view," Added to Favourites list", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                myDBHelper = new DatabaseHelper(context);
-                myDBHelper.insertIntoFavourites(img_id);
-
-            }
-
-        });*/
 
 
 
@@ -280,12 +230,7 @@ public class recipeDisplayActivity extends AppCompatActivity  {
             Toast.makeText(recipeDisplayActivity.this, youtubeLink, Toast.LENGTH_LONG).show();
             //The key argument here must match that used in the other activity
         }
-//        Picasso.with(this)
-//                .load(sr)
-//                .fit()
-//                .centerCrop()
-//                .noFade()
-//                .into(recipeImage);
+
 
         RequestOptions options = new RequestOptions();
         options.centerCrop();
@@ -318,37 +263,9 @@ public class recipeDisplayActivity extends AppCompatActivity  {
             time_textView.setText(cursor.getString(2));
             ingredients_textView.setText(cursor.getString(3));
             directions_textView.setText(cursor.getString(4));
-            //  additionalInformation.setText(cursor.getString(5));
-            //nearPlaces = cursor.getString(6);
-            //  latitude = cursor.getDouble(7);
-            // longitude = cursor.getDouble(8);
         }
 
 
-        /*SliderLayout sliderShow = (SliderLayout) findViewById(R.id.layout_images);
-        TextSliderView textSliderView = new TextSliderView(this);
-        textSliderView
-                .description(name)
-                .image(uri)
-                .setScaleType(BaseSliderView.ScaleType.Fit);
-         //.image("http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
-        sliderShow.addSlider(textSliderView);*/
-
-
-       // mDemoSlider = (SliderLayout) findViewById(R.id.layout_images);
-       // TextSliderView textSliderView;
-        //String[] imagesArray = new String[25];
-        //Cursor imageURLCursor = myDBHelper.getAllImagesArrayByID(img_id);
-        //for (int i=0;imageURLCursor.moveToNext();i++){
-         //   imagesArray[i] = imageURLCursor.getString(0);
-        //}
-
-        //mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
-        //mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        //mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        //mDemoSlider.setDuration(7000);
-
-        //displayList();
 
 
         return;
