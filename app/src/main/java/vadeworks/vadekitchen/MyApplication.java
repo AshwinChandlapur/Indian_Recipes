@@ -45,7 +45,7 @@ public class MyApplication extends Application {
             JSONObject data = result.notification.payload.additionalData;
             String id="";
             String recipeName="";
-            String time="",ingredients="",directions="";
+            String time="",ingredients="",directions="",videoUrl="";
 
 
 
@@ -66,12 +66,13 @@ public class MyApplication extends Application {
                     time = item.getString("time");
                     ingredients = item.getString("ingredients");
                     directions = item.getString("directions");
+                    videoUrl = item.getString("videoUrl");
 
                 }catch(Exception e){
 
                 }
 
-                if((recipeName!=null && time!=null && ingredients!=null && directions!=null && id!=null) && (targetUrl==null) ) {
+                if((recipeName!=null && time!=null && ingredients!=null && directions!=null && id!=null &&videoUrl!=null) && (targetUrl==null) ) {
                     Intent intent = new Intent(getApplicationContext(), offlineRecipeDisplayActivity.class);
                     Log.i("OneSignal","Executed");
                     intent.putExtra("name", recipeName);
@@ -79,6 +80,7 @@ public class MyApplication extends Application {
                     intent.putExtra("ingredients", ingredients);
                     intent.putExtra("directions", directions);
                     intent.putExtra("sr",imgUrl);
+                    intent.putExtra("youtubeLink",videoUrl);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }

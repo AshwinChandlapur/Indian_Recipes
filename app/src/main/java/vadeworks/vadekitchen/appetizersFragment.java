@@ -167,8 +167,8 @@ public class appetizersFragment extends Fragment {
                 intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
-                intent.putExtra("videoUrl",videoUrl);
-                Log.i("Value of VideoUrl is",videoUrl);
+                intent.putExtra("videoUrl",holder.videoUrl);
+                Log.i("Value of VideoUrl is",holder.videoUrl);
                 startActivity(intent);
 
 

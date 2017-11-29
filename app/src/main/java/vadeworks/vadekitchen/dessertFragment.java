@@ -132,16 +132,10 @@ public class dessertFragment extends Fragment {
                 intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
-                intent.putExtra("videoUrl",videoUrl);
+                intent.putExtra("videoUrl",holder.videoUrl);
                 Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
-
-                //Fragment fragment = new placeDisplayFragment(img_id);
-                //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                //ft.replace(R.id.content_main, fragment);
-                // ft.addToBackStack(null);
-                // ft.commit();
 
             }
         });

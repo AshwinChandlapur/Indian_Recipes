@@ -130,7 +130,7 @@ public class maincourseFragment extends Fragment {
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
                 intent.putExtra("videoUrl",videoUrl);
-                Log.i("Value of VideoUrl is",videoUrl);
+//                Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
 

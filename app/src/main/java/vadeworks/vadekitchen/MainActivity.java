@@ -776,7 +776,7 @@ public class MainActivity extends AppCompatActivity
                     SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
                     localVersion = preferences.getInt("version", 0);
                     //new baseNewsVersion().execute("http://nammakarnataka.net23.net/general/base_version.json");
-                    new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/new_version.json");
+                    new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/test_indian_recipes.json");
                 } else {
                     Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }

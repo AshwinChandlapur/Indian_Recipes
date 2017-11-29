@@ -155,7 +155,7 @@ public class recipeDisplayActivity extends AppCompatActivity  {
                     public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
 
                         Snackbar snackbar = Snackbar
-                                .make(findViewById(R.id.activity_recipe_display), "Favorites Added", Snackbar.LENGTH_LONG)
+                                .make(findViewById(R.id.activity_recipe_display), "Added to Favorites ", Snackbar.LENGTH_LONG)
                                 .setAction("View", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {

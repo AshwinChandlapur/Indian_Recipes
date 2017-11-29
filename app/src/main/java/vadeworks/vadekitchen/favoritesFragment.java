@@ -50,6 +50,14 @@ public class favoritesFragment extends Fragment {
 
     }
 
+    static class ViewHolder {
+        static int img_id;
+        static String name,ingredients,directions,time,videoUrl;
+        static SimpleDraweeView draweeView;
+        static TextView t_name,t_dist;
+        static Uri uri;
+    }
+
     private List<generic_adapter> favourites_adapterList = new ArrayList<>();
 
     @Override
@@ -116,25 +124,27 @@ public class favoritesFragment extends Fragment {
                Uri uri = Uri.parse(current.getImage()[0]);
                 String sr = String.valueOf(uri);
 
+                ViewHolder holder = new ViewHolder();
+
                 String img[] = favourites_adapterList.get(position).getImage();
-                String name = favourites_adapterList.get(position).getTitle();
-                String ingredients =favourites_adapterList.get(position).getIngredients();
-                String directions = favourites_adapterList.get(position).getDirections();
-                String time = favourites_adapterList.get(position).getTime();
-                String videoUrl = favourites_adapterList.get(position).getVideoUrl();
+                holder.name = favourites_adapterList.get(position).getTitle();
+                holder.ingredients =favourites_adapterList.get(position).getIngredients();
+                holder.directions = favourites_adapterList.get(position).getDirections();
+                holder.time = favourites_adapterList.get(position).getTime();
+                holder.videoUrl = favourites_adapterList.get(position).getVideoUrl();
 
 
 
                 Intent intent = new Intent(getActivity(), recipeDisplayActivity.class);
                 intent.putExtra("img_id",img_id);
-                intent.putExtra("name",name);
-                intent.putExtra("time",time);
-                intent.putExtra("ingredients",ingredients);
-                intent.putExtra("directions",directions);
+                intent.putExtra("name",holder.name);
+                intent.putExtra("time",holder.time);
+                intent.putExtra("ingredients",holder.ingredients);
+                intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
-                intent.putExtra("videoUrl",videoUrl);
-                Log.i("Value of VideoUrl is",videoUrl);
+                intent.putExtra("videoUrl",holder.videoUrl);
+//                Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
             }

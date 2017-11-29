@@ -12,8 +12,8 @@ android {
         applicationId "indian.recipes.cooking"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 4
-        versionName "Broccoli"
+        versionCode 7
+        versionName "Doughnut"
 
         manifestPlaceholders = [onesignal_app_id               : "82be3819-c67c-47db-a8d3-220212541b10",
                                 // Project number pulled from dashboard, local value is ignored.

@@ -140,7 +140,7 @@ public class breakfastFragment extends Fragment {
                 intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
-                intent.putExtra("videoUrl",videoUrl);
+                intent.putExtra("videoUrl",holder.videoUrl);
 //                Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
