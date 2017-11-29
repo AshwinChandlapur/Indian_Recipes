@@ -34,7 +34,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-
+import static vadeworks.vadekitchen.appetizersFragment.ViewHolder.videoUrl;
 
 
 public class favoritesFragment extends Fragment {
@@ -90,7 +90,9 @@ public class favoritesFragment extends Fragment {
                                 PlaceCursor.getString(1),
                                 PlaceCursor.getString(2),
                                 PlaceCursor.getString(3),
-                                PlaceCursor.getString(4)
+                                PlaceCursor.getString(4),
+                                PlaceCursor.getString(5),
+                                PlaceCursor.getString(6)
                         ));
            // }
        }
@@ -119,6 +121,7 @@ public class favoritesFragment extends Fragment {
                 String ingredients =favourites_adapterList.get(position).getIngredients();
                 String directions = favourites_adapterList.get(position).getDirections();
                 String time = favourites_adapterList.get(position).getTime();
+                String videoUrl = favourites_adapterList.get(position).getVideoUrl();
                 //Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
                // Log.i(TAG, String.valueOf(img));
 
@@ -131,6 +134,8 @@ public class favoritesFragment extends Fragment {
                 intent.putExtra("directions",directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
+                intent.putExtra("videoUrl",videoUrl);
+                Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
 

@@ -36,13 +36,14 @@ import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
 import static vadeworks.vadekitchen.appetizersFragment.ViewHolder.uri;
+import static vadeworks.vadekitchen.appetizersFragment.ViewHolder.videoUrl;
 
 
 public class appetizersFragment extends Fragment {
 
     static class ViewHolder {
         static int img_id;
-        static String name,ingredients,directions,time;
+        static String name,ingredients,directions,time,videoUrl;
         static SimpleDraweeView draweeView;
         static TextView t_name,t_dist;
         static Uri uri;
@@ -79,15 +80,6 @@ public class appetizersFragment extends Fragment {
         }
 
         new AsyncCaller().execute();
-       // displayList();
-
-
-//         NativeExpressAdView adView = (NativeExpressAdView)view.findViewById(R.id.adView);
-//        AdRequest request = new AdRequest.Builder()
-//        .addTestDevice("E1C583B224120C3BEF4A3DB0177A7A37")
-//               .build();
-// adView.loadAd(request);
-
 
         return view;
     }
@@ -128,7 +120,9 @@ public class appetizersFragment extends Fragment {
                                 PlaceCursor.getString(1),//name
                                 PlaceCursor.getString(2),//Time Taken
                                 PlaceCursor.getString(3),//Ingredients
-                                PlaceCursor.getString(4)//Directions
+                                PlaceCursor.getString(4),//Directions
+                                PlaceCursor.getString(5),//category
+                                PlaceCursor.getString(6)//videoUrl
                         ));
             }
             return null;
@@ -162,6 +156,7 @@ public class appetizersFragment extends Fragment {
                 holder.ingredients =appetizers_adapterList.get(position).getIngredients();
                 holder.directions = appetizers_adapterList.get(position).getDirections();
                 holder.time = appetizers_adapterList.get(position).getTime();
+                holder.videoUrl = appetizers_adapterList.get(position).getVideoUrl();
                 //Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
                 //Log.i(TAG, String.valueOf(img));
 
@@ -174,6 +169,8 @@ public class appetizersFragment extends Fragment {
                 intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
+                intent.putExtra("videoUrl",videoUrl);
+                Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
                 //Fragment fragment = new placeDisplayFragment(img_id);

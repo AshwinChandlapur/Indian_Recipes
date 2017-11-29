@@ -30,12 +30,14 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
+import static vadeworks.vadekitchen.appetizersFragment.ViewHolder.videoUrl;
+
 
 public class SearchResults extends Fragment {
 
     static class ViewHolder {
         int img_id;
-        String name,ingredients,directions,time;
+        String name,ingredients,directions,time,videoUrl;
     }
 
     Cursor PlaceCursor;
@@ -92,7 +94,9 @@ public class SearchResults extends Fragment {
                             PlaceCursor.getString(1),//title
                             PlaceCursor.getString(2),//time
                             PlaceCursor.getString(3),//ingredients
-                            PlaceCursor.getString(4)//directions
+                            PlaceCursor.getString(4),
+                            PlaceCursor.getString(5),
+                            PlaceCursor.getString(6)//directions
                     ));
         }
 
@@ -120,6 +124,7 @@ public class SearchResults extends Fragment {
                 String ingredients =search_adapterList.get(position).getIngredients();
                 String directions = search_adapterList.get(position).getDirections();
                 String time = search_adapterList.get(position).getTime();
+                videoUrl = search_adapterList.get(position).getVideoUrl();
                // Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
                // Log.i(TAG, String.valueOf(img));
 
@@ -132,6 +137,8 @@ public class SearchResults extends Fragment {
                 intent.putExtra("directions",directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
+                intent.putExtra("videoUrl",videoUrl);
+                Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
                 /*Fragment fragment = new recipeDisplayFragment(img_id);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();

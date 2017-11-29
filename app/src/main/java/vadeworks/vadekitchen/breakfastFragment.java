@@ -35,6 +35,7 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
+import static vadeworks.vadekitchen.appetizersFragment.ViewHolder.videoUrl;
 import static vadeworks.vadekitchen.breakfastFragment.ViewHolder.uri;
 
 
@@ -51,7 +52,7 @@ public class breakfastFragment extends Fragment {
 
     static class ViewHolder {
         static int img_id;
-        static String name,ingredients,directions,time;
+        static String name,ingredients,directions,time,videoUrl;
         static SimpleDraweeView draweeView;
         static TextView t_name,t_dist;
         static Uri uri;
@@ -95,7 +96,9 @@ public class breakfastFragment extends Fragment {
                             PlaceCursor.getString(1),//name
                             PlaceCursor.getString(2),//description
                             PlaceCursor.getString(3),//district
-                            PlaceCursor.getString(4)//best season
+                            PlaceCursor.getString(4),
+                            PlaceCursor.getString(5),
+                            PlaceCursor.getString(6)
                     ));
         }
 
@@ -124,6 +127,7 @@ public class breakfastFragment extends Fragment {
                 holder.ingredients =breakfast_adapterList.get(position).getIngredients();
                 holder.directions = breakfast_adapterList.get(position).getDirections();
                 holder.time = breakfast_adapterList.get(position).getTime();
+                holder.videoUrl = breakfast_adapterList.get(position).getVideoUrl();
                // Toast.makeText(view.getContext(), String.valueOf(img), Toast.LENGTH_LONG).show();
                 //Log.i(TAG, String.valueOf(img));
 
@@ -136,6 +140,8 @@ public class breakfastFragment extends Fragment {
                 intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
+                intent.putExtra("videoUrl",videoUrl);
+//                Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
 

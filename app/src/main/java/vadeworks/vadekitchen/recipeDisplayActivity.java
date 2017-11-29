@@ -48,7 +48,7 @@ public class recipeDisplayActivity extends AppCompatActivity  {
     int img_id;
     DatabaseHelper myDBHelper;
     Context context;
-    String img,name,directions,time,ingredients;
+    String img,name,directions,time,ingredients,youtubeLink;
     String sr;
     ImageView recipeImage;
     private InterstitialAd interstitial;
@@ -218,6 +218,17 @@ public class recipeDisplayActivity extends AppCompatActivity  {
                 });
 
 
+        MaterialFavoriteButton play = (MaterialFavoriteButton)findViewById(R.id.play);
+        play.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                        Intent intent = new Intent(getApplicationContext(), YoutubePlayerActivity.class);
+                        intent.putExtra("youtubeLink",youtubeLink);
+                        startActivity(intent);
+                    }
+                });
+
         /*ImageButton share = (ImageButton) findViewById(R.id.share);
         share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,8 +276,8 @@ public class recipeDisplayActivity extends AppCompatActivity  {
             directions = extras.getString("directions");
             ingredients = extras.getString("ingredients");
             img=extras.getString("img");
-
-           // Toast.makeText(recipeDisplayActivity.this, uri, Toast.LENGTH_LONG).show();
+            youtubeLink = extras.getString("videoUrl");
+            Toast.makeText(recipeDisplayActivity.this, youtubeLink, Toast.LENGTH_LONG).show();
             //The key argument here must match that used in the other activity
         }
 //        Picasso.with(this)

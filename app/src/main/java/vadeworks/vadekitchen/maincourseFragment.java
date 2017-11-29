@@ -29,14 +29,14 @@ import java.util.List;
 import vadeworks.vadekitchen.adapter.DatabaseHelper;
 import vadeworks.vadekitchen.adapter.generic_adapter;
 
-
+import static vadeworks.vadekitchen.appetizersFragment.ViewHolder.videoUrl;
 
 
 public class maincourseFragment extends Fragment {
 
     static class ViewHolder {
         int img_id;
-        String name,ingredients,directions,time;
+        String name,ingredients,directions,time,videoUrl;
         SimpleDraweeView draweeView;
         TextView t_name,t_dist;
     }
@@ -85,7 +85,9 @@ public class maincourseFragment extends Fragment {
                             PlaceCursor.getString(1),//name
                             PlaceCursor.getString(2),//description
                             PlaceCursor.getString(3),//district
-                            PlaceCursor.getString(4)//best season
+                            PlaceCursor.getString(4),
+                            PlaceCursor.getString(5),
+                            PlaceCursor.getString(6)//best season
                     ));
         }
 
@@ -115,6 +117,7 @@ public class maincourseFragment extends Fragment {
                 holder.ingredients =maincourse_adapterList.get(position).getIngredients();
                 holder.directions = maincourse_adapterList.get(position).getDirections();
                 holder.time = maincourse_adapterList.get(position).getTime();
+                holder.videoUrl = maincourse_adapterList.get(position).getVideoUrl();
                 //Toast.makeText(view.getContext(), String.valueOf(sr), Toast.LENGTH_LONG).show();
                 //Log.i(TAG, String.valueOf(img));
 
@@ -127,6 +130,8 @@ public class maincourseFragment extends Fragment {
                 intent.putExtra("directions",holder.directions);
                 intent.putExtra("img",img);
                 intent.putExtra("sr",sr);
+                intent.putExtra("videoUrl",videoUrl);
+                Log.i("Value of VideoUrl is",videoUrl);
                 startActivity(intent);
 
 

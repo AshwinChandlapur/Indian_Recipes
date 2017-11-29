@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -57,7 +58,8 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             youtubeLink = extras.getString("youtubeLink");
-
+            Toast.makeText(this,youtubeLink,Toast.LENGTH_LONG);
+//            Log.i("videoUrl is is",youtubeLink);
             // Toast.makeText(recipeDisplayActivity.this, uri, Toast.LENGTH_LONG).show();
             //The key argument here must match that used in the other activity
         }

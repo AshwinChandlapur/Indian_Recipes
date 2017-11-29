@@ -130,6 +130,20 @@
                         app:mfb_rotation_angle="360"
                         />
 
+
+                    <com.github.ivbaranov.mfb.MaterialFavoriteButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/play"
+                        app:mfb_animate_favorite="true"
+                        app:mfb_animate_unfavorite="false"
+                        app:mfb_padding="12"
+                        app:mfb_favorite_image="@drawable/youtube"
+                        app:mfb_not_favorite_image="@drawable/youtube"
+                        app:mfb_rotation_duration="400"
+                        app:mfb_rotation_angle="360"
+                        />
+
                     <com.github.ivbaranov.mfb.MaterialFavoriteButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

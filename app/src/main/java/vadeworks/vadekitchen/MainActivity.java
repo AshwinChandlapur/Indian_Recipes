@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(getApplicationContext(), "Please Wait!", Toast.LENGTH_SHORT).show();
                         localVersion = preferences.getInt("version", 0);
                         new baseNewsVersion().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/base_version.json");
-                        new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/new_version.json");
+                        new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/test_indian_recipes.json");
                     }
                 }
                 else
@@ -534,7 +534,7 @@ public class MainActivity extends AppCompatActivity
                         pd.setCancelable(false);
                         pd.show();
                         // new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/base.json");
-                        new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/new_version.json");
+                        new baseFile().execute("https://raw.githubusercontent.com/AshwinChandlapur/ImgLoader/gh-pages/test_indian_recipes.json");
                         //new baseFile().execute("http://nammakarnataka.net23.net/general/base.json");
                     }
                     else {
@@ -601,7 +601,7 @@ public class MainActivity extends AppCompatActivity
                                     myDBHelper.insertIntoImages(child.getInt("id"),images.getString(j));
                                 }
                                 // myDBHelper.insertIntoPlace(child.getInt("id"), child.getString("name"), child.getString("description"), child.getString("district"), child.getString("bestSeason"), child.getString("additionalInformation"), child.getString("nearByPlaces"), child.getDouble("latitude"), child.getDouble("longitude"), child.getString("category"));
-                                myDBHelper.insertIntoRecipe(child.getInt("id"), child.getString("name"), child.getString("time"), child.getString("ingredients"), child.getString("directions"), child.getString("category"));
+                                myDBHelper.insertIntoRecipe(child.getInt("id"), child.getString("name"), child.getString("time"), child.getString("ingredients"), child.getString("directions"), child.getString("category"),child.getString("videoUrl"));
                             }
 
                             SharedPreferences preferences = getSharedPreferences("base_version", Context.MODE_PRIVATE);
