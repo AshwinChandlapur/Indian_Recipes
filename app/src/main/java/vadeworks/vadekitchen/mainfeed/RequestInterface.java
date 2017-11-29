@@ -9,11 +9,23 @@ import retrofit2.http.GET;
 
 public interface RequestInterface {
 
-    @GET("/AshwinChandlapur/ImgLoader/gh-pages/weekly_specials.json")
-    Call<JSONResponse> getJSON();
+    @GET("/AshwinChandlapur/ImgLoader/gh-pages/WeeklySpecials/weekly_specials.json")
+    Call<JSONResponse> getWeeklySpecials();
 
 
 
-    @GET("/AshwinChandlapur/ImgLoader/gh-pages/diet.json")
-    Call<JSONResponse> getDiet();
+    @GET("/AshwinChandlapur/ImgLoader/gh-pages/WeeklySpecials/diet_weekly_specials.json")
+    Call<JSONResponse> getDietSpecials();
+
+
+    @GET("/AshwinChandlapur/ImgLoader/gh-pages/WeeklySpecials/spicy_weekly_specials.json")
+    Call<JSONResponse> getSpicySpecials();
+
+
+    @GET("/AshwinChandlapur/ImgLoader/gh-pages/WeeklySpecials/quick_weekly_specials.json")
+    Call<JSONResponse> getQuickSpecials();
+
+
+    @GET("/AshwinChandlapur/ImgLoader/gh-pages/WeeklySpecials/nonveg_weekly_specials.json")
+    Call<JSONResponse> getNonVegSpecials();
 }

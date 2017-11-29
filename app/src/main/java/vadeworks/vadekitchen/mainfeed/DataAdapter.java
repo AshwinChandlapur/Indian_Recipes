@@ -29,6 +29,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private Context context;
     FragmentTransaction ft;
 
+    String name,image,time,ingredients,directions,youtubeLink;
+
     public DataAdapter(ArrayList<AndroidVersion> android) {
         this.android = android;
     }
@@ -42,12 +44,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, int i) {
 
-        String name = android.get(i).getName();
-        String image = android.get(i).getImage();
-        String time= android.get(i).getTime();
-        String ingredients = android.get(i).getIngredients();
-        String directions = android.get(i).getDirections();
-        String youtubeLink = android.get(i).getVideoUrl();
+
 
 
         viewHolder.tv_name.setText(android.get(i).getName());
@@ -61,7 +58,16 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         viewHolder.parent_feed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(viewHolder.parent_feed.getContext(),offlineRecipeDisplayActivity.class);
+
+                name = android.get(i).getName();
+                image = android.get(i).getImage();
+                time= android.get(i).getTime();
+                ingredients = android.get(i).getIngredients();
+                directions = android.get(i).getDirections();
+                youtubeLink = android.get(i).getVideoUrl();
+
+
+                Intent intent = new Intent((AppCompatActivity)viewHolder.parent_feed.getContext(),offlineRecipeDisplayActivity.class);
                 intent.putExtra("name",name);
                 intent.putExtra("sr",image);
                 intent.putExtra("time",time);

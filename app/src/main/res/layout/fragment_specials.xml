@@ -9,11 +9,23 @@
     tools:context="vadeworks.vadekitchen.SpecialsFragment">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="225dp"
         android:scrollbars="none"
+        android:background="@drawable/h4"
         android:id="@+id/h4"
+        android:layout_marginTop="55dp"
         android:scaleType="centerCrop"
         android:fastScrollEnabled="true">
 
@@ -40,7 +52,7 @@
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/card_recycler_view"
+                android:id="@+id/card_recycler_view_WeeklySpecials"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
@@ -55,6 +67,7 @@
         android:layout_height="225dp"
         android:scrollbars="none"
         android:id="@+id/h5"
+        android:background="@drawable/h5"
         android:scaleType="centerCrop"
         android:fastScrollEnabled="true">
 
@@ -64,28 +77,150 @@
             android:orientation="horizontal"
             >
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/DietSpecials"-->
-                <!--android:textAllCaps="true"-->
-                <!--android:textColor="#ffffff"-->
-                <!--android:textSize="27sp"-->
-                <!--android:typeface="monospace"-->
-                <!--android:layout_marginLeft="40dp"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/DietSpecials"
+                android:textAllCaps="true"
+                android:textColor="#ffffff"
+                android:textSize="27sp"
+                android:typeface="monospace"
+                android:layout_marginLeft="40dp"/>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/card_recycler_views"
+                android:id="@+id/card_recycler_view_DietSpecials"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
         </LinearLayout>
 
     </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:scrollbars="none"
+        android:id="@+id/h6"
+        android:background="@drawable/h6"
+        android:scaleType="centerCrop"
+        android:fastScrollEnabled="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/SpicySpecials"
+                android:textAllCaps="true"
+                android:textColor="#ffffff"
+                android:textSize="27sp"
+                android:typeface="monospace"
+                android:layout_marginLeft="40dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/card_recycler_view_SpicySpecials"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+
+
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:scrollbars="none"
+            android:id="@+id/h7"
+            android:background="@drawable/h7"
+            android:scaleType="centerCrop"
+            android:fastScrollEnabled="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/QuickSpecials"
+                    android:textAllCaps="true"
+                    android:textColor="#ffffff"
+                    android:textSize="27sp"
+                    android:typeface="monospace"
+                    android:layout_marginLeft="40dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_recycler_view_QuickSpecials"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:scrollbars="none"
+            android:id="@+id/h8"
+            android:background="@drawable/h8"
+            android:scaleType="centerCrop"
+            android:fastScrollEnabled="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/NonVegSpecials"
+                    android:textAllCaps="true"
+                    android:textColor="#ffffff"
+                    android:textSize="27sp"
+                    android:typeface="monospace"
+                    android:layout_marginLeft="40dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_recycler_view_NonVegSpecials"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        </LinearLayout>
+    </ScrollView>
 
 
 
