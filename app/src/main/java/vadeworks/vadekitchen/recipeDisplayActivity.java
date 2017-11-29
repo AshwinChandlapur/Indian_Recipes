@@ -69,7 +69,7 @@ public class recipeDisplayActivity extends AppCompatActivity  {
                 // TODO Auto-ge`enter code here`nerated method stub
                 Log.d("Touching","Touching");
                 i++;
-                if(i>10)
+                if(i>1)
                 {
                     i=0;
                     displayInterstitial();
@@ -227,7 +227,7 @@ public class recipeDisplayActivity extends AppCompatActivity  {
             ingredients = extras.getString("ingredients");
             img=extras.getString("img");
             youtubeLink = extras.getString("videoUrl");
-            Toast.makeText(recipeDisplayActivity.this, youtubeLink, Toast.LENGTH_LONG).show();
+//            Toast.makeText(recipeDisplayActivity.this, youtubeLink, Toast.LENGTH_LONG).show();
             //The key argument here must match that used in the other activity
         }
 

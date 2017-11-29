@@ -42,7 +42,7 @@
 
         <item
             android:id="@+id/nav_specials"
-            android:icon="@drawable/festive"
+            android:icon="@drawable/specials"
             android:title="@string/Specials"/>
 
 
